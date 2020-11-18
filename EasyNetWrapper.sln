@@ -5,11 +5,13 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E3C70D7-0FE9-4A84-A951-56B5DD702FF0}"
 	ProjectSection(SolutionItems) = preProject
-		LICENSE.txt = LICENSE.txt
-		ReadMe.txt = ReadMe.txt
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Core", "EasyNet.Core\EasyNet.Core.csproj", "{F7D1B5DE-7E37-4AD1-BB2F-8116B1176634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Core.Test", "EasyNet.Core.Test\EasyNet.Core.Test.csproj", "{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F7D1B5DE-7E37-4AD1-BB2F-8116B1176634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7D1B5DE-7E37-4AD1-BB2F-8116B1176634}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7D1B5DE-7E37-4AD1-BB2F-8116B1176634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

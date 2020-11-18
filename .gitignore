@@ -2,3 +2,5 @@
 /EasyNetWrapper/obj
 /EasyNet.Core/bin
 /EasyNet.Core/obj
+/EasyNet.Core.Test/bin
+/EasyNet.Core.Test/obj
