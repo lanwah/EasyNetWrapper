@@ -33,6 +33,7 @@ namespace EasyNet.Core
 
         static ServiceSingleton()
         {
+            // DefaultServices 包含 IServiceContainer 服务
             _serviceContainer = new System.ComponentModel.Design.ServiceContainer();
 
             InitializeDefaultService();
@@ -122,22 +123,39 @@ namespace EasyNet.Core
     [Serializable()]
     public class ServiceNotFoundException : Exception
     {
+        /// <summary>
+        /// 未找到服务异常
+        /// </summary>
         public ServiceNotFoundException() : base()
         {
         }
-
+        /// <summary>
+        /// 未找到服务异常
+        /// </summary>
+        /// <param name="serviceType"></param>
         public ServiceNotFoundException(Type serviceType) : base("Required service not found: " + serviceType.FullName)
         {
         }
-
+        /// <summary>
+        /// 未找到服务异常
+        /// </summary>
+        /// <param name="message"></param>
         public ServiceNotFoundException(string message) : base(message)
         {
         }
-
+        /// <summary>
+        /// 未找到服务异常
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
         public ServiceNotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
+        /// <summary>
+        /// 未找到服务异常
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         protected ServiceNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

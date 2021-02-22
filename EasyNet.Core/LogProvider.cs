@@ -25,7 +25,7 @@ using System.Text;
 namespace EasyNet.Core
 {
     /// <summary>
-    /// 
+    /// 日志提供程序，默认使用 log4net 日志
     /// </summary>
     public static class LogProvider
     {
