@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Units\ArgumentChecker.cs" />
     <Compile Include="Extension\IntPtrExtension.cs" />
     <Compile Include="LogProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extension\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
