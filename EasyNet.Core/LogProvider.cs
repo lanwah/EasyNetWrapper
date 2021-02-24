@@ -2,6 +2,7 @@
 using log4net.Config;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace EasyNet.Core
 {
     /// <summary>
     /// 日志提供程序，默认使用 log4net 日志
-    /// </summary>
+    /// </summary>    
     public static class LogProvider
     {
         private static ILog _log = null;

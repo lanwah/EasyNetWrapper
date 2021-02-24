@@ -6,7 +6,10 @@ https://choosealicense.com/licenses/mit/#
 -- Configs
   |-- log4net.config
 -- Controls
+  |-- AutoCompleteIMEControl 控件，说明详见AutoCompleteIMEControl.txt
 -- Extension
+  |-- IntPtrExtension.cs
+  |-- ReflectionExtension.cs
 -- Units
   |-- ArgumentChecker.cs
 -- LogProvider.cs

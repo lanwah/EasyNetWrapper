@@ -1,0 +1,106 @@
+﻿# 使用说明
+* AutoCompleteIMEControl - 待选文本框，只能从数据源中选择文本，支持自定义检索，多用于从一个池子中（数据源明确）挑选合适的项
+
+# 使用示例
+
+// 1、绑定的数据源
+private static List<Person> personList = new List<Person>
+{
+    new Person
+    {
+        Name = "P1", Age = 18, Gender = "Male"
+
+    },
+    new Person
+    {
+        Name = "P2", Age = 19, Gender = "Mele",
+    },
+    new Person
+    {
+        Name = "P3", Age = 18, Gender = "Mafe"
+
+    },
+    new Person
+    {
+        Name = "P4", Age = 19, Gender = "Mald",
+    },
+    new Person
+    {
+        Name = "P5", Age = 17,Gender = "Female",
+    }
+};
+
+// 2、数据的绑定方式
+private void InitialControl()
+{
+    // 方式一，通过委托自定义进行匹配
+    {
+        Func<string, AutocompleteItem[]> callback = (keyword) =>
+        {
+            // 自定义查找
+            var persons = (from r in personList where r.Gender.ToLower() == (keyword) select r).ToArray();
+            if (null == persons)
+            {
+                return new AutocompleteItem[0];
+            }
+
+            // 转换
+            IEnumerable<AutocompleteItem> items = persons.Select(c =>
+            {
+                return c.AutocompleteItemBuilder();
+            });
+
+            return items.ToArray();
+        };
+        this.autoCompleteIMEControl1.SourceItems = new AutocompleteItem[0];
+        this.autoCompleteIMEControl1.SearchCallback = callback;
+    }
+
+    // 方式二，只设置 SourceItems，采用内部查找匹配算法，从头开始逐字匹配
+    {
+        IEnumerable<AutocompleteItem> items = personList.Select(c =>
+        {
+            return c.AutocompleteItemBuilder();
+        });
+        this.autoCompleteIMEControl1.SourceItems = items;
+    }
+
+    // 方式三，查找与转换分开
+    {
+        Func<string, Person[]> callBack = (keyword) =>
+        {
+            var persons = (from r in personList where r.Gender.ToLower() == (keyword) select r).ToArray();
+            if (null == persons)
+            {
+                persons = new Person[0];
+            }
+            return persons;
+        };
+        Converter<Person, AutocompleteItem> converter = (p) =>
+        {
+            var item = new AutocompleteItem()
+            {
+                Key = p.Gender,
+                ItemText = $"{p.Name}",
+                DisplayText = $"{p.Name} {p.Gender} {p.Age}",
+                ToolTipTitle = "详情",
+                ToolTipText = $"name is {p.Name},Gender is {p.Gender},Age is {p.Age}",
+                Tag = p
+            };
+            return item;
+        };
+        this.autoCompleteIMEControl1.SetSearchCallbackArgs<Person>(callBack, converter);
+    }
+}
+
+// 3、选择项改变，获取选择项
+private void autoCompleteIMEControl1_DataChanged(object sender, EventArgs e)
+{
+    if (this.autoCompleteIMEControl1.SelectedItem != null)
+    {
+        var person = this.autoCompleteIMEControl1.SelectedItem.Tag as Person;
+    }
+}
+
+// 4、设置选择项目
+this.autoCompleteIMEControl1.SelectedItem = personList[1].AutocompleteItemBuilder();

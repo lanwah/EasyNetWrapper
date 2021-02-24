@@ -40,6 +40,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +49,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AutoCompleteTextBox\AntiAliasGraphics.cs" />
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteEnum.cs" />
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteEvent.cs" />
+    <Compile Include="Controls\AutoCompleteTextBox\AutocompleteHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteIMEControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteIMEControl.designer.cs">
+      <DependentUpon>AutoCompleteIMEControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\AutocompleteItem.cs" />
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteView.designer.cs">
+      <DependentUpon>AutoCompleteView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteDataLabel.cs" />
+    <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteDataItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteTextBox\IAutoCompleteConverter.cs" />
+    <Compile Include="Extension\ReflectionExtension.cs" />
     <Compile Include="Units\ArgumentChecker.cs" />
     <Compile Include="Extension\IntPtrExtension.cs" />
     <Compile Include="LogProvider.cs" />
@@ -60,10 +93,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\AutoCompleteTextBox\AutoCompleteIMEControl.txt" />
     <Content Include="Extension\ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <EmbeddedResource Include="Controls\AutoCompleteTextBox\AutoCompleteIMEControl.resx">
+      <DependentUpon>AutoCompleteIMEControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AutoCompleteTextBox\AutoCompleteView.resx">
+      <DependentUpon>AutoCompleteView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
