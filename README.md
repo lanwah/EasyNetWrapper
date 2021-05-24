@@ -6,16 +6,25 @@ https://choosealicense.com/licenses/mit/#
 -- Configs
   |-- log4net.config
 -- Controls
-  |-- AutoCompleteIMEControl 控件，说明详见AutoCompleteIMEControl.txt
+  |-- AutoCompleteTextBox
+     |-- AutoCompleteIMEControl 控件，说明详见AutoCompleteIMEControl.txt
+  |-- Graphics
+     |-- AntiAliasGraphics.cs - 抗锯齿画刷
+  |-- CloseLabel - 可关闭标签
 -- Extension
   |-- IntPtrExtension.cs
-  |-- ReflectionExtension.cs
+  |-- ReflectionExtension.cs - 反射相关扩展类
+  |-- ValueConverterExtension.cs - 类型值与类型值字符串之间转换相关
 -- Units
-  |-- ArgumentChecker.cs
+  |-- ArgChecker.cs
 -- LogProvider.cs
 -- ServiceSingleton.cs
 
 # 2020-11-18 lanwah  
 * 1、添加了 ServiceSingleton 服务提供程序管理类；    
 * 2、添加了 LogProvider 默认使用 log4net的日志功能； 
-* 3、添加了 ArgumentChecker 参数检查类； 
+* 3、添加了 ArgChecker 参数检查类； 
+* 4、添加了 AutoCompleteIMEControl 控件（选择文本框，根据输入进行检索，从检索结果中进行选择）；
+* 5、添加了 CloseLabel 可关闭标签
+* 6、添加了 ValueConverterExtension 类型值与类型值字符串之间转换相关
+

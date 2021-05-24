@@ -49,7 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AutoCompleteTextBox\AntiAliasGraphics.cs" />
+    <Compile Include="Controls\CloseLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Graphics\AntiAliasGraphics.cs" />
     <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteEnum.cs" />
     <Compile Include="Controls\AutoCompleteTextBox\AutoCompleteEvent.cs" />
     <Compile Include="Controls\AutoCompleteTextBox\AutocompleteHost.cs">
@@ -79,8 +82,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\AutoCompleteTextBox\IAutoCompleteConverter.cs" />
+    <Compile Include="Extension\ValueConverterExtension.cs" />
     <Compile Include="Extension\ReflectionExtension.cs" />
-    <Compile Include="Units\ArgumentChecker.cs" />
+    <Compile Include="Reflection\DynamicMethodFactory.cs" />
+    <Compile Include="Units\ArgChecker.cs" />
     <Compile Include="Extension\IntPtrExtension.cs" />
     <Compile Include="LogProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

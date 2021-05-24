@@ -22,6 +22,9 @@ using System.Text;
 
 namespace EasyNet.Controls
 {
+    /// <summary>
+    /// 抗锯齿画刷
+    /// </summary>
     internal class AntiAliasGraphics : IDisposable
     {
         private GraphicsState _state;

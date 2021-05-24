@@ -23,7 +23,7 @@ namespace EasyNet.Core
     /// <summary>
     /// 参数检测，不符合检测结果时抛出异常
     /// </summary>
-    public static partial class ArgumentChecker
+    public static partial class ArgChecker
     {
         /// <summary>
         /// 判断参数是否非空，空时抛出ArgumentNullException
@@ -40,14 +40,33 @@ namespace EasyNet.Core
         /// <summary>
         /// 判断参数是否非空，空时抛出ArgumentNullException
         /// </summary>
-        /// <param name="argumentValue"></param>
-        /// <param name="argumentName"></param>
+        /// <param name="argumentValue">参数值</param>
+        /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
         public static void NotNullOrEmpty(string argumentValue, string argumentName)
         {
-            if ((argumentValue == null) || (argumentValue.Length == 0))
+            if ((argumentValue == null) || (argumentValue.Length == 0) || (argumentValue.Trim().Length == 0))
             {
                 throw new ArgumentNullException(argumentName);
             }
+        }
+
+        /// <summary>
+        /// 判断参数是否非空，空时抛出ArgumentNullException
+        /// </summary>
+        /// <param name="argumentValue">参数值</param>
+        /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
+        public static void NotNullChecker(this object argumentValue, string argumentName)
+        {
+            NotNull(argumentValue, argumentName);
+        }
+        /// <summary>
+        /// 判断参数是否非空，空时抛出ArgumentNullException
+        /// </summary>
+        /// <param name="argumentValue">参数值</param>
+        /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
+        public static void NotNullOrEmptyChecker(this string argumentValue, string argumentName)
+        {
+            NotNullOrEmpty(argumentValue, argumentName);
         }
     }
 }
