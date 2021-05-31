@@ -36,7 +36,7 @@ namespace EasyNet.Core.Extension
         public static T GetAttribute<T>(this ICustomAttributeProvider member, bool inherit = false)
             where T : Attribute
         {
-            ArgChecker.NotNull(member, nameof(member));
+            Guard.NotNull(member, nameof(member));
             T[] attributes = member.GetCustomAttributes(typeof(T), inherit) as T[];
 
             if ((attributes == null) || (attributes.Length == 0))
@@ -56,7 +56,7 @@ namespace EasyNet.Core.Extension
         public static T[] GetAttributes<T>(this ICustomAttributeProvider member, bool inherit = false)
             where T : Attribute
         {
-            ArgChecker.NotNull(member, nameof(member));
+            Guard.NotNull(member, nameof(member));
             return member.GetCustomAttributes(typeof(T), inherit) as T[];
         }
         /// <summary>
@@ -69,7 +69,7 @@ namespace EasyNet.Core.Extension
         public static bool HasAttribute<T>(this ICustomAttributeProvider member, bool inherit = false)
             where T : Attribute
         {
-            ArgChecker.NotNull(member, nameof(member));
+            Guard.NotNull(member, nameof(member));
             return member.IsDefined(typeof(T), inherit);
         }
     }

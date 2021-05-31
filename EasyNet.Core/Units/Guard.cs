@@ -23,7 +23,7 @@ namespace EasyNet.Core
     /// <summary>
     /// 参数检测，不符合检测结果时抛出异常
     /// </summary>
-    public static partial class ArgChecker
+    public static partial class Guard
     {
         /// <summary>
         /// 判断参数是否非空，空时抛出ArgumentNullException
