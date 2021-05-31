@@ -12,9 +12,7 @@ https://choosealicense.com/licenses/mit/#
      |-- AntiAliasGraphics.cs - 抗锯齿画刷
   |-- CloseLabel - 可关闭标签
 -- Extension
-  |-- IntPtrExtension.cs
-  |-- ReflectionExtension.cs - 反射相关扩展类
-  |-- ValueConverterExtension.cs - 类型值与类型值字符串之间转换相关
+  |-- Extensions.cs - 扩展方法添加类
 -- Units
   |-- Guard.cs
 -- LogProvider.cs

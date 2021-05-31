@@ -82,11 +82,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\AutoCompleteTextBox\IAutoCompleteConverter.cs" />
-    <Compile Include="Extension\ValueConverterExtension.cs" />
-    <Compile Include="Extension\ReflectionExtension.cs" />
+    <Compile Include="Extension\Extensions.cs" />
+    <Compile Include="Extension\ValueConverter.cs" />
     <Compile Include="Reflection\DynamicMethodFactory.cs" />
-    <Compile Include="Units\ArgChecker.cs" />
-    <Compile Include="Extension\IntPtrExtension.cs" />
+    <Compile Include="Units\Guard.cs" />
     <Compile Include="LogProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceSingleton.cs" />
