@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Text;
 
 // ------------------------------------------------------------- //
@@ -10,7 +9,7 @@ using System.Text;
 // 项目名称：EasyNet.Core.Reflection
 // 文件名称：DynamicMethodFactory
 // 创 建 者：lanwah
-// 创建日期：2021/04/13 13:21:00
+// 创建日期：2021/07/01 11:09:57
 // 功能描述：
 // 调用依赖：
 // -------------------------------------------------------------
@@ -23,239 +22,223 @@ using System.Text;
 namespace EasyNet.Core.Reflection
 {
     /// <summary>
-    /// 通过反射设置属性值
-    /// </summary>
-    /// <param name="target"></param>
-    /// <param name="arg"></param>
-    public delegate void SetValueDelegate(object target, object arg);
-    /// <summary>
-    /// 通过反射调用方法
-    /// </summary>
-    /// <param name="target"></param>
-    /// <param name="paramters"></param>
-    /// <returns></returns>
-    public delegate object FastInvokeHandler(object target, object[] paramters);
-
-    /// <summary>
-    /// 动态方法工厂
+    /// 通过反射动态方法调用
     /// </summary>
     public static class DynamicMethodFactory
     {
         /// <summary>
-        /// Emit方法优化反射设置属性值
+        /// 得到访问器委托
         /// </summary>
-        /// <param name="propertyInfo">属性</param>
-        /// <param name="target"></param>
-        /// <param name="value"></param>
-        public static void SetValue(PropertyInfo propertyInfo, object target, object value)
+        /// <param name="member"></param>
+        /// <returns></returns>
+        public static Getter GetGetter(this System.Reflection.MemberInfo member)
         {
-            var setter = DynamicMethodFactory.CreatePropertySetter(propertyInfo);
-            setter(target, value);
+            member.NotNullCheck(nameof(member));
+
+            Getter getter = null;
+            if (member.DeclaringType.IsValueType)
+            {
+                switch (member.MemberType)
+                {
+                    case MemberTypes.Field:
+                        getter = (target) => (member as FieldInfo).GetValue(target);
+                        break;
+                    case MemberTypes.Property:
+                        getter = (target) => (member as PropertyInfo).GetValue(target, null);
+                        break;
+                    case MemberTypes.Method:
+                        getter = (target) => (member as MethodInfo).Invoke(target, new object[] { });
+                        break;
+                }
+
+            }
+            else
+            {
+                getter = DefaultDynamicMethodFactory.CreateGetter(member);
+            }
+
+            return target =>
+            {
+                try
+                {
+                    return getter(target);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            };
         }
         /// <summary>
-        /// Emit方法优化反射调用方法
+        /// 得到设置器委托
         /// </summary>
-        /// <param name="methodInfo"></param>
-        /// <param name="target"></param>
-        /// <param name="paramters"></param>
+        /// <param name="member">成员</param>
+        /// <returns>返回设置器委托</returns>
+        public static Setter GetSetter(this System.Reflection.MemberInfo member)
+        {
+            member.NotNullCheck(nameof(member));
+
+            Setter setter = null;
+            if (member.DeclaringType.IsValueType)
+            {
+                switch (member.MemberType)
+                {
+                    case MemberTypes.Field:
+                        setter = (target, value) => (member as FieldInfo).SetValue(target, value);
+                        break;
+                    case MemberTypes.Property:
+                        setter = (target, value) => (member as PropertyInfo).SetValue(target, value, null);
+                        break;
+                    case MemberTypes.Method:
+                        setter = (target, value) => (member as MethodInfo).Invoke(target, new object[] { value });
+                        break;
+                }
+            }
+            else
+            {
+                setter = DefaultDynamicMethodFactory.CreateSetter(member);
+            }
+
+            return (target, value) =>
+            {
+                setter?.Invoke(target, value);
+            };
+        }
+        /// <summary>
+        /// 得到过程委托(无返回值函数)
+        /// </summary>
+        /// <param name="method">方法对象</param>
+        /// <returns>返回过程委托</returns>
+        public static Proc GetProc(this System.Reflection.MethodInfo method)
+        {
+            method.NotNullCheck(nameof(method));
+
+            var proc = method.DeclaringType.IsValueType ?
+                (target, args) => method.Invoke(target, args) :
+                DefaultDynamicMethodFactory.CreateProcMethod(method);
+
+            return (target, args) =>
+            {
+                if (args == null)
+                {
+                    args = new object[method.GetParameters().Length];
+                }
+
+                try
+                {
+                    proc(target, args);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            };
+        }
+        /// <summary>
+        /// 得到函数委托（有返回值函数）
+        /// </summary>
+        /// <param name="method">方法对象</param>
+        /// <returns>返回函数委托</returns>
+        public static Meth GetFunc(this System.Reflection.MethodInfo method)
+        {
+            method.NotNullCheck(nameof(method));
+
+            var func = method.DeclaringType.IsValueType
+                ? (target, args) => method.Invoke(target, args)
+                : DefaultDynamicMethodFactory.CreateMethod(method);
+
+            return (target, args) =>
+            {
+                if (args == null)
+                {
+                    args = new object[method.GetParameters().Length];
+                }
+
+                try
+                {
+                    return func(target, args);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            };
+        }
+        /// <summary>
+        /// 得到缺省构造函数委托
+        /// </summary>
+        /// <param name="type"></param>
         /// <returns></returns>
-        public static object InvokeMethod(MethodInfo methodInfo, object target, params object[] paramters)
+        public static DefaultConstructorHandler GetDefaultCreator(this Type type)
         {
-            var method = DynamicMethodFactory.GetMethodInvoker(methodInfo);
-            return method(target, paramters);
-        }
+            type.NotNullCheck(nameof(type));
+            var ctor = DefaultDynamicMethodFactory.CreateDefaultConstructorMethod(type);
 
-        private static void EmitCastToReference(ILGenerator il, Type type)
-        {
-            if (type.IsValueType)
+            DefaultConstructorHandler handler = () =>
             {
-                il.Emit(OpCodes.Unbox_Any, type);
-            }
-            else
-            {
-                il.Emit(OpCodes.Castclass, type);
-            }
-        }
-        private static void EmitFastInt(ILGenerator il, int value)
-        {
-            switch (value)
-            {
-                case -1:
-                    il.Emit(OpCodes.Ldc_I4_M1);
-                    return;
-                case 0:
-                    il.Emit(OpCodes.Ldc_I4_0);
-                    return;
-                case 1:
-                    il.Emit(OpCodes.Ldc_I4_1);
-                    return;
-                case 2:
-                    il.Emit(OpCodes.Ldc_I4_2);
-                    return;
-                case 3:
-                    il.Emit(OpCodes.Ldc_I4_3);
-                    return;
-                case 4:
-                    il.Emit(OpCodes.Ldc_I4_4);
-                    return;
-                case 5:
-                    il.Emit(OpCodes.Ldc_I4_5);
-                    return;
-                case 6:
-                    il.Emit(OpCodes.Ldc_I4_6);
-                    return;
-                case 7:
-                    il.Emit(OpCodes.Ldc_I4_7);
-                    return;
-                case 8:
-                    il.Emit(OpCodes.Ldc_I4_8);
-                    return;
-
-            }
-
-            if (value > -129 && value < 128)
-            {
-                il.Emit(OpCodes.Ldc_I4_S, (SByte)value);
-
-            }
-            else
-            {
-                il.Emit(OpCodes.Ldc_I4, value);
-            }
-        }
-        private static void EmitBoxIfNeeded(ILGenerator il, System.Type type)
-        {
-            if (type.IsValueType)
-            {
-                il.Emit(OpCodes.Box, type);
-            }
-        }
-
-        private static SetValueDelegate CreatePropertySetter(PropertyInfo property)
-        {
-            if (property == null)
-            {
-                throw new ArgumentNullException("property");
-            }
-
-            if (!property.CanWrite)
-            {
-                return null;
-            }
-
-            MethodInfo setMethod = property.GetSetMethod(true);
-
-            DynamicMethod dm = new DynamicMethod("PropertySetter", null,
-                new Type[] { typeof(object), typeof(object) }, property.DeclaringType, true);
-
-            ILGenerator il = dm.GetILGenerator();
-
-            if (!setMethod.IsStatic)
-            {
-                il.Emit(OpCodes.Ldarg_0);
-            }
-            il.Emit(OpCodes.Ldarg_1);
-
-            EmitCastToReference(il, property.PropertyType);
-            if (!setMethod.IsStatic && !property.DeclaringType.IsValueType)
-            {
-                il.EmitCall(OpCodes.Callvirt, setMethod, null);
-            }
-            else
-            {
-                il.EmitCall(OpCodes.Call, setMethod, null);
-            }
-
-            il.Emit(OpCodes.Ret);
-
-            return (SetValueDelegate)dm.CreateDelegate(typeof(SetValueDelegate));
-        }
-        private static FastInvokeHandler GetMethodInvoker(MethodInfo methodInfo)
-        {
-            DynamicMethod dynamicMethod = new DynamicMethod(string.Empty,
-                typeof(object),
-                new Type[] { typeof(object), typeof(object[]) },
-                methodInfo.DeclaringType.Module);
-            ILGenerator il = dynamicMethod.GetILGenerator();
-            ParameterInfo[] ps = methodInfo.GetParameters();
-            Type[] paramTypes = new Type[ps.Length];
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                if (ps[i].ParameterType.IsByRef)
+                try
                 {
-                    paramTypes[i] = ps[i].ParameterType.GetElementType();
+                    return ctor();
                 }
-                else
+                catch (TargetInvocationException ex)
                 {
-                    paramTypes[i] = ps[i].ParameterType;
+                    throw ex.InnerException;
                 }
-            }
-            LocalBuilder[] locals = new LocalBuilder[paramTypes.Length];
-
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                locals[i] = il.DeclareLocal(paramTypes[i], true);
-            }
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                il.Emit(OpCodes.Ldarg_1);
-                EmitFastInt(il, i);
-                il.Emit(OpCodes.Ldelem_Ref);
-                EmitCastToReference(il, paramTypes[i]);
-                il.Emit(OpCodes.Stloc, locals[i]);
-            }
-            if (!methodInfo.IsStatic)
-            {
-                il.Emit(OpCodes.Ldarg_0);
-            }
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                if (ps[i].ParameterType.IsByRef)
+                catch (Exception ex)
                 {
-                    il.Emit(OpCodes.Ldloca_S, locals[i]);
+                    throw ex;
                 }
-                else
+            };
+
+            return handler;
+        }
+        /// <summary>
+        /// 得到构造函数委托
+        /// </summary>
+        /// <param name="constructor">构造函数</param>
+        /// <returns>返回构造函数委托</returns>
+        public static ConstructorHandler GetCreator(this System.Reflection.ConstructorInfo constructor)
+        {
+            constructor.NotNullCheck(nameof(constructor));
+
+            ConstructorHandler ctor = constructor.DeclaringType.IsValueType ?
+                (args) => constructor.Invoke(args)
+                : DefaultDynamicMethodFactory.CreateConstructorMethod(constructor);
+
+            ConstructorHandler handler = args =>
+            {
+                if (args == null)
                 {
-                    il.Emit(OpCodes.Ldloc, locals[i]);
+                    args = new object[constructor.GetParameters().Length];
                 }
-            }
-            if (methodInfo.IsStatic)
-            {
-                il.EmitCall(OpCodes.Call, methodInfo, null);
-            }
-            else
-            {
-                il.EmitCall(OpCodes.Callvirt, methodInfo, null);
-            }
 
-            if (methodInfo.ReturnType == typeof(void))
-            {
-                il.Emit(OpCodes.Ldnull);
-            }
-            else
-            {
-                EmitBoxIfNeeded(il, methodInfo.ReturnType);
-            }
-
-            for (int i = 0; i < paramTypes.Length; i++)
-            {
-                if (ps[i].ParameterType.IsByRef)
+                try
                 {
-                    il.Emit(OpCodes.Ldarg_1);
-                    EmitFastInt(il, i);
-                    il.Emit(OpCodes.Ldloc, locals[i]);
-                    if (locals[i].LocalType.IsValueType)
-                    {
-                        il.Emit(OpCodes.Box, locals[i].LocalType);
-                    }
-
-                    il.Emit(OpCodes.Stelem_Ref);
+                    return ctor(args);
                 }
-            }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            };
 
-            il.Emit(OpCodes.Ret);
-            FastInvokeHandler invoder = (FastInvokeHandler)dynamicMethod.CreateDelegate(typeof(FastInvokeHandler));
-            return invoder;
+            return handler;
         }
     }
 }

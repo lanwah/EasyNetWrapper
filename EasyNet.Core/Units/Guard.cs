@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -30,7 +31,8 @@ namespace EasyNet.Core
         /// </summary>
         /// <param name="argumentValue">参数值</param>
         /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        public static void NotNull(object argumentValue, string argumentName)
+        [DebuggerStepThrough]
+        private static void NotNull(object argumentValue, string argumentName)
         {
             if (argumentValue == null)
             {
@@ -42,7 +44,8 @@ namespace EasyNet.Core
         /// </summary>
         /// <param name="argumentValue">参数值</param>
         /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        public static void NotNullOrEmpty(string argumentValue, string argumentName)
+        [DebuggerStepThrough]
+        private static void NotNullOrEmpty(string argumentValue, string argumentName)
         {
             if ((argumentValue == null) || (argumentValue.Length == 0) || (argumentValue.Trim().Length == 0))
             {
@@ -55,7 +58,7 @@ namespace EasyNet.Core
         /// </summary>
         /// <param name="argumentValue">参数值</param>
         /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        public static void NotNullChecker(this object argumentValue, string argumentName)
+        public static void NotNullCheck(this object argumentValue, string argumentName)
         {
             NotNull(argumentValue, argumentName);
         }

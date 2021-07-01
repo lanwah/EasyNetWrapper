@@ -82,9 +82,16 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\AutoCompleteTextBox\IAutoCompleteConverter.cs" />
-    <Compile Include="Extension\Extensions.cs" />
+    <Compile Include="Extension\ExtensionUnity.cs" />
     <Compile Include="Extension\ValueConverter.cs" />
+    <Compile Include="Reflection\DefaultDynamicMethodFactory.cs" />
+    <Compile Include="Reflection\DynamicAssemblyManager.cs" />
+    <Compile Include="Reflection\DynamicDelegate.cs" />
     <Compile Include="Reflection\DynamicMethodFactory.cs" />
+    <Compile Include="Reflection\EmitHelper.cs" />
+    <Compile Include="Reflection\MemberFlags.cs" />
+    <Compile Include="Reflection\MethodMetaData.cs" />
+    <Compile Include="Reflection\Types.cs" />
     <Compile Include="Units\Guard.cs" />
     <Compile Include="LogProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
