@@ -107,53 +107,19 @@ namespace EasyNet.Core.Reflection
             {
                 setter?.Invoke(target, value);
             };
-        }
-        /// <summary>
-        /// 得到过程委托(无返回值函数)
-        /// </summary>
-        /// <param name="method">方法对象</param>
-        /// <returns>返回过程委托</returns>
-        public static Proc GetProc(this System.Reflection.MethodInfo method)
-        {
-            method.NotNullCheck(nameof(method));
-
-            var proc = method.DeclaringType.IsValueType ?
-                (target, args) => method.Invoke(target, args) :
-                DefaultDynamicMethodFactory.CreateProcMethod(method);
-
-            return (target, args) =>
-            {
-                if (args == null)
-                {
-                    args = new object[method.GetParameters().Length];
-                }
-
-                try
-                {
-                    proc(target, args);
-                }
-                catch (TargetInvocationException ex)
-                {
-                    throw ex.InnerException;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            };
-        }
+        }        
         /// <summary>
         /// 得到函数委托（有返回值函数）
         /// </summary>
         /// <param name="method">方法对象</param>
         /// <returns>返回函数委托</returns>
-        public static Meth GetFunc(this System.Reflection.MethodInfo method)
+        public static Proc GetProc(this System.Reflection.MethodInfo method)
         {
             method.NotNullCheck(nameof(method));
 
             var func = method.DeclaringType.IsValueType
                 ? (target, args) => method.Invoke(target, args)
-                : DefaultDynamicMethodFactory.CreateMethod(method);
+                : DefaultDynamicMethodFactory.CreateProcMethod(method);
 
             return (target, args) =>
             {

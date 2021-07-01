@@ -184,16 +184,10 @@ namespace EasyNet.Core.Reflection
 
         public static Proc CreateProcMethod(MethodInfo method)
         {
-            var func = CreateMethod(method);
-            Proc result = (target, args) => func(target, args);
-            return result;
-        }
-        public static Meth CreateMethod(MethodInfo method)
-        {
-            var dm = CreateDynamicMeth();
+            var dm = CreateDynamicProc();
             EmitHelper.EmitDynamicMethod(method, dm);
 
-            return dm.CreateDelegate(typeof(Meth)) as Meth;
+            return dm.CreateDelegate(typeof(Proc)) as Proc;
         }
         public static DefaultConstructorHandler CreateDefaultConstructorMethod(Type type)
         {
@@ -237,14 +231,10 @@ namespace EasyNet.Core.Reflection
         {
             return new DynamicMethod(String.Empty, typeof(void), new[] { typeof(object), typeof(object) }, Module, true);
         }
-        private static DynamicMethod CreateDynamicMeth()
-        {
-            return new DynamicMethod(String.Empty, typeof(object), new[] { typeof(object), typeof(object[]) }, Module, true);
-        }
         private static DynamicMethod CreateDynamicProc()
         {
-            return new DynamicMethod(String.Empty, typeof(void), new[] { typeof(object), typeof(object[]) }, Module, true);
-        }
+            return new DynamicMethod(String.Empty, typeof(object), new[] { typeof(object), typeof(object[]) }, Module, true);
+        }        
         private static DynamicMethod CreateDynamicFactoryMethod()
         {
             return new DynamicMethod(String.Empty, typeof(object), new[] { typeof(object[]) }, Module, true);

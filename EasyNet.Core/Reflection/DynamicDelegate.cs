@@ -33,18 +33,12 @@ namespace EasyNet.Core.Reflection
     /// <param name="value">设置器参数</param>
     public delegate void Setter(object target, object value);
     /// <summary>
-    /// 过程委托
-    /// </summary>
-    /// <param name="target">目标对象</param>
-    /// <param name="arguments">过程参数</param>
-    public delegate void Proc(object target, params object[] arguments);
-    /// <summary>
     /// 函数委托
     /// </summary>
     /// <param name="target">目标对象</param>
     /// <param name="arguments">函数参数</param>
     /// <returns>函数返回值</returns>
-    public delegate object Meth(object target, params object[] arguments);
+    public delegate object Proc(object target, params object[] arguments);
     /// <summary>
     /// 缺省构造函数委托
     /// </summary>
