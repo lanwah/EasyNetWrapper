@@ -38,7 +38,7 @@ namespace EasyNet.Core.Reflection
     /// <param name="target">目标对象</param>
     /// <param name="arguments">函数参数</param>
     /// <returns>函数返回值</returns>
-    public delegate object Proc(object target, params object[] arguments);
+    public delegate object Method(object target, params object[] arguments);
     /// <summary>
     /// 缺省构造函数委托
     /// </summary>

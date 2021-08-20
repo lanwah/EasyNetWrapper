@@ -107,19 +107,19 @@ namespace EasyNet.Core.Reflection
             {
                 setter?.Invoke(target, value);
             };
-        }        
+        }
         /// <summary>
         /// 得到函数委托（有返回值函数）
         /// </summary>
         /// <param name="method">方法对象</param>
         /// <returns>返回函数委托</returns>
-        public static Proc GetProc(this System.Reflection.MethodInfo method)
+        public static Method GetMethod(this System.Reflection.MethodInfo method)
         {
             method.NotNullCheck(nameof(method));
 
             var func = method.DeclaringType.IsValueType
                 ? (target, args) => method.Invoke(target, args)
-                : DefaultDynamicMethodFactory.CreateProcMethod(method);
+                : DefaultDynamicMethodFactory.CreateMethod(method);
 
             return (target, args) =>
             {
@@ -143,7 +143,7 @@ namespace EasyNet.Core.Reflection
             };
         }
         /// <summary>
-        /// 得到缺省构造函数委托
+        /// 得到默认无参构造函数委托
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -207,4 +207,54 @@ namespace EasyNet.Core.Reflection
             return handler;
         }
     }
+
+    #region // 测试代码段
+    //public class OrderInfo
+    //{
+    //    public OrderInfo(int orderId)
+    //    {
+    //        this.OrderID = orderId;
+    //    }
+    //    public OrderInfo() : this(0)
+    //    {
+
+    //    }
+
+    //    public int OrderID { get; set; }
+
+    //    public void SetOrderID(int orderId)
+    //    {
+    //        this.OrderID = orderId;
+    //    }
+    //    public int GetOrderID()
+    //    {
+    //        return this.OrderID;
+    //    }
+
+    //    /// <summary>
+    //    /// 测试代码段
+    //    /// </summary>
+    //    public void Test()
+    //    {
+    //        var type = typeof(OrderInfo);
+    //        var creator = type.GetDefaultCreator();
+    //        var target = creator();
+    //        var propertyInfo = type.GetProperty("OrderID");
+    //        var setter = propertyInfo.GetSetter();
+    //        setter(target, 1);
+    //        var getter = propertyInfo.GetGetter();
+    //        var orderId = getter(target);
+
+    //        var constructorInfo = type.GetConstructor(new Type[] { typeof(int) });
+    //        var creator2 = constructorInfo.GetCreator();
+    //        var target2 = creator2(2);
+    //        var methodInfo1 = type.GetMethod("SetOrderID");
+    //        var methodInfo2 = type.GetMethod("GetOrderID");
+    //        var proc1 = methodInfo2.GetMethod();
+    //        var orderId2 = proc1(target2);
+    //        methodInfo1.GetMethod()(target2, 6);
+    //        var orderId3 = proc1(target2);
+    //    }
+    //}
+    #endregion
 }

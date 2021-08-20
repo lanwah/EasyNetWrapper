@@ -25,7 +25,7 @@ namespace EasyNet.Core.Reflection
     internal static class EmitHelper
     {
         /// <summary>
-        /// 拆箱操作
+        /// 拆箱或转换操作
         /// </summary>
         /// <param name="il"></param>
         /// <param name="type"></param>

@@ -69,37 +69,37 @@ namespace EasyNet.Core.Test
 
         private void InitialControl()
         {
-            // 方式一，通过委托自定义进行匹配
-            {
-                Func<string, AutocompleteItem[]> callback = (keyword) =>
-                {
-                    // 自定义查找
-                    var persons = (from r in personList where r.Gender.ToLower() == (keyword) select r).ToArray();
-                    if (null == persons)
-                    {
-                        return new AutocompleteItem[0];
-                    }
-
-                    // 转换
-                    IEnumerable<AutocompleteItem> items = persons.Select(c =>
-                    {
-                        return c.AutocompleteItemBuilder();
-                    });
-
-                    return items.ToArray();
-                };
-                this.autoCompleteIMEControl1.SourceItems = new AutocompleteItem[0];
-                this.autoCompleteIMEControl1.SearchCallback = callback;
-            }
-
-            //// 方式二，只设置 SourceItems，采用内部查找匹配算法，从头开始逐字匹配
+            //// 方式一，通过委托自定义进行匹配
             //{
-            //    IEnumerable<AutocompleteItem> items = personList.Select(c =>
+            //    Func<string, AutocompleteItem[]> callback = (keyword) =>
             //    {
-            //        return c.AutocompleteItemBuilder();
-            //    });
-            //    this.autoCompleteIMEControl1.SourceItems = items;
+            //        // 自定义查找
+            //        var persons = (from r in personList where r.Gender.ToLower() == (keyword) select r).ToArray();
+            //        if (null == persons)
+            //        {
+            //            return new AutocompleteItem[0];
+            //        }
+
+            //        // 转换
+            //        IEnumerable<AutocompleteItem> items = persons.Select(c =>
+            //        {
+            //            return c.AutocompleteItemBuilder();
+            //        });
+
+            //        return items.ToArray();
+            //    };
+            //    this.autoCompleteIMEControl1.SourceItems = new AutocompleteItem[0];
+            //    this.autoCompleteIMEControl1.SearchCallback = callback;
             //}
+
+            // 方式二，只设置 SourceItems，采用内部查找匹配算法，从头开始逐字匹配
+            {
+                IEnumerable<AutocompleteItem> items = personList.Select(c =>
+                {
+                    return c.AutocompleteItemBuilder();
+                });
+                this.autoCompleteIMEControl1.SourceItems = items;
+            }
 
             // 方式三，查找与转换分开
             {
