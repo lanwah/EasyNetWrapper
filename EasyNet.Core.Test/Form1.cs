@@ -1,4 +1,5 @@
 ﻿using EasyNet.Controls;
+using EasyNet.Core.Security.CRC;
 using EasyNet.Core.Test.Model;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,31 @@ namespace EasyNet.Core.Test
             this.InitialControl();
 
             this.autoCompleteIMEControl1.SelectedItem = personList[1].AutocompleteItemBuilder();
+
+
+            var line = "134689";
+            var buffer = Encoding.ASCII.GetBytes(line);
+            var crc8 = buffer.ComputeCrc8();
+            var crc32 = buffer.ComputeCrc32();
+            //CRC16 = fee8
+            //CRC16 = bb3d
+            //CRC16 = b4c8
+            //CRC16 = b4c8
+            //CRC16 = 4b37
+            //CRC16 = 31c3
+            //CRC16 = 29b1
+            //CRC16 = e5cc
+            //CRC16 = 2189
+
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.Ansi), 16)}");// ddbf
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.IVAnsi), 16)}");// f5d5 CRC16/ARC
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.Maxim), 16)}");// f5f1 CRC16/Maxim
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.Usb), 16)}");// f5f1 CRC16/Usb
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.Modbus), 16)}");// f5f1 CRC16/MODBUS
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.XModem), 16)}");// 471f CRC16/XMODEM
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.CCITT_FALSE), 16)}");// 5613 CRC16/CCITT-FALSE
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.CCITT_0x1D0F), 16)}");// b6d1
+            Console.WriteLine($"CRC16 = {Convert.ToString(buffer.ComputeCrc16(Crc16Type.Kermit), 16)}");// 4efd
         }
 
 

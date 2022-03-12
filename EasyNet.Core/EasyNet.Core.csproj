@@ -93,6 +93,13 @@
     <Compile Include="Reflection\MethodMetaData.cs" />
     <Compile Include="Reflection\ObjectProperties.cs" />
     <Compile Include="Reflection\Types.cs" />
+    <Compile Include="Security\CRC\Crc16Provider.cs" />
+    <Compile Include="Security\CRC\CcittCrc16Provider.cs" />
+    <Compile Include="Security\CRC\Crc32Provider.cs" />
+    <Compile Include="Security\CRC\Crc8Provider.cs" />
+    <Compile Include="Security\CRC\ICrcProvider.cs" />
+    <Compile Include="Security\CRC\IVAnsiCrc16Provider.cs" />
+    <Compile Include="Security\CRC\IVCcittCrc16Provider.cs" />
     <Compile Include="Units\Guard.cs" />
     <Compile Include="LogProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,7 +115,6 @@
     <Content Include="Controls\AutoCompleteTextBox\AutoCompleteIMEControl.txt" />
     <Content Include="Extension\ReadMe.txt" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Controls\AutoCompleteTextBox\AutoCompleteIMEControl.resx">
       <DependentUpon>AutoCompleteIMEControl.cs</DependentUpon>
