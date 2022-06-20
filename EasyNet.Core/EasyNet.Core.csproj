@@ -83,6 +83,8 @@
     </Compile>
     <Compile Include="Controls\AutoCompleteTextBox\IAutoCompleteConverter.cs" />
     <Compile Include="Extension\ExtensionUnity.cs" />
+    <Compile Include="Extension\ExtensionUnity.Stream.cs" />
+    <Compile Include="Extension\ExtensionUnity.String.cs" />
     <Compile Include="Extension\ValueConverter.cs" />
     <Compile Include="Reflection\DefaultDynamicMethodFactory.cs" />
     <Compile Include="Reflection\DynamicAssemblyManager.cs" />
@@ -100,14 +102,19 @@
     <Compile Include="Security\CRC\ICrcProvider.cs" />
     <Compile Include="Security\CRC\IVAnsiCrc16Provider.cs" />
     <Compile Include="Security\CRC\IVCcittCrc16Provider.cs" />
+    <Compile Include="Units\ConditionLooper.cs" />
     <Compile Include="Units\Guard.cs" />
     <Compile Include="LogProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceSingleton.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md">
+      <Link>README.md</Link>
+    </None>
     <None Include="Configs\log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

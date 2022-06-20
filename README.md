@@ -2,6 +2,10 @@
 # 证书地址
 https://choosealicense.com/licenses/mit/#  
 
+# Package引用和项目依赖
+* 1、log4net 2.0.7
+
+
 # 项目结构
 -- Configs
   |-- log4net.config

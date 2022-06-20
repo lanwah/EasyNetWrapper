@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Core", "EasyNet.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Core.Test", "EasyNet.Core.Test\EasyNet.Core.Test.csproj", "{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Core.ConsoleTest", "EasyNet.Core.ConsoleTest\EasyNet.Core.ConsoleTest.csproj", "{463294AF-145F-46D7-84D7-DC8FC9E06E99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,14 @@ Global
 		{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}.Release|x64.ActiveCfg = Release|x64
 		{D74FE746-DB84-4FFF-9ADD-E29B1B103CAB}.Release|x64.Build.0 = Release|x64
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Debug|x64.Build.0 = Debug|Any CPU
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Release|x64.ActiveCfg = Release|Any CPU
+		{463294AF-145F-46D7-84D7-DC8FC9E06E99}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

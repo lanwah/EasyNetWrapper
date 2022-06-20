@@ -49,9 +49,9 @@
             this.closeLabel1.BackColor = System.Drawing.Color.LightGray;
             this.closeLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.closeLabel1.CloseWidth = 22;
-            this.closeLabel1.Location = new System.Drawing.Point(593, 54);
+            this.closeLabel1.Location = new System.Drawing.Point(575, 42);
             this.closeLabel1.Name = "closeLabel1";
-            this.closeLabel1.Size = new System.Drawing.Size(119, 24);
+            this.closeLabel1.Size = new System.Drawing.Size(105, 24);
             this.closeLabel1.TabIndex = 1;
             this.closeLabel1.Text = "closeLabel1";
             // 

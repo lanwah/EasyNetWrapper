@@ -124,34 +124,6 @@ namespace EasyNet.Core.Extension
         }
         #endregion
 
-        #region // string 扩展
-        /// <summary>
-        /// 字符串转对象
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static T ConvertFromString<T>(this string value)
-        {
-            return ValueConverter.ConvertFromString<T>(value);
-        }
-        /// <summary>
-        /// 判断字符串是否为空
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmptyEx(this string value)
-        {
-            if (string.IsNullOrEmpty(value) || string.IsNullOrEmpty(value.Trim()))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        #endregion
-
         #region // Type 扩展        
         /// <summary>
         /// 获取参数类型
@@ -278,5 +250,35 @@ namespace EasyNet.Core.Extension
             return ((type != null) && type.IsGenericType && type.As(typeof(IDictionary<,>)));
         }
         #endregion
+
+        /// <summary>
+        /// 判断对象是否为空
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static bool IsNull(this object obj)
+        {
+            if (null == obj)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 判断集合是否有值
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static bool HasData<T>(this IEnumerable<T> source)
+        {
+            if (null == source)
+            {
+                return false;
+            }
+
+            return (source.Count() > 0);
+        }
     }
 }
