@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Core.Extension
-// 文件名称：IEnumerable
+// 项目名称：EasyNet.Extension.Utils
+// 文件名称：IEnumerableExtn.cs
 // 创 建 者：lanwah
-// 创建日期：2022/2/10 17:21:11
+// 创建日期：2022/7/2 9:23:21
 // 功能描述：
 // 调用依赖：
 // -------------------------------------------------------------
@@ -18,15 +19,15 @@ using System.Text;
 // 修改描述：
 // ------------------------------------------------------------- //
 
-namespace EasyNet.Core.Extension
+namespace EasyNet.Extension
 {
     /// <summary>
-    /// Object 扩展
+    /// IEnumerable 扩展方法
     /// </summary>
-    public static partial class ExtensionUnity
+    public static class IEnumerableExtn
     {
         /// <summary>
-        /// 去重
+        /// 对象去重
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="V"></typeparam>
@@ -35,9 +36,11 @@ namespace EasyNet.Core.Extension
         /// <returns></returns>
         public static IEnumerable<T> DistinctBy<T, V>(this IEnumerable<T> source, Func<T, V> keySelector)
         {
+            source.NotNullCheck(nameof(source));
+
             return source.Distinct(new CommonEqualityComparer<T, V>(keySelector));
         }
-        private class CommonEqualityComparer<T, V> : IEqualityComparer<T>
+        internal class CommonEqualityComparer<T, V> : IEqualityComparer<T>
         {
             private Func<T, V> keySelector;
 
@@ -55,6 +58,22 @@ namespace EasyNet.Core.Extension
             {
                 return EqualityComparer<V>.Default.GetHashCode(keySelector(obj));
             }
+        }
+
+        /// <summary>
+        /// 判断集合是否有值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static bool HasData<T>(this IEnumerable<T> source)
+        {
+            if (source.IsNull())
+            {
+                return false;
+            }
+
+            return (source.Count() > 0);
         }
     }
 }

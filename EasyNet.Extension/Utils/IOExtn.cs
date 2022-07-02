@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Core.Extension
-// 文件名称：ExtensionUnity
+// 项目名称：EasyNet.Extension.Utils
+// 文件名称：IntPtrExtn
 // 创 建 者：lanwah
-// 创建日期：2022/3/19 11:21:35
+// 创建日期：2022/7/2 9:41:18
 // 功能描述：
 // 调用依赖：
 // -------------------------------------------------------------
@@ -19,12 +20,12 @@ using System.Text;
 // 修改描述：
 // ------------------------------------------------------------- //
 
-namespace EasyNet.Core.Extension
+namespace EasyNet.Extension
 {
     /// <summary>
-    /// Stream 扩展方法
+    /// IO 扩展方法
     /// </summary>
-    public static partial class ExtensionUnity
+    public static class IOExtn
     {
         /// <summary>
         /// 读取Stream中内容到的Byte数组
@@ -74,33 +75,9 @@ namespace EasyNet.Core.Extension
         /// <param name="stream"></param>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static bool ToFie(this MemoryStream stream, string filePath)
-        {
-            if (stream.IsNull())
-            {
-                return false;
-            }
-
-            using (var fstream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-            {
-                using (var writer = new BinaryWriter(fstream))
-                {
-                    writer.Write(stream.ToArray());
-
-                    stream.Close();
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// 把<paramref name="stream"/>写入<paramref name="filePath"/>指定的文件。
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
         public static bool ToFile(this Stream stream, string filePath)
         {
+            filePath.NotNullOrEmptyCheck(nameof(filePath));
             if (stream.IsNull())
             {
                 return false;
@@ -111,7 +88,9 @@ namespace EasyNet.Core.Extension
                 using (var writer = new BinaryWriter(fstream))
                 {
                     writer.Write(stream.ToBytes());
+
                     stream.Close();
+                    writer.Close();
                 }
             }
             return true;
