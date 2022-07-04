@@ -34,8 +34,8 @@ https://choosealicense.com/licenses/mit/#
 |                     | bool IsDictionary(this Type type)                            | 判断是否为字典<br/>依赖于**As**方法               |
 |                     | bool IsList(this Type type)                                  | 判断是否为List                                    |
 |                     | Type[] GetParameterTypes(this MethodBase method)             | 获取参数类型                                      |
-|                     | string Description(this PropertyInfo property)               | 获取Description特性值                             |
-|                     | string DisplayName(this PropertyInfo property)               | 获取DisplayName特性值                             |
+|                     | string Description(this MemberInfo member, string memberName = "") | 获取Description特性值                             |
+|                     | string DisplayName(this MemberInfo member, string memberName = "") | 获取DisplayName特性值                             |
 |                     | bool HasAttribute<T>(this ICustomAttributeProvider member, bool inherit = false) | 判断成员是否包含特定的特性                        |
 |                     | T GetAttribute<T>(this ICustomAttributeProvider member, bool inherit = false) | 获取指定的特性                                    |
 | **IOExtn**          | **IO 扩展方法**                                              |                                                   |

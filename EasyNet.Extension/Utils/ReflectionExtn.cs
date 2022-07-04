@@ -141,27 +141,53 @@ namespace EasyNet.Extension
         /// <summary>
         /// 获取Description特性值
         /// </summary>
-        /// <param name="property"></param>
+        /// <param name="member"></param>
+        /// <param name="memberName"></param>
         /// <returns></returns>
-        public static string Description(this PropertyInfo property)
+        public static string Description(this MemberInfo member, string memberName = "")
         {
-            property.NotNullCheck(nameof(property));
+            member.NotNullCheck(nameof(member));
 
-            var attr = property.GetAttribute<DescriptionAttribute>();
-            return attr?.Description;
+            if (memberName.IsNullOrEmptyEx())
+            {
+                var attr = member.GetAttribute<DescriptionAttribute>();
+                return attr?.Description;
+            }
+            else
+            {
+                if (member is Type type)
+                {
+                    return type.GetMember(memberName).FirstOrDefault()?.Description();
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
         /// 获取DisplayName特性值
         /// </summary>
-        /// <param name="property"></param>
+        /// <param name="member"></param>
+        /// <param name="memberName"></param>
         /// <returns></returns>
-        public static string DisplayName(this PropertyInfo property)
+        public static string DisplayName(this MemberInfo member, string memberName = "")
         {
-            property.NotNullCheck(nameof(property));
+            member.NotNullCheck(nameof(member));
 
-            var attr = property.GetAttribute<DisplayNameAttribute>();
-            return attr?.DisplayName;
+            if (memberName.IsNullOrEmptyEx())
+            {
+                var attr = member.GetAttribute<DisplayNameAttribute>();
+                return attr?.DisplayName;
+            }
+            else
+            {
+                if (member is Type type)
+                {
+                    return type.GetMember(memberName).FirstOrDefault()?.DisplayName();
+                }
+            }
+
+            return null;
         }
 
 

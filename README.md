@@ -1,37 +1,38 @@
 # EasyNetWrapper
 
-## Ö¤ÊéµØÖ·
+## è¯ä¹¦åœ°å€
 https://choosealicense.com/licenses/mit/#  
 
-## PackageÒıÓÃºÍÏîÄ¿ÒÀÀµ
-* 1¡¢log4net 2.0.7
+## Packageå¼•ç”¨å’Œé¡¹ç›®ä¾èµ–
+* 1ã€log4net 2.0.7
 
 
-## ÏîÄ¿½á¹¹
--- **EasyNet.Core** ÏîÄ¿
+## é¡¹ç›®ç»“æ„
+-- **EasyNet.Core** é¡¹ç›®
    |-- log4net.config
 
 ------
 
--- **EasyNet.Extension** ÏîÄ¿
-	|-- Utils ÎÄ¼ş¼Ğ
+-- **EasyNet.Extension** é¡¹ç›®
+	|-- Utils æ–‡ä»¶å¤¹
 		|-- IEnumerableExtn.cs
 		|-- IntPtrExtn.cs
 		|-- IOExtn.cs
 		|-- ObjectExtn.cs
 		|-- ReflectionExtn.cs
 		|-- StringExtn.cs
-	|-- Helpers ÎÄ¼ş¼Ğ
+	|-- Helpers æ–‡ä»¶å¤¹
 		|-- ValueConverter.cs
 
-## ĞŞ¸ÄÈÕÖ¾
-### 1¡¢2022-07-02 lanwah  
-- 1¡¢ĞÂÔöÁË**EasyNet.Extension**ÏîÄ¿£¬²¢Ìí¼ÓÁË**Utils**ÎÄ¼ş¼Ğ£¬Ìí¼ÓÁËÈçÏÂÎÄ¼ş£º
+## ä¿®æ”¹æ—¥å¿—
+### 1ã€2022-07-02 lanwah  
+- 1ã€æ–°å¢äº†**EasyNet.Extension**é¡¹ç›®ï¼Œå¹¶æ·»åŠ äº†**Utils**æ–‡ä»¶å¤¹ï¼Œæ·»åŠ äº†å¦‚ä¸‹æ–‡ä»¶ï¼š
   IEnumerableExtn.cs
   IntPtrExtn.cs
   ObjectExtn.cs
   ReflectionExtn.cs
   StringExtn.cs
-- 2¡¢Ìí¼ÓÁË**Helpers**ÎÄ¼ş¼Ğ£¬Ìí¼ÓÁËÈçÏÂÎÄ¼ş£º
+- 2ã€æ·»åŠ äº†**Helpers**æ–‡ä»¶å¤¹ï¼Œæ·»åŠ äº†å¦‚ä¸‹æ–‡ä»¶ï¼š
   ValueConverter.cs
-
+### 2ã€2022-07-04 lanwah
+1ã€æ›´æ”¹ **ReflectionExtn** ç±»ä¸­ **Description** å’Œ **DisplayName** æ‰©å±•æ–¹æ³•çš„å®ç°ã€‚
