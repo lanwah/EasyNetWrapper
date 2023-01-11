@@ -153,5 +153,86 @@ namespace EasyNet.Extension
 
             return bytes;
         }
+
+        /// <summary>
+        /// 判断是否为目录
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns><see cref="true"/> - 是目录，否则为文件</returns>
+        public static bool IsDirectory(this string filePath)
+        {
+            if (filePath.IsNullOrEmptyEx())
+            {
+                return false;
+            }
+
+            // get the file attributes for file or directory
+            var attr = File.GetAttributes(filePath);
+
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 获取路径中最后一部分的名称（文件名或文件夹名）。
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static string GetLastNameOfPath(this string filePath)
+        {
+            if (filePath.IsNullOrEmptyEx())
+            {
+                return string.Empty;
+            }
+
+            // 正则说明：
+            // [^/\\]   ：表示匹配除了斜杠(/)和反斜杠(\)以外的任意字符，双反斜杠用于转义
+            // +        ：表示匹配前面的表达式一次或多次
+            // [/\\]    ：表示匹配斜杠(/)或反斜杠(\)
+            // *        ：表示匹配零次或多次
+            // $        ：表示从后向前匹配
+
+            // 截取最后一部分名称，名称的末尾可能带有多个斜杠(/)或反斜杠(\)
+            var pattern = @"[^/\\]+[/\\]*$";
+            var match = System.Text.RegularExpressions.Regex.Match(filePath, pattern);
+            var name = match.Value;
+
+            // 截取名称中不带斜杠(/)或反斜杠(\)的部分
+            pattern = @"[^/\\]+";
+            match = System.Text.RegularExpressions.Regex.Match(name, pattern);
+            name = match.Value;
+
+            return name;
+        }
+
+        /// <summary>
+        /// 获取目录下的文件和文件夹
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static List<string> GetFilesAndDirectories(this string path)
+        {
+            var fileList = new List<string>();
+            var files = Directory.GetFiles(path);
+            if (null != files)
+            {
+                fileList.AddRange(files);
+            }
+            var direcotries = Directory.GetDirectories(path);
+            if (null != direcotries)
+            {
+                fileList.AddRange(direcotries);
+            }
+
+            return fileList;
+        }
+
+
     }
 }

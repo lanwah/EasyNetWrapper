@@ -65,7 +65,7 @@ namespace EasyNet.Extension
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
-        /// <returns></returns>
+        /// <returns>true - 有值；false - 无值</returns>
         public static bool HasData<T>(this IEnumerable<T> source)
         {
             if (source.IsNull())
@@ -74,6 +74,16 @@ namespace EasyNet.Extension
             }
 
             return (source.Count() > 0);
+        }
+        /// <summary>
+        /// 判断集合是否无值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns>true - 无值；false - 有值</returns>
+        public static bool HasNoData<T>(this IEnumerable<T> source)
+        {
+            return !HasData(source);
         }
     }
 }
