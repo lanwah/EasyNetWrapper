@@ -77,7 +77,7 @@ namespace EasyNet.Extension
         /// <returns></returns>
         public static bool ToFile(this Stream stream, string filePath)
         {
-            filePath.NotNullOrEmptyCheck(nameof(filePath));
+            filePath.ThrowIfNull(nameof(filePath));
             if (stream.IsNull())
             {
                 return false;

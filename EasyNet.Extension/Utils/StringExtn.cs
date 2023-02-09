@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 // ------------------------------------------------------------- //
@@ -26,25 +28,27 @@ namespace EasyNet.Extension
     /// <summary>
     /// String 扩展方法
     /// </summary>
-    public static class StringExtn
+    public static partial class StringExtn
     {
         /// <summary>
-        /// 检查参数是否空字符，空时抛出ArgumentNullException
+        /// 检查参数是否空字符串，空时抛出ArgumentNullException
         /// </summary>
         /// <param name="argumentValue">参数值</param>
         /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        public static void NotNullOrEmptyCheck(this string argumentValue, string argumentName)
+        /// <exception cref="ArgumentNullException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ThrowIfNull(this string argumentValue, string argumentName)
         {
-            NotNullOrEmpty(argumentValue, argumentName);
+            ThrowIfNullInternal(argumentValue, argumentName);
         }
         /// <summary>
-        /// 检查参数是否非空，空时抛出ArgumentNullException
+        /// 检查参数是否空字符串，空时抛出ArgumentNullException
         /// </summary>
         /// <param name="argumentValue">参数值</param>
         /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        /// <see cref="nameof"/>
         /// <exception cref="ArgumentNullException"></exception>
-        internal static void NotNullOrEmpty(string argumentValue, string argumentName)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void ThrowIfNullInternal(string argumentValue, string argumentName)
         {
             if (argumentValue.IsNullOrEmptyEx())
             {
@@ -52,21 +56,30 @@ namespace EasyNet.Extension
             }
         }
 
+
         /// <summary>
         /// 判断字符串是否为空
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmptyEx(this string value)
+        /// <param name="this">输入字符串</param>
+        /// <returns>true - 为空，否则有值</returns>
+        public static bool IsNullOrEmptyEx(this string @this)
         {
-            if ((value == null) || (value.Length == 0) || (value.Trim().Length == 0))
+            if ((@this == null) || (@this.Length == 0) || (@this.Trim().Length == 0))
             {
                 return true;
             }
 
             return false;
         }
-
+        /// <summary>
+        /// 判断字符串是否非空
+        /// </summary>
+        /// <param name="this">输入字符串</param>
+        /// <returns>true - 有值，否则为空</returns>
+        public static bool IsNotNullOrEmpty(this string @this)
+        {
+            return !@this.IsNullOrEmptyEx();
+        }
         /// <summary>
         /// 字符串转对象
         /// </summary>
@@ -77,7 +90,6 @@ namespace EasyNet.Extension
         {
             return ValueConverter.ConvertFromString<T>(value);
         }
-
         /// <summary>
         /// 判断文件是否存在
         /// </summary>
@@ -92,12 +104,11 @@ namespace EasyNet.Extension
 
             return File.Exists(filePath);
         }
-
         /// <summary>
         /// 判断文件是否被占用
         /// </summary>
         /// <param name="filePath"></param>
-        /// <returns><see cref="true"/> - 被占用，否则未被占用</returns>
+        /// <returns>true - 被占用，否则未被占用</returns>
         public static bool IsFileUsing(this string filePath)
         {
             if (!filePath.IsFileExist())
@@ -130,7 +141,6 @@ namespace EasyNet.Extension
 
             return used;
         }
-
         /// <summary>
         /// 读取文件的二进制内容
         /// </summary>
@@ -153,12 +163,11 @@ namespace EasyNet.Extension
 
             return bytes;
         }
-
         /// <summary>
         /// 判断是否为目录
         /// </summary>
         /// <param name="filePath"></param>
-        /// <returns><see cref="true"/> - 是目录，否则为文件</returns>
+        /// <returns>true - 是目录，否则为文件</returns>
         public static bool IsDirectory(this string filePath)
         {
             if (filePath.IsNullOrEmptyEx())
@@ -178,7 +187,6 @@ namespace EasyNet.Extension
                 return false;
             }
         }
-
         /// <summary>
         /// 获取路径中最后一部分的名称（文件名或文件夹名）。
         /// </summary>
@@ -210,7 +218,6 @@ namespace EasyNet.Extension
 
             return name;
         }
-
         /// <summary>
         /// 获取目录下的文件和文件夹
         /// </summary>

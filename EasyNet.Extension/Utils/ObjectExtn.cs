@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,19 +57,21 @@ namespace EasyNet.Extension
         /// </summary>
         /// <param name="argumentValue">参数值</param>
         /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        public static void NotNullCheck(this object argumentValue, string argumentName)
+        /// <exception cref="ArgumentNullException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ThrowIfNull(this object argumentValue, string argumentName)
         {
-            NotNull(argumentValue, argumentName);
+            ThrowIfNullInternal(argumentValue, argumentName);
         }
         /// <summary>
         /// 检查参数是否非空，空时抛出ArgumentNullException
         /// </summary>
         /// <param name="argumentValue">参数值</param>
         /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        /// <see cref="nameof"/>
         /// <exception cref="ArgumentNullException"></exception>
         [DebuggerStepThrough]
-        internal static void NotNull(object argumentValue, string argumentName)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void ThrowIfNullInternal(object argumentValue, string argumentName)
         {
             if (argumentValue == null)
             {

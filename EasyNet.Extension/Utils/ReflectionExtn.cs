@@ -122,7 +122,7 @@ namespace EasyNet.Extension
         /// <returns></returns>
         public static Type[] GetParameterTypes(this MethodBase method)
         {
-            method.NotNullCheck(nameof(method));
+            method.ThrowIfNull(nameof(method));
 
             return method.GetParameters().GetParameterTypes();
         }
@@ -133,7 +133,7 @@ namespace EasyNet.Extension
         /// <returns></returns>
         internal static Type[] GetParameterTypes(this ParameterInfo[] parameterInfos)
         {
-            parameterInfos.NotNullCheck(nameof(parameterInfos));
+            parameterInfos.ThrowIfNull(nameof(parameterInfos));
 
             return parameterInfos.Select(parameterInfo => parameterInfo.ParameterType).ToArray();
         }
@@ -146,7 +146,7 @@ namespace EasyNet.Extension
         /// <returns></returns>
         public static string Description(this MemberInfo member, string memberName = "")
         {
-            member.NotNullCheck(nameof(member));
+            member.ThrowIfNull(nameof(member));
 
             if (memberName.IsNullOrEmptyEx())
             {
@@ -172,7 +172,7 @@ namespace EasyNet.Extension
         /// <returns></returns>
         public static string DisplayName(this MemberInfo member, string memberName = "")
         {
-            member.NotNullCheck(nameof(member));
+            member.ThrowIfNull(nameof(member));
 
             if (memberName.IsNullOrEmptyEx())
             {
@@ -203,7 +203,7 @@ namespace EasyNet.Extension
         public static bool HasAttribute<T>(this ICustomAttributeProvider member, bool inherit = false)
             where T : Attribute
         {
-            member.NotNullCheck(nameof(member));
+            member.ThrowIfNull(nameof(member));
 
             return member.IsDefined(typeof(T), inherit);
         }
@@ -232,7 +232,7 @@ namespace EasyNet.Extension
         internal static T[] GetAttributes<T>(this ICustomAttributeProvider member, bool inherit = false)
             where T : Attribute
         {
-            member.NotNullCheck(nameof(member));
+            member.ThrowIfNull(nameof(member));
 
             return member.GetCustomAttributes(typeof(T), inherit) as T[];
         }

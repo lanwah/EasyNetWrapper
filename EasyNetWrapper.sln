@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNet.Core", "EasyNet.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Tester", "EasyNet.Tester\EasyNet.Tester.csproj", "{89D75EF0-68E9-4C5D-8EB7-14A6B3E84D5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Win", "EasyNet.Win\EasyNet.Win.csproj", "{1DDD3A8A-74FB-45B8-9625-5BA90C05EA37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{89D75EF0-68E9-4C5D-8EB7-14A6B3E84D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89D75EF0-68E9-4C5D-8EB7-14A6B3E84D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89D75EF0-68E9-4C5D-8EB7-14A6B3E84D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DDD3A8A-74FB-45B8-9625-5BA90C05EA37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DDD3A8A-74FB-45B8-9625-5BA90C05EA37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DDD3A8A-74FB-45B8-9625-5BA90C05EA37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DDD3A8A-74FB-45B8-9625-5BA90C05EA37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{FCB4C9C0-A806-407D-8BA0-BDEEE2EE8888} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 		{E7407DD0-4863-40CA-9D75-232CF52903A2} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 		{89D75EF0-68E9-4C5D-8EB7-14A6B3E84D5C} = {09A00B3B-8F77-4679-9F08-3D088246539A}
+		{1DDD3A8A-74FB-45B8-9625-5BA90C05EA37} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7281B48E-9A2B-4BBD-AE50-AE5B580D5115}

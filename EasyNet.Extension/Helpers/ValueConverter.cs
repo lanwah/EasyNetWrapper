@@ -42,7 +42,7 @@ namespace EasyNet.Extension
         /// <see cref="TypeConverter.ConvertTo(ITypeDescriptorContext, System.Globalization.CultureInfo, object, Type)"/>
         public static string ConvertToString(object value)
         {
-            value.NotNullCheck(nameof(value));
+            value.ThrowIfNull(nameof(value));
 
             return TypeDescriptor.GetConverter(value.GetType()).ConvertToString(value);
         }

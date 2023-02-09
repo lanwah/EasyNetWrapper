@@ -238,8 +238,8 @@ namespace EasyNet.Core.Utils
         /// <returns></returns>
         private FunStatus Update(string sourceFilePath, string targetFilePath, List<string> ingoreFiles)
         {
-            targetFilePath.NotNullOrEmptyCheck(nameof(targetFilePath));
-            targetFilePath.NotNullOrEmptyCheck(nameof(sourceFilePath));
+            targetFilePath.ThrowIfNull(nameof(targetFilePath));
+            targetFilePath.ThrowIfNull(nameof(sourceFilePath));
 
             this.ReportProgress($"准备处理 {targetFilePath} 目录下的文件....", NLog.LogLevel.Info);
 

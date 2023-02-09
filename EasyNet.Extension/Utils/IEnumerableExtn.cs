@@ -36,7 +36,7 @@ namespace EasyNet.Extension
         /// <returns></returns>
         public static IEnumerable<T> DistinctBy<T, V>(this IEnumerable<T> source, Func<T, V> keySelector)
         {
-            source.NotNullCheck(nameof(source));
+            source.ThrowIfNull(nameof(source));
 
             return source.Distinct(new CommonEqualityComparer<T, V>(keySelector));
         }
