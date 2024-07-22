@@ -44,17 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DescriptionTester.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EasyNet.Extension\EasyNet.Extension.csproj">
-      <Project>{fcb4c9c0-a806-407d-8ba0-bdeee2ee8888}</Project>
-      <Name>EasyNet.Extension</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

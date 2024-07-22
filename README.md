@@ -24,6 +24,14 @@ https://choosealicense.com/licenses/mit/#
 	|-- Helpers 文件夹
 		|-- ValueConverter.cs
 
+------
+
+-- **EasyNet.Win32** 项目
+	|-- User32.cs
+	|-- Structs 文件夹
+		|-- Input.cs
+		|-- MouseEventFlag.cs
+
 ## 修改日志
 ### 1、2022-07-02 lanwah  
 - 1、新增了**EasyNet.Extension**项目，并添加了**Utils**文件夹，添加了如下文件：
@@ -36,3 +44,6 @@ https://choosealicense.com/licenses/mit/#
   ValueConverter.cs
 ### 2、2022-07-04 lanwah
 1、更改 **ReflectionExtn** 类中 **Description** 和 **DisplayName** 扩展方法的实现。
+
+### 3、2022-07-05 lanwah
+1、添加了 EasyNet.Win32 项目

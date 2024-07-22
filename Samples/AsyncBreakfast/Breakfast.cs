@@ -436,7 +436,5 @@ namespace AsyncBreakfast
 
             return toast;
         }
-
-
     }
 }

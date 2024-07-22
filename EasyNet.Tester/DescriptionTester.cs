@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using EasyNet.Extension;
-
+using EasyNet.Tester.Models;
 
 namespace EasyNet.Tester
 {
@@ -14,6 +14,9 @@ namespace EasyNet.Tester
     {
         public static void Run()
         {
+            var type = typeof(Product);
+            var desc = type.Description();
+            var aa = type.GetMember("Category").FirstOrDefault()?.GetMemberType();
 
         }
     }
