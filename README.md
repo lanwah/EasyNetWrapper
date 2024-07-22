@@ -28,6 +28,8 @@ https://choosealicense.com/licenses/mit/#
 
 -- **EasyNet.Win32** 项目
 	|-- User32.cs
+	|-- Kernel32.cs
+	|-- Kernel32.Wrapper.cs
 	|-- Structs 文件夹
 		|-- Input.cs
 		|-- MouseEventFlag.cs

@@ -6,7 +6,10 @@ using System.Text;
 
 namespace EasyNet.Win32
 {
-    public class Win32
+    /// <summary>
+    /// user32 相关方法
+    /// </summary>
+    public partial class Win32
     {
         /// <summary>
         /// user32.dll
@@ -14,6 +17,7 @@ namespace EasyNet.Win32
         internal const string USER32 = "user32.dll";
 
 
+        #region M
         /// <summary>
         /// 鼠标事件，此函数综合了鼠标移动和按钮点击，此函数已被取代。改用<see cref="SendInput"/>。
         /// </summary>
@@ -25,7 +29,9 @@ namespace EasyNet.Win32
         /// <param name="dwExtraInfo"></param>
         [DllImport(USER32)]
         public static extern void mouse_event(uint dwFlags, int dx, int dy, uint dwData, UIntPtr dwExtraInfo);
+        #endregion
 
+        #region S
         /// <summary>
         /// 该函数合成键盘事件和鼠标事件，用来模拟鼠标或者键盘操作。事件将被插入在鼠标处理队列里面。
         /// </summary>
@@ -36,5 +42,6 @@ namespace EasyNet.Win32
         /// <returns>成功插入了多少个操作事件。如果插入出错可以利用GetLastError来查看错误类型。</returns>
         [DllImport(USER32)]
         public static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+        #endregion
     }
 }
