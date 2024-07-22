@@ -2,47 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
-// ------------------------------------------------------------- //
-// 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Extension.Utils
-// 文件名称：IEnumerableExtn.cs
-// 创 建 者：lanwah
-// 创建日期：2022/7/2 9:23:21
-// 功能描述：
-// 调用依赖：
-// -------------------------------------------------------------
-// 修 改 者：
-// 修改时间：
-// 修改原因：
-// 修改描述：
-// ------------------------------------------------------------- //
 
 namespace EasyNet.Extensions
 {
     /// <summary>
-    /// IEnumerable 扩展方法
+    /// IEnumerable类型 扩展方法
     /// </summary>
-    public static class IEnumerableExtn
+    public static class IEnumerableExts
     {
         /// <summary>
         /// 对象去重
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="V"></typeparam>
-        /// <param name="source"></param>
+        /// <param name="this"></param>
         /// <param name="keySelector"></param>
         /// <returns></returns>
-        public static IEnumerable<T> DistinctBy<T, V>(this IEnumerable<T> source, Func<T, V> keySelector)
+        public static IEnumerable<T> DistinctBy<T, V>(this IEnumerable<T> @this, Func<T, V> keySelector)
         {
-            source.ThrowIfNull(nameof(source));
+            if (@this.IsNull())
+            {
+                //如果为空，则返回原集合
+                return @this;
+            }
 
-            return source.Distinct(new CommonEqualityComparer<T, V>(keySelector));
+            return @this.Distinct(new CommonEqualityComparer<T, V>(keySelector));
         }
         internal class CommonEqualityComparer<T, V> : IEqualityComparer<T>
         {
-            private Func<T, V> keySelector;
+            private readonly Func<T, V> keySelector;
 
             public CommonEqualityComparer(Func<T, V> keySelector)
             {

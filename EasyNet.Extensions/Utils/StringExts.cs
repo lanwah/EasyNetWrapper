@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
 // 项目名称：EasyNet.Extension.Utils
-// 文件名称：IntPtrExtn
+// 文件名称：StringExts
 // 创 建 者：lanwah
 // 创建日期：2022/7/2 9:41:18
 // 功能描述：
@@ -26,43 +24,18 @@ using System.Threading.Tasks;
 namespace EasyNet.Extensions
 {
     /// <summary>
-    /// String 扩展方法
+    /// String类型 扩展方法
     /// </summary>
-    public static partial class StringExtn
+    public static partial class StringExts
     {
         /// <summary>
-        /// 检查参数是否空字符串，空时抛出ArgumentNullException
-        /// </summary>
-        /// <param name="argumentValue">参数值</param>
-        /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ThrowIfNull(this string argumentValue, string argumentName)
-        {
-            ThrowIfNullInternal(argumentValue, argumentName);
-        }
-        /// <summary>
-        /// 检查参数是否空字符串，空时抛出ArgumentNullException
-        /// </summary>
-        /// <param name="argumentValue">参数值</param>
-        /// <param name="argumentName">参数名称，可以通过nameof(argumentValue)进行使用</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void ThrowIfNullInternal(string argumentValue, string argumentName)
-        {
-            if (argumentValue.IsNullOrEmptyEx())
-            {
-                throw new ArgumentNullException(argumentName);
-            }
-        }
-        /// <summary>
-        /// 判断字符串是否为空
+        /// 判断字符串是否为空，包含空格
         /// </summary>
         /// <param name="this">输入字符串</param>
         /// <returns>true - 为空，否则有值</returns>
         public static bool IsNullOrEmptyEx(this string @this)
         {
-            if ((@this == null) || (@this.Length == 0) || (@this.Trim().Length == 0))
+            if ((@this.IsNullOrEmpty()) || (@this.Trim().Length == 0))
             {
                 return true;
             }
@@ -70,20 +43,22 @@ namespace EasyNet.Extensions
             return false;
         }
         /// <summary>
-        /// 字符串转对象
+        /// 同 <see cref="string.IsNullOrEmpty"/>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
+        /// <param name="this"></param>
         /// <returns></returns>
-        public static T ConvertFromString<T>(this string value)
+        public static bool IsNullOrEmpty(this string @this)
         {
-            return ValueConverter.ConvertFromString<T>(value);
+            return string.IsNullOrEmpty(@this);
         }
+
+
+
         /// <summary>
         /// 判断文件是否存在
         /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
+        /// <param name="filePath">文件的完整路径</param>
+        /// <returns>true - 文件存在，否则不存在</returns>
         public static bool IsFileExist(this string filePath)
         {
             if (filePath.IsNullOrEmpty())
@@ -94,47 +69,10 @@ namespace EasyNet.Extensions
             return File.Exists(filePath);
         }
         /// <summary>
-        /// 判断文件是否被占用
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns>true - 被占用，否则未被占用</returns>
-        public static bool IsFileUsing(this string filePath)
-        {
-            if (!filePath.IsFileExist())
-            {
-                // 文件不存在
-                return false;
-            }
-
-            var used = true;
-            FileStream fs = null;
-
-            try
-            {
-
-                fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None);
-
-                used = false;
-            }
-            catch
-            {
-                // file is using.
-            }
-            finally
-            {
-                if (fs != null)
-                {
-                    fs.Close();
-                }
-            }
-
-            return used;
-        }
-        /// <summary>
         /// 读取文件的二进制内容
         /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns>文件内容byte数组</returns>
+        /// <param name="filePath">文件的完整路径</param>
+        /// <returns>文件内容的 byte[]</returns>
         public static byte[] ReadFileBytes(this string filePath)
         {
             byte[] bytes = null;
@@ -150,10 +88,12 @@ namespace EasyNet.Extensions
 
             return bytes;
         }
+
+#if NET40_OR_GREATER
         /// <summary>
         /// 判断是否为目录
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="filePath">文件的完整路径</param>
         /// <returns>true - 是目录，否则为文件</returns>
         public static bool IsDirectory(this string filePath)
         {
@@ -174,11 +114,12 @@ namespace EasyNet.Extensions
                 return false;
             }
         }
+#endif
         /// <summary>
         /// 获取路径中最后一部分的名称（文件名或文件夹名）。
         /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
+        /// <param name="filePath">文件的完整路径</param>
+        /// <returns>文件名或文件夹名</returns>
         public static string GetLastNameOfPath(this string filePath)
         {
             if (filePath.IsNullOrEmpty())
@@ -208,35 +149,74 @@ namespace EasyNet.Extensions
         /// <summary>
         /// 获取目录下的文件和文件夹
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="directory"></param>
         /// <returns></returns>
-        public static List<string> GetFilesAndDirectories(this string path)
+        public static List<string> GetFilesAndDirectories(this string directory)
         {
             var fileList = new List<string>();
-            var files = Directory.GetFiles(path);
-            if (null != files)
+            var files = Directory.GetFiles(directory);
+            if (files.IsNotNull())
             {
                 fileList.AddRange(files);
             }
-            var direcotries = Directory.GetDirectories(path);
-            if (null != direcotries)
+            var direcotries = Directory.GetDirectories(directory);
+            if (direcotries.IsNotNull())
             {
                 fileList.AddRange(direcotries);
             }
 
             return fileList;
         }
+
         /// <summary>
-        /// 字符串转int32
+        /// 字符串转对象
         /// </summary>
-        /// <param name="this">输入字符串</param>
-        /// <param name="defaultValue">默认值，默认为0</param>
-        /// <returns>转换成功则返回字符串对应的值，否则返回<paramref name="defaultValue"/>。</returns>
-        public static int ToInt32(this string @this, int defaultValue = 0)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static T ConvertFromString<T>(this string value)
         {
-            var temp = 0;
-            return int.TryParse(@this, out temp) ? temp : defaultValue;
+            return ValueConverter.ConvertFromString<T>(value);
         }
 
+        /// <summary>
+        /// 通过 TypeConverter 实现值与字符串值之间的转换
+        /// </summary>
+        internal class ValueConverter
+        {
+            /// <summary>
+            /// 获取提示信息
+            /// </summary>
+            /// <param name="type"></param>
+            /// <returns></returns>
+            public static string GetNotSupportedMessage(Type type)
+            {
+                return $"不支持转换，可能原因是未找到{type}类型的转换器，请实现转换器类（继承TypeConverter类并重写相关接口）。";
+            }
+
+            /// <summary>
+            /// 字符串转对象
+            /// </summary>
+            /// <see cref="TypeConverter.ConvertFrom(ITypeDescriptorContext, System.Globalization.CultureInfo, object)"/>
+            /// <typeparam name="T">类型</typeparam>
+            /// <param name="value">字符串类型值</param>
+            /// <returns>类型值</returns>
+            public static T ConvertFromString<T>(string value)
+            {
+                return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(value);
+            }
+            /// <summary>
+            /// 对象转换成字符串
+            /// </summary>
+            /// <see cref="TypeConverter.ConvertTo(ITypeDescriptorContext, System.Globalization.CultureInfo, object, Type)"/>
+            /// <see cref="Int32Converter"/>
+            /// <see cref="BaseNumberConverter"/>
+            /// <param name="value">类型值</param>
+            /// <returns>对象的字符串表示形式</returns>
+            public static string ConvertToString(object value)
+            {
+                return TypeDescriptor.GetConverter(value.GetType()).ConvertToString(value);
+            }
+        }
     }
 }

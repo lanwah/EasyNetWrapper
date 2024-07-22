@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
+
+// ------------------------------------------------------------- //
+// 版权所有：CopyRight (C) lanwah
+// 项目名称：EasyNet.Extension.Utils
+// 文件名称：IntPtrExtn
+// 创 建 者：lanwah
+// 创建日期：2022/7/2 9:41:18
+// 功能描述：
+// 调用依赖：
+// -------------------------------------------------------------
+// 修 改 者：
+// 修改时间：
+// 修改原因：
+// 修改描述：
+// ------------------------------------------------------------- //
 
 namespace EasyNet.Extensions
 {
     /// <summary>
-    /// String 扩展方法
+    /// Regex处理string匹配相关的扩展方法
     /// </summary>
-    public static partial class StringExtn
+    public static partial class StringExts
     {
         /*************************************************************************************************************************
          * 
@@ -161,7 +174,6 @@ namespace EasyNet.Extensions
             return @this.Replace(pattern, dealer);
         }
 
-
         /// <summary>
         /// 计算字符串的字节长度，一个汉字字符将被计算为两个字符
         /// </summary>
@@ -204,9 +216,6 @@ namespace EasyNet.Extensions
              * 5、如果出现一次以上 返回false
              * 6、^([\da-f]{1,4}:){0,5}::([\da-f]{1,4}:){0,5}[\da-f]{1,4}$
              * ******************************************************************/
-
-            // 匹配正则表达式
-            var pattern = "";
             var temp = @this;
             var strs = temp.Split(':');
             if (strs.Length > 8)
@@ -214,6 +223,9 @@ namespace EasyNet.Extensions
                 return false;
             }
             var count = GetStringCount(@this, "::");
+
+            // 匹配正则表达式
+            string pattern;
             if (count > 1)
             {
                 return false;
@@ -326,7 +338,7 @@ namespace EasyNet.Extensions
         /// <param name="value">指定字符串</param>
         /// <param name="startIndex">搜索的索引，从0开始</param>
         /// <returns>出现的次数</returns>
-        public static int GetStringCount(this string @this, string value, int startIndex = default(int))
+        public static int GetStringCount(this string @this, string value, int startIndex = default)
         {
             var index = @this.IndexOf(value, startIndex);
             if (index != -1)

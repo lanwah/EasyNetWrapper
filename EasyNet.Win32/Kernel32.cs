@@ -10,7 +10,7 @@ namespace EasyNet.Win32
     /// <summary>
     /// Kernel32 相关方法
     /// </summary>
-    public partial class Win32
+    public partial class Kernel32
     {
         /// <summary>
         /// kernel32.dll

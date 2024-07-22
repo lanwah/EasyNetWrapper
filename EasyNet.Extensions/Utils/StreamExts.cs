@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
 // 项目名称：EasyNet.Extension.Utils
-// 文件名称：IntPtrExtn
+// 文件名称：StreamExts
 // 创 建 者：lanwah
 // 创建日期：2022/7/2 9:41:18
 // 功能描述：
@@ -23,15 +22,15 @@ using System.Threading.Tasks;
 namespace EasyNet.Extensions
 {
     /// <summary>
-    /// IO 扩展方法
+    /// Stream类型 扩展方法
     /// </summary>
-    public static class IOExtn
+    public static class StreamExts
     {
         /// <summary>
-        /// 读取Stream中内容到的Byte数组
+        /// 读取Stream中内容到Byte数组
         /// </summary>
         /// <param name="stream"></param>
-        /// <returns>流中内容的二进制数组</returns>
+        /// <returns>流中内容的二进制数据</returns>
         public static byte[] ToBytes(this Stream stream)
         {
             if (stream.IsNull())
@@ -66,13 +65,12 @@ namespace EasyNet.Extensions
 
             return buffer;
         }
-
         /// <summary>
         /// 把<paramref name="stream"/>写入<paramref name="filePath"/>指定的文件。
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="filePath">文件完整路径</param>
-        /// <returns></returns>
+        /// <returns>true - 写入成功；false - 写入失败</returns>
         public static bool ToFile(this Stream stream, string filePath)
         {
             filePath.ThrowIfNull(nameof(filePath));

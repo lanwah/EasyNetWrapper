@@ -15,14 +15,15 @@ https://choosealicense.com/licenses/mit/#
 
 -- **EasyNet.Extension** 项目
 	|-- Utils 文件夹
-		|-- IEnumerableExtn.cs
-		|-- IntPtrExtn.cs
-		|-- IOExtn.cs
+		|-- DictionaryExts.cs
+		|-- IEnumerableExts.cs
+		|-- IntPtrExts.cs
+		|-- ObjectExts.cs
+		|-- ReflectionExts.cs
+		|-- StreamExts.cs
 		|-- ObjectExtn.cs
-		|-- ReflectionExtn.cs
-		|-- StringExtn.cs
-	|-- Helpers 文件夹
-		|-- ValueConverter.cs
+		|-- StringExts.cs
+		|-- StringRegexExts.cs
 
 ------
 

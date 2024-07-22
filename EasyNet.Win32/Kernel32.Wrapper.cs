@@ -9,7 +9,7 @@ namespace EasyNet.Win32
     /// <summary>
     /// Kernel32 相关方法封装
     /// </summary>
-    public partial class Win32
+    public partial class Kernel32
     {
         [System.Security.SecurityCritical]  // auto-generated
         internal static bool DoesWin32MethodExist(string moduleName, string methodName)

@@ -9,7 +9,7 @@ namespace EasyNet.Win32
     /// <summary>
     /// user32 相关方法
     /// </summary>
-    public partial class Win32
+    public partial class User32
     {
         /// <summary>
         /// user32.dll

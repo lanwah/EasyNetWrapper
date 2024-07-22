@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
@@ -23,24 +21,10 @@ using System.Threading.Tasks;
 namespace EasyNet.Extensions
 {
     /// <summary>
-    /// IntPtr 扩展方法
+    /// Int类型 扩展方法
     /// </summary>
-    public static class IntPtrExtn
+    public static class IntExts
     {
-        /// <summary>
-        /// IntPtr 转 Ansi 字符串
-        /// </summary>
-        /// <param name="handle"></param>
-        /// <param name="defaultValue">默认值</param>
-        /// <returns></returns>
-        public static string ToAnsiString(this IntPtr handle, string defaultValue = "")
-        {
-            if ((null == handle) || (IntPtr.Zero == handle))
-            {
-                return defaultValue;
-            }
 
-            return Marshal.PtrToStringAnsi(handle);
-        }
     }
 }
