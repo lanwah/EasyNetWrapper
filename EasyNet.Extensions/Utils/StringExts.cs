@@ -29,29 +29,50 @@ namespace EasyNet.Extensions
     public static partial class StringExts
     {
         /// <summary>
-        /// 判断字符串是否为空，包含空格
+        /// 判断字符串是否为空或者空字符，可以判断连续的空字符
         /// </summary>
         /// <param name="this">输入字符串</param>
         /// <returns>true - 为空，否则有值</returns>
         public static bool IsNullOrEmptyEx(this string @this)
         {
-            if ((@this.IsNullOrEmpty()) || (@this.Trim().Length == 0))
+            if (@this.IsNullOrEmpty())
             {
                 return true;
             }
 
-            return false;
+            // @this有值时，@this?.Length大于0，此时(@this?.Length > 0)返回true，然后继续判断是否都为空字符
+            // 只包含空格的情况
+            for (int i = 0; i < @this.Length; i++)
+            {
+                if (!char.IsWhiteSpace(@this[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
         /// <summary>
-        /// 同 <see cref="string.IsNullOrEmpty"/>
+        /// 判断字符串是否为空，不可判断多个连续的空格，需要判断连续的空字符请用<see cref="IsNullOrEmptyEx"/>
         /// </summary>
         /// <param name="this"></param>
         /// <returns></returns>
         public static bool IsNullOrEmpty(this string @this)
         {
-            return string.IsNullOrEmpty(@this);
+            // 判断 Null和string.Empty的情况
+            // @this为null时@this?.Length为null，(null > 0) = false
+            // @this为string.Empty时@this?.Length为0，(0 > 0) = false
+            return !(@this?.Length > 0);
         }
-
+        /// <summary>
+        /// 判断字符串是否非空，连续的空格此函数返回的是true
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns>true - 有值，否则为空</returns>
+        public static bool IsNotNullOrEmpty(this string @this)
+        {
+            return !@this.IsNullOrEmpty();
+        }
 
 
         /// <summary>

@@ -5,7 +5,7 @@ using System.Text;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Extension.Utils
+// 项目名称：EasyNet.Extensions
 // 文件名称：IntPtrExtn
 // 创 建 者：lanwah
 // 创建日期：2022/7/2 9:41:18

@@ -11,6 +11,7 @@ namespace EasyNet.Tester
         static void Main(string[] args)
         {
             DescriptionTester.Run();
+
         }
     }
 }

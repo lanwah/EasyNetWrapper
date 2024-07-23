@@ -51,6 +51,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EasyNet.Extensions\EasyNet.Extensions.csproj">
+      <Project>{d5bea36f-a8c2-4247-ba72-56c917e2b9c4}</Project>
+      <Name>EasyNet.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

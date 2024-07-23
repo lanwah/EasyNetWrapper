@@ -18,6 +18,7 @@ namespace EasyNet.Tester.Models
             get; set;
         }
         [Description("产品名称")]
+        [DisplayName("ProductName")]
         public string Name
         {
             get; set;

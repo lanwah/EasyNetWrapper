@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
@@ -27,10 +28,10 @@ namespace EasyNet.Extensions
     /// </summary>
     public static class ReflectionExts
     {
-        internal const string MemberInfoNullMsg = "MemberInfo类型参数为空，请检查！";
-        internal const string MethodBaseNullMsg = "MethodBase类型参数为空，请检查！";
-        internal const string ParameterInfosNullMsg = "ParameterInfo[]类型参数为空，请检查！";
-        internal const string ICustomAttributeProviderNullMsg = "ICustomAttributeProvider类型参数为空，请检查！";
+        internal const string MemberInfoNullMsg = "MemberInfo类型参数值为空，请检查！";
+        internal const string MethodBaseNullMsg = "MethodBase类型参数值为空，请检查！";
+        internal const string ParameterInfosNullMsg = "ParameterInfo[]类型参数值为空，请检查！";
+        internal const string ICustomAttributeProviderNullMsg = "ICustomAttributeProvider类型参数值为空，请检查！";
 
 
         /// <summary>
@@ -187,6 +188,7 @@ namespace EasyNet.Extensions
         }
         /// <summary>
         /// 获取DisplayName特性值
+        /// <see href="https://learn.microsoft.com/zh-cn/dotnet/api/system.componentmodel.displaynameattribute?view=net-8.0"/>
         /// </summary>
         /// <param name="this"></param>
         /// <param name="memberName">调用方为Type类型时，此字段为成员名称。</param>
@@ -222,6 +224,15 @@ namespace EasyNet.Extensions
         {
             @this.ThrowIfNull(string.Empty, MemberInfoNullMsg);
 
+#if NETCOREAPP2_0_OR_GREATER
+            return @this.MemberType switch
+            {
+                MemberTypes.Field => (@this as FieldInfo).FieldType,
+                MemberTypes.Property => (@this as PropertyInfo).PropertyType,
+                MemberTypes.Method => (@this as MethodInfo).ReturnType,
+                _ => null
+            };
+#else
             switch (@this.MemberType)
             {
                 case MemberTypes.Field:
@@ -232,6 +243,7 @@ namespace EasyNet.Extensions
                     return (@this as MethodInfo).ReturnType;
             }
             return null;
+#endif
         }
         /// <summary>
         /// 判断成员是否包含特定的特性

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using EasyNet.Extension;
 using EasyNet.Tester.Models;
+using EasyNet.Extensions;
 
 namespace EasyNet.Tester
 {
@@ -16,8 +17,10 @@ namespace EasyNet.Tester
         {
             var type = typeof(Product);
             var desc = type.Description();
-            var aa = type.GetMember("Category").FirstOrDefault()?.GetMemberType();
+            desc = type.GetMember("Category").FirstOrDefault()?.Description();
+            var categoryType = type.GetMember("Category").FirstOrDefault()?.GetMemberType();
 
+            List<byte> list = new List<byte>();
         }
     }
 }
