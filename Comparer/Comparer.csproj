@@ -235,10 +235,6 @@
       <Project>{3a940d11-a8da-4fb4-9998-4a218891d1c1}</Project>
       <Name>EasyNet.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyNet.Extensions\EasyNet.Extensions.csproj">
-      <Project>{d5bea36f-a8c2-4247-ba72-56c917e2b9c4}</Project>
-      <Name>EasyNet.Extensions</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

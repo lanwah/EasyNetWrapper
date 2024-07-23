@@ -8,8 +8,8 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EasyNet.Extensions\EasyNet.Extensions.csproj" />
-  </ItemGroup>
+  <Import Project="..\EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems" Label="Shared" />
+
+  <Import Project="..\EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems" Label="Shared" />
 
 </Project>

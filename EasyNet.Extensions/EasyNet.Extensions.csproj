@@ -8,4 +8,6 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <Import Project="..\EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems" Label="Shared" />
+
 </Project>

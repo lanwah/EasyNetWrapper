@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>0657e164-aaec-4710-ac9c-ac75d39587e2</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>EasyNet.Extensions.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ByteExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\DictionaryExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\IEnumerableExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\IntPtrExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ObjectExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ReflectionExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StreamExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StringRegexExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\扩展方法类模板Exts.cs" />
+  </ItemGroup>
+</Project>
