@@ -20,6 +20,7 @@ namespace EasyNet.Core
     /// <see langword="图片的文件头标识" href="https://zhidao.baidu.com/question/1827773615729430788.html"/>
     /// <see langword="各类文件的文件头标志" href="https://www.renrendoc.com/paper/223241037.html"/>
     /// 在能拿到对应数据的情况下，接口效率 FromBytes > FromImage > FromStream > FromFile > FromBase64String
+    /// <benchmark>\Comparer\ImageType.cs</benchmark>
     /// </summary>
     public class ImageFormatter : IImageFormat, IDisposable
     {

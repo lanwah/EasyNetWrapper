@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8146f733-4ba7-417b-8b22-5d155a439380</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>EasyNet.Win32.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Wrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\Input.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Structs\MouseEventFlag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)User32.cs" />
+  </ItemGroup>
+</Project>

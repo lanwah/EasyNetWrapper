@@ -32,6 +32,7 @@ namespace EasyNet.Extensions
         /// 判断字符串是否为空或者空字符，可以判断连续的空字符
         /// </summary>
         /// <param name="this">输入字符串</param>
+        /// <benchmark>\Comparer\StringNull.cs</benchmark>
         /// <returns>true - 为空，否则有值</returns>
         public static bool IsNullOrEmptyEx(this string @this)
         {
@@ -56,6 +57,7 @@ namespace EasyNet.Extensions
         /// 判断字符串是否为空，不可判断多个连续的空格，需要判断连续的空字符请用<see cref="IsNullOrEmptyEx"/>
         /// </summary>
         /// <param name="this"></param>
+        /// <benchmark>\Comparer\StringNull.cs</benchmark>
         /// <returns></returns>
         public static bool IsNullOrEmpty(this string @this)
         {
@@ -195,7 +197,7 @@ namespace EasyNet.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ConvertFromString<T>(this string value)
+        public static T ConvertTo<T>(this string value)
         {
             return ValueConverter.ConvertFromString<T>(value);
         }

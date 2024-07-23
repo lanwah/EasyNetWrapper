@@ -31,6 +31,7 @@ namespace EasyNet.Extensions
         /// 判断对象是否为Null
         /// </summary>
         /// <param name="this"></param>
+        /// <benchmark>\Comparer\ObjectNull.cs</benchmark>
         /// <returns></returns>
         public static bool IsNull(this object @this)
         {
@@ -139,7 +140,7 @@ namespace EasyNet.Extensions
         /// 对象转字符串
         /// </summary>
         /// <param name="this"></param>
-        /// <benchmark>\ObjectConverter\ObjectToString.cs</benchmark>
+        /// <benchmark>\Converter\ObjectToString.cs</benchmark>
         /// <returns>对象对应的字符串</returns>
         public static string ToStringEx(this object @this)
         {
@@ -151,17 +152,17 @@ namespace EasyNet.Extensions
             return @this.ToString();
         }
         /// <summary>
-        /// 返回一个指定类型的对象，转换失败不抛出异常返回默认值
+        /// Object 转换为指定类型，转换失败不抛出异常返回默认值
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="this"></param>
         /// <param name="defaultValue">转换失败时的默认值</param>
         /// <returns></returns>
-        public static T Cast<T>(this object @this, T defaultValue = default)
+        public static T CastTo<T>(this object @this, T defaultValue = default)
         {
             try
             {
-                return @this.Cast<T>();
+                return @this.CastTo<T>();
             }
             catch (InvalidCastException ex)
             {
@@ -170,14 +171,14 @@ namespace EasyNet.Extensions
             }
         }
         /// <summary>
-        /// 返回一个指定类型的对象，转换失败会抛出<see cref="InvalidCastException"/>异常
+        /// Object 转换为指定类型，转换失败会抛出<see cref="InvalidCastException"/>异常，此功能等同于显式类型转换。
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="this"></param>
         /// <exception cref="InvalidCastException"></exception>
-        /// <benchmark>\ObjectConverter\ObjectToInt.cs</benchmark>
+        /// <benchmark>\Converter\ObjectToInt.cs</benchmark>
         /// <returns></returns>
-        public static T Cast<T>(this object @this)
+        public static T CastTo<T>(this object @this)
         {
             return (T)@this;
         }

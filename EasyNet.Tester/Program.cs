@@ -8,10 +8,11 @@ namespace EasyNet.Tester
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             DescriptionTester.Run();
 
+            Console.ReadKey();
         }
     }
 }

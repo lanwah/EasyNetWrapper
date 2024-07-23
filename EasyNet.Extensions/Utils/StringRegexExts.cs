@@ -76,7 +76,8 @@ namespace EasyNet.Extensions
 
             var boundaryWord = @"\b";
             var patternBuilder = new StringBuilder();
-            if (pattern.IndexOf(boundaryWord) != 0)
+            //if (pattern.IndexOf(boundaryWord) != 0)
+            if (!pattern.StartsWith(boundaryWord))
             {
                 // 开始位置未找到，则加上
                 patternBuilder.Append(boundaryWord);
@@ -127,8 +128,13 @@ namespace EasyNet.Extensions
             // 参数检查
             pattern.ThrowIfNull(nameof(pattern));
 
-            // 执行替换
+            //// 执行替换
+
+#if NETCOREAPP2_0_OR_GREATER
+            replacement ??= "";
+#else
             replacement = replacement ?? "";
+#endif
 
             return Regex.Replace(@this, pattern, replacement);
         }

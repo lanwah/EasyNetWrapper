@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using EasyNet.Tester.Models;
 using EasyNet.Extensions;
+using System.Linq;
 
 namespace EasyNet.Tester
 {
@@ -16,11 +16,9 @@ namespace EasyNet.Tester
         public static void Run()
         {
             var type = typeof(Product);
-            var desc = type.Description();
-            desc = type.GetMember("Category").FirstOrDefault()?.Description();
-            var categoryType = type.GetMember("Category").FirstOrDefault()?.GetMemberType();
-
-            List<byte> list = new List<byte>();
+            _ = type.Description();
+            _ = type.GetMember("Category").FirstOrDefault()?.Description();
+            _ = type.GetMember("Category").FirstOrDefault()?.GetMemberType();
         }
     }
 }

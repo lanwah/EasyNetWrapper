@@ -30,6 +30,7 @@ namespace EasyNet.Extensions
         /// </summary>
         /// <param name="this"></param>
         /// <param name="other"></param>
+        /// <benchmark>\Comparer\SequenceEqual.cs</benchmark>
         /// <returns></returns>
         public static bool IsSequenceEqual(this List<byte> @this, List<byte> other)
         {
@@ -53,6 +54,7 @@ namespace EasyNet.Extensions
         /// </summary>
         /// <param name="this"></param>
         /// <param name="other"></param>
+        /// <benchmark>\Comparer\SequenceEqual.cs</benchmark>
         /// <returns></returns>
         public static bool IsSequenceEqual(this byte[] @this, byte[] other)
         {
