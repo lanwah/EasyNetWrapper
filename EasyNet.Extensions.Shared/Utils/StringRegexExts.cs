@@ -29,7 +29,8 @@ namespace EasyNet.Extensions
         /*************************************************************************************************************************
          * 
          * 1、正则表达式在线测试工具：https://www.osgeo.cn/app/sb207
-         * 2、Regex 类：https://learn.microsoft.com/zh-cn/dotnet/api/system.text.regularexpressions.regex?view=net-7.0      
+         * 2、Regex 类：https://learn.microsoft.com/zh-cn/dotnet/api/system.text.regularexpressions.regex?view=net-7.0   
+         * 3、正则表达式——详情版+常用表达式：https://blog.csdn.net/BLWY_1124/article/details/127133108?csdn_share_tail=%7B%22type%22%3A%22blog%22%2C%22rType%22%3A%22article%22%2C%22rId%22%3A%22127133108%22%2C%22source%22%3A%22BLWY_1124%22%7D
          *
          *************************************************************************************************************************/
 

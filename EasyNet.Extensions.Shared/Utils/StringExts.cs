@@ -241,5 +241,252 @@ namespace EasyNet.Extensions
                 return TypeDescriptor.GetConverter(value.GetType()).ConvertToString(value);
             }
         }
+
+        /// <summary>
+        /// 将字符串转换为bool类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static bool ToBoolean(this string @this, bool defaultValue = default)
+        {
+            bool val = false;
+            if (bool.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为sbyte类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static sbyte ToSByte(this string @this, sbyte defaultValue = default)
+        {
+            sbyte val = 0;
+            if (sbyte.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为byte类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static byte ToByte(this string @this, byte defaultValue = default)
+        {
+            byte val = 0;
+            if (byte.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }        
+        /// <summary>
+        /// 将字符串转换为char类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static char ToChar(this string @this, char defaultValue = default)
+        {
+            char val = '\0';
+            if (@this.Length == 1)
+            {
+                val = @this[0];
+            }
+            else if (char.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为short类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static short ToInt16(this string @this, short defaultValue = default)
+        {
+            short val = 0;
+            if (short.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为ushort类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static ushort ToUInt16(this string @this, ushort defaultValue = default)
+        {
+            ushort val = 0;
+            if (ushort.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为int类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static int ToInt32(this string @this, int defaultValue = default)
+        {
+            int val = 0;
+            if (int.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为uint类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static uint ToUInt32(this string @this, uint defaultValue = default)
+        {
+            uint val = 0;
+            if (uint.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为long类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static long ToInt64(this string @this, long defaultValue = default)
+        {
+            long val = 0;
+            if (long.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为ulong类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static ulong ToUInt64(this string @this, ulong defaultValue = default)
+        {
+            ulong val = 0;
+            if (ulong.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为float类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static float ToSingle(this string @this, float defaultValue = default)
+        {
+            float val = 0;
+            if (float.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为double类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static double ToDouble(this string @this, double defaultValue = default)
+        {
+            double val = 0;
+            if (double.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为decimal类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static decimal ToDecimal(this string @this, decimal defaultValue = default)
+        {
+            decimal val = 0;
+            if (decimal.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }        
+        /// <summary>
+        /// 将字符串转换为DateTime类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this string @this, DateTime defaultValue = default)
+        {
+            DateTime val = default;
+            if (DateTime.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+        /// <summary>
+        /// 将字符串转换为TimeSpan类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static TimeSpan ToTimeSpan(this string @this, TimeSpan defaultValue = default)
+        {
+            TimeSpan val = default;
+            if (TimeSpan.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+#if NET40_OR_GREATER
+        /// <summary>
+        /// 将字符串转换为Guid类型
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static Guid ToGuid(this string @this, Guid defaultValue = default)
+        {
+            Guid val = default;
+            if (Guid.TryParse(@this, out val))
+            {
+                return val;
+            }
+            return defaultValue;
+        }
+#endif
     }
 }

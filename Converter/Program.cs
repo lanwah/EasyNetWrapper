@@ -18,8 +18,11 @@ namespace Converter
             //// Object转Int
             //BenchmarkRunner.Run<ObjectToInt>();
 
-            // Object转字符串
-            BenchmarkRunner.Run<ObjectToString>();
+            //// Object转字符串
+            //BenchmarkRunner.Run<ObjectToString>();
+
+            // string转Int
+            BenchmarkRunner.Run<StringToInt>();
 
             Console.ReadKey();
         }
