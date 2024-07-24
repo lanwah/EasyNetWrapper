@@ -12,4 +12,15 @@
 
   <Import Project="..\EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <Compile Remove="Log\**" />
+    <EmbeddedResource Remove="Log\**" />
+    <None Remove="Log\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="FileUpdater.cs" />
+    <Compile Remove="FunStatus.cs" />
+  </ItemGroup>
+
 </Project>

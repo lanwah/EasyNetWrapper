@@ -1,30 +1,11 @@
-﻿
-// ------------------------------------------------------------- //
-// 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Core.Utils
-// 文件名称：FileUpdater
-// 创 建 者：lanwah
-// 创建日期：2022/8/5 11:20:35
-// 功能描述：
-// 调用依赖：
-// -------------------------------------------------------------
-// 修 改 者：
-// 修改时间：
-// 修改原因：
-// 修改描述：
-// ------------------------------------------------------------- //
-
-using EasyNet.Core.IO;
-using EasyNet.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using static System.Environment;
+using System.Text;
+using EasyNet.Extensions;
 
-namespace EasyNet.Core.Utils
+namespace EasyNet.Core
 {
     /// <summary>
     /// 文件更新器

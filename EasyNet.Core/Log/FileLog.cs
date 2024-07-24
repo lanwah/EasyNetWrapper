@@ -1,30 +1,11 @@
-﻿using EasyNet.Extensions;
-using NLog;
-using NLog.Targets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using EasyNet.Extensions;
 
-// ------------------------------------------------------------- //
-// 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Core.IO
-// 文件名称：Log
-// 创 建 者：lanwah
-// 创建日期：2022/8/8 13:47:55
-// 功能描述：
-// 调用依赖：
-// -------------------------------------------------------------
-// 修 改 者：
-// 修改时间：
-// 修改原因：
-// 修改描述：
-// ------------------------------------------------------------- //
-
-
-namespace EasyNet.Core.IO
+namespace EasyNet.Core
 {
     /// <summary>
     /// 日志操作类
@@ -56,7 +37,7 @@ namespace EasyNet.Core.IO
         /// <summary>
         /// 失败标记；样式：『×』
         /// </summary>
-        public const string False = "『×』 ";        
+        public const string False = "『×』 ";
         /// <inheritdoc/>
         public string AppDir
         {
@@ -110,7 +91,7 @@ namespace EasyNet.Core.IO
         /// </summary>
         public FileLog() : this(null, DEFAULT_NAME)
         {
-            
+
         }
 
 
