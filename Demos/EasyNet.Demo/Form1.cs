@@ -22,7 +22,7 @@ namespace EasyNet.Demo
             InitializeComponent();
         }
 
-        private async void btnRun_Click(object sender, EventArgs e)
+        private async void BtnRun_Click(object sender, EventArgs e)
         {
             // 通过cmd.exe /c 执行cmd命令
             // /C 执行字符串指定的命令然后终断
@@ -42,7 +42,7 @@ namespace EasyNet.Demo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             // 通过cmd.exe /c 执行cmd命令
             // /C 执行字符串指定的命令然后终断
@@ -62,7 +62,7 @@ namespace EasyNet.Demo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             // 通过cmd.exe /c 执行cmd命令
             // /C 执行字符串指定的命令然后终断
@@ -70,9 +70,11 @@ namespace EasyNet.Demo
             // https://bbs.csdn.net/topics/270017090
 
             Debug.WriteLine("btnRun_Click Begin ....");
-            var runner = new EasyNet.Runner.ProcessRunner("cmd");
-            runner.CreateNoWindow = false;
-            runner.RedirectStandardOutput = false;
+            var runner = new EasyNet.Runner.ProcessRunner("cmd")
+            {
+                CreateNoWindow = false,
+                RedirectStandardOutput = false
+            };
             var result = runner.Execute($"/k dir");
             Debug.WriteLine(result);
             Debug.WriteLine("btnRun_Click End.");
@@ -83,7 +85,7 @@ namespace EasyNet.Demo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void button5_Click(object sender, EventArgs e)
+        private async void Button5_Click(object sender, EventArgs e)
         {
             // 通过git.exe执行git命令
             Debug.WriteLine("button5_Click Begin ....");
@@ -97,7 +99,7 @@ namespace EasyNet.Demo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
             // 通过git.exe执行git命令
             Debug.WriteLine("button4_Click Begin ....");
@@ -113,13 +115,15 @@ namespace EasyNet.Demo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             // 通过git.exe执行git命令
             Debug.WriteLine("button3_Click Begin ....");
-            var runner = new EasyNet.Runner.ProcessRunner("git", @"E:\Ewell\StandNuringProj\BinzhouNew\BinzhouNew_debug");
-            runner.CreateNoWindow = false;
-            runner.RedirectStandardOutput = false;
+            var runner = new EasyNet.Runner.ProcessRunner("git", @"E:\Ewell\StandNuringProj\BinzhouNew\BinzhouNew_debug")
+            {
+                CreateNoWindow = false,
+                RedirectStandardOutput = false
+            };
             var result = runner.Execute("status");
             //var result = runner.Execute("-p");
             Debug.WriteLine(result);
@@ -137,6 +141,11 @@ namespace EasyNet.Demo
             //var result = runner.Execute($"/k git status");
             //Debug.WriteLine(result);
             //Debug.WriteLine("button3_Click End.");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

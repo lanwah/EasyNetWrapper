@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
-namespace EasyNet.Core.Security.CRC
+namespace EasyNet.Security
 {
     /// <summary>
     /// CRC8算法实现(CRC-8MAXIM)
@@ -12,41 +11,43 @@ namespace EasyNet.Core.Security.CRC
     public partial class Crc8Provider : CrcProvider<byte>
     {
         /// <summary>
-        /// 计算指定字节的CRC8校验码
-        /// </summary>
-        /// <param name="sourceCRCCode">源CRC8校验码</param>
-        /// <param name="number">字节数据</param>
-        /// <returns>CRC8校验码</returns>
-        /// <exception cref="NotImplementedException"></exception>
-        internal override byte ComputeCore(byte sourceCRCCode, byte number)
-        {
-            return this.CrcTable[sourceCRCCode ^ number];
-        }
-    }
-
-    /// <summary>
-    /// CRC8算法实现(CRC-8MAXIM)
-    /// </summary>
-    public partial class Crc8Provider
-    {
-        /// <summary>
         /// 生成多项式
         /// </summary>
         public override string Polynomial => POLYNOMIAL;
         /// <summary>
-        /// CRC 8 位校验表
+        /// 初始值
         /// </summary>
-        public override byte[] CrcTable => CRC_TABLE;
-
-
+        public override byte Init => INIT;
+        /// <summary>
+        /// 异或值XOROUT
+        /// </summary>
+        public override byte Seed => SEED;
+        /// <summary>
+        /// CRC 8 位校验表 
+        /// </summary>
+        protected static byte[] CrcTable => CRC_TABLE;
+        /// <summary>
+        /// 初始值
+        /// </summary>
+        public const byte INIT = 0x00;
+        /// <summary>
+        /// 异或值XOROUT
+        /// </summary>
+        public const byte SEED = 0x00;
         /// <summary>
         /// 生成多项式
         /// </summary>
-        public static readonly string POLYNOMIAL = "x^8 + x^5 + x^4 + 1";
+        protected const string POLYNOMIAL = "x^8 + x^5 + x^4 + 1";
         /// <summary> 
         /// CRC 8 位校验表 
         /// </summary> 
-        public static readonly byte[] CRC_TABLE = new byte[]
+#if NET8_0_OR_GREATER
+#pragma warning disable IDE0300 // 简化集合初始化
+#endif
+        protected static readonly byte[] CRC_TABLE = new byte[]
+#if NET8_0_OR_GREATER
+#pragma warning restore IDE0300 // 简化集合初始化
+#endif
         {
             0, 94, 188, 226, 97, 63, 221, 131, 194, 156, 126, 32, 163, 253, 31, 65,
             157 ,195, 33, 127, 252, 162, 64, 30, 95, 1, 227, 189, 62, 96, 130, 220,
@@ -65,12 +66,23 @@ namespace EasyNet.Core.Security.CRC
             233, 183, 85, 11, 136, 214, 52, 106, 43, 117, 151, 201, 74, 20, 246, 168,
             116, 42, 200, 150, 21, 75, 169, 247, 182, 232, 10, 84, 215, 137, 107, 53
         };
+        /// <summary>
+        /// 计算指定字节的CRC8校验码
+        /// </summary>
+        /// <param name="sourceCrc">源CRC8校验码</param>
+        /// <param name="number">字节数据</param>
+        /// <returns>CRC8校验码</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected override byte ComputeCore(byte sourceCrc, byte number)
+        {
+            return CrcTable[sourceCrc ^ number];
+        }
     }
 
     /// <summary>
     ///  CRC8算法(CRC-8MAXIM)相关扩展
     /// </summary>
-    public static partial class Crc
+    public static partial class Crc8ProviderExts
     {
         /// <summary>
         /// 从字节数组中生成8位CRC校验码（CRC-8MAXIM）

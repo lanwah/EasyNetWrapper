@@ -44,7 +44,7 @@
             this.btnRun.TabIndex = 1;
             this.btnRun.Text = "异步执行Cmd";
             this.btnRun.UseVisualStyleBackColor = true;
-            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            this.btnRun.Click += new System.EventHandler(this.BtnRun_Click);
             // 
             // button1
             // 
@@ -54,7 +54,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "同步执行Cmd";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // button2
             // 
@@ -64,7 +64,7 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "同步执行Cmd，并显示执行窗口";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // button3
             // 
@@ -74,7 +74,7 @@
             this.button3.TabIndex = 6;
             this.button3.Text = "同步执行Git，并显示执行窗口";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // button4
             // 
@@ -84,7 +84,7 @@
             this.button4.TabIndex = 5;
             this.button4.Text = "同步执行Git";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // button5
             // 
@@ -94,7 +94,7 @@
             this.button5.TabIndex = 4;
             this.button5.Text = "异步执行Git";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // Form1
             // 
@@ -110,6 +110,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EasyNet.Runner 测试程序";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

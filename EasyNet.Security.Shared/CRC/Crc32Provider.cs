@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
-namespace EasyNet.Core.Security.CRC
+namespace EasyNet.Security
 {
     /// <summary>
     /// CRC32算法实现
@@ -12,52 +11,43 @@ namespace EasyNet.Core.Security.CRC
     public partial class Crc32Provider : CrcProvider<UInt32>
     {
         /// <summary>
-        /// 计算指定字节的CRC32校验码
-        /// </summary>
-        /// <param name="sourceCRCCode">源CRC32校验码</param>
-        /// <param name="number">字节数据</param>
-        /// <returns>CRC32校验码</returns>
-        /// <exception cref="NotImplementedException"></exception>
-        internal override uint ComputeCore(uint sourceCRCCode, byte number)
-        {
-            var crcCode = sourceCRCCode ^ this.Seed;
-            crcCode = this.CrcTable[(crcCode ^ number) & 0xFF] ^ (crcCode >> 8);
-            crcCode ^= this.Seed;
-            return crcCode;
-        }
-    }
-
-    /// <summary>
-    /// CRC32算法实现
-    /// </summary>
-    public partial class Crc32Provider
-    {
-        /// <summary>
         /// 生成多项式
         /// </summary>
         public override string Polynomial => POLYNOMIAL;
         /// <summary>
-        /// CRC 32 位校验表
+        /// 初始值
         /// </summary>
-        public override UInt32[] CrcTable => CRC_TABLE;
+        public override UInt32 Init => INIT;
         /// <summary>
         /// CRC32种子(异或值XOROUT)
         /// </summary>
-        public UInt32 Seed => SEED;
-
-
+        public override UInt32 Seed => SEED;
         /// <summary>
-        /// CRC32种子
+        /// CRC 32 位校验表
         /// </summary>
-        public static readonly UInt32 SEED = 0xFFFFFFFF;
+        private static UInt32[] CrcTable => CRC_TABLE;
         /// <summary>
         /// 生成多项式
         /// </summary>
-        public static readonly string POLYNOMIAL = "x^32 + x^26 + x^23 + x^22 + x^16 + x^12 + x^11 + x^10 + x^8 + x^7 + x^5 + x^4 + x^2 + x^1 + 1";
+        protected static readonly string POLYNOMIAL = "x^32 + x^26 + x^23 + x^22 + x^16 + x^12 + x^11 + x^10 + x^8 + x^7 + x^5 + x^4 + x^2 + x^1 + 1";
+        /// <summary>
+        /// 初始值
+        /// </summary>
+        public const UInt32 INIT = 0x00000000;
+        /// <summary>
+        /// CRC32种子
+        /// </summary>
+        public const UInt32 SEED = 0xFFFFFFFF;
         /// <summary> 
         /// CRC 32 位校验表 
         /// </summary> 
-        public static readonly UInt32[] CRC_TABLE = new UInt32[]
+#if NET8_0_OR_GREATER
+#pragma warning disable IDE0300 // 简化集合初始化
+#endif
+        protected static readonly uint[] CRC_TABLE = new uint[]
+#if NET8_0_OR_GREATER
+#pragma warning restore IDE0300 // 简化集合初始化
+#endif
         {
             0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419,
             0x706AF48F, 0xE963A535, 0x9E6495A3, 0x0EDB8832, 0x79DCB8A4,
@@ -112,11 +102,26 @@ namespace EasyNet.Core.Security.CRC
             0x5D681B02, 0x2A6F2B94, 0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B,
             0x2D02EF8D
         };
+        /// <summary>
+        /// 计算指定字节的CRC32校验码
+        /// </summary>
+        /// <param name="sourceCrc">源CRC32校验码</param>
+        /// <param name="number">字节数据</param>
+        /// <returns>CRC32校验码</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected override uint ComputeCore(uint sourceCrc, byte number)
+        {
+            var crcCode = sourceCrc ^ this.Seed;
+            crcCode = CrcTable[(crcCode ^ number) & 0xFF] ^ (crcCode >> 8);
+            crcCode ^= this.Seed;
+            return crcCode;
+        }
     }
+
     /// <summary>
     ///  CRC32算法相关扩展
     /// </summary>
-    public static partial class Crc
+    public static partial class Crc32ProviderExts
     {
         /// <summary>
         /// 从字节数组中生成32位CRC校验码

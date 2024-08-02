@@ -12,6 +12,8 @@
 
   <Import Project="..\EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems" Label="Shared" />
 
+  <Import Project="..\EasyNet.Security.Shared\EasyNet.Security.Shared.projitems" Label="Shared" />
+
   <ItemGroup>
     <Compile Remove="Log\**" />
     <EmbeddedResource Remove="Log\**" />

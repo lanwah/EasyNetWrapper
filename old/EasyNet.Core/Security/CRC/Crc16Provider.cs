@@ -240,6 +240,7 @@ namespace EasyNet.Core.Security.CRC
         /// <returns></returns>
         public virtual ushort GetInitValue(Crc16Type type)
         {
+            // ^：按位异或，同0异1（相同为0，不同为1）
             switch (type)
             {
                 case Crc16Type.Usb:

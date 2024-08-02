@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBrowser", "Samples\WebBr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Demo", "Demos\EasyNet.Demo\EasyNet.Demo.csproj", "{2B7B9334-FFEA-41E8-98EE-F7114F926804}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyNet.Security.Shared", "EasyNet.Security.Shared\EasyNet.Security.Shared.shproj", "{12285F0C-A5EF-4B66-99B5-17E9CF7CAF74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,13 +113,17 @@ Global
 		{C7ABF6D3-5FE1-483B-9855-6885D49A8200} = {34DAFB30-5B69-4343-843F-59DC7B2E97B4}
 		{83AEBFA8-0971-4B3F-A8B5-AA0877579AF3} = {34DAFB30-5B69-4343-843F-59DC7B2E97B4}
 		{2B7B9334-FFEA-41E8-98EE-F7114F926804} = {09A00B3B-8F77-4679-9F08-3D088246539A}
+		{12285F0C-A5EF-4B66-99B5-17E9CF7CAF74} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7281B48E-9A2B-4BBD-AE50-AE5B580D5115}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{0657e164-aaec-4710-ac9c-ac75d39587e2}*SharedItemsImports = 13
+		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{12285f0c-a5ef-4b66-99b5-17e9cf7caf74}*SharedItemsImports = 13
+		EasyNet.Security.Shared\EasyNet.Security.Shared.projitems*{12285f0c-a5ef-4b66-99b5-17e9cf7caf74}*SharedItemsImports = 13
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
+		EasyNet.Security.Shared\EasyNet.Security.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{8146f733-4ba7-417b-8b22-5d155a439380}*SharedItemsImports = 13
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{9cd3700a-0dfb-4103-9166-d3eb8f22100d}*SharedItemsImports = 5
