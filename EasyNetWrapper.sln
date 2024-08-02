@@ -120,7 +120,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{0657e164-aaec-4710-ac9c-ac75d39587e2}*SharedItemsImports = 13
-		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{12285f0c-a5ef-4b66-99b5-17e9cf7caf74}*SharedItemsImports = 13
 		EasyNet.Security.Shared\EasyNet.Security.Shared.projitems*{12285f0c-a5ef-4b66-99b5-17e9cf7caf74}*SharedItemsImports = 13
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.Security.Shared\EasyNet.Security.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5

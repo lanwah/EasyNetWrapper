@@ -15,5 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)CRC\Crc8Provider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CRC\ICrcProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CRC\IVAnsiCrc16Provider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CRC\IVCcittCrc16Provider.cs" />
   </ItemGroup>
 </Project>

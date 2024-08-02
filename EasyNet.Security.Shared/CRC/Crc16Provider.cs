@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace EasyNet.Security
@@ -33,7 +34,13 @@ namespace EasyNet.Security
         /// <summary> 
         /// Ansi CRC 16 位校验表 
         /// </summary> 
+#if NET8_0_OR_GREATER
+#pragma warning disable IDE0300 // 简化集合初始化
+#endif
         private static readonly UInt16[] CRC_TABLE = new UInt16[]
+#if NET8_0_OR_GREATER
+#pragma warning restore IDE0300 // 简化集合初始化
+#endif
         {
             0x0000, 0x8005, 0x800F, 0x000A, 0x801B, 0x001E, 0x0014, 0x8011,
             0x8033, 0x0036, 0x003C, 0x8039, 0x0028, 0x802D, 0x8027, 0x0022,
@@ -87,8 +94,158 @@ namespace EasyNet.Security
     /// <summary>
     /// Ansi CRC16 算法实现
     /// </summary>
-    public class AnsiCrc16: Crc16Provider
+    public class AnsiCrc16 : Crc16Provider
     {
 
+    }
+    /// <summary>
+    ///  CRC16算法相关扩展
+    /// </summary>
+    public static partial class Crc16ProviderExts
+    {
+        /// <summary>
+        /// 从字节数组中生成16位CRC校验码
+        /// </summary>
+        /// <param name="buffer">要计算CRC16的输入</param>
+        /// <param name="type">CRC16算法类型</param>
+        /// <returns>CRC16校验码</returns>
+        public static UInt32 ComputeCrc16(this byte[] buffer, Crc16Type type)
+        {
+            var factory = Crc16Factory.Create(type);
+            return factory.Compute(buffer);
+        }
+        /// <summary>
+        /// 从字节数组中生成16位CRC校验码
+        /// </summary>
+        /// <param name="buffer">要计算CRC16的输入</param>
+        /// <param name="offset">字节数组中的偏移量，从该位置开始使用数据</param>
+        /// <param name="count">数据中用作数据的字节数</param>
+        /// <param name="type">CRC16算法类型</param>
+        /// <returns>CRC16校验码</returns>
+        public static UInt32 ComputeCrc16(this byte[] buffer, int offset, int count, Crc16Type type)
+        {
+            var factory = Crc16Factory.Create(type);
+            return factory.Compute(buffer, offset, count);
+        }
+        /// <summary>
+        /// 从System.IO.Stream中生成16位CRC校验码
+        /// </summary>
+        /// <param name="inputStream">System.IO.Stream</param>
+        /// <param name="type">CRC16算法类型</param>
+        /// <returns>CRC16校验码</returns>
+        public static UInt32 ComputeCrc16(this Stream inputStream, Crc16Type type)
+        {
+            var factory = Crc16Factory.Create(type);
+            return factory.Compute(inputStream);
+        }
+    }
+
+    /// <summary>
+    /// CRC16工厂
+    /// </summary>
+    public class Crc16Factory
+    {
+#if NET8_0_OR_GREATER
+        private static readonly Dictionary<Crc16Type, Crc16Provider> _crc16Providers = [];
+#elif NET5_0_OR_GREATER
+        private static readonly Dictionary<Crc16Type, Crc16Provider> _crc16Providers = new();
+#else
+        private static readonly Dictionary<Crc16Type, Crc16Provider> _crc16Providers = new Dictionary<Crc16Type, Crc16Provider>();
+#endif
+
+        static Crc16Factory()
+        {
+            _crc16Providers.Add(Crc16Type.Ansi, new AnsiCrc16());
+            _crc16Providers.Add(Crc16Type.Arc, new ArcCrc16());
+            _crc16Providers.Add(Crc16Type.Maxim, new MaximCrc16());
+            _crc16Providers.Add(Crc16Type.Usb, new UsbCrc16());
+            _crc16Providers.Add(Crc16Type.Modbus, new ModbusCrc16());
+            _crc16Providers.Add(Crc16Type.XModem, new XModemCrc16());
+            _crc16Providers.Add(Crc16Type.CCITT_FALSE, new CcittFalseCrc16());
+            _crc16Providers.Add(Crc16Type.CCITT_0x1D0F, new Ccitt1D0FCrc16());
+            _crc16Providers.Add(Crc16Type.Kermit, new KermitCrc16());
+        }
+
+        /// <summary>
+        /// 注册CRC16算法实现
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="provider"></param>
+        public static void Register(Crc16Type type, Crc16Provider provider)
+        {
+#if NET8_0_OR_GREATER
+            _crc16Providers.TryAdd(type, provider);
+#else
+            if (!_crc16Providers.ContainsKey(type))
+            {
+                _crc16Providers.Add(type, provider);
+            }
+#endif
+        }
+
+        /// <summary>
+        /// 获取CRC16算法实现
+        /// </summary>
+        /// <param name="crc16Type"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Crc16Provider Create(Crc16Type crc16Type)
+        {
+#if NET8_0_OR_GREATER
+            var finded = _crc16Providers.TryGetValue(crc16Type, out var provider);
+            if (finded)
+            {
+                return provider;
+            }
+#else
+            if (_crc16Providers.ContainsKey(crc16Type))
+            {
+                return _crc16Providers[crc16Type];
+            }
+#endif
+            throw new NotImplementedException();
+        }
+    }
+    /// <summary>
+    /// CRC16类型
+    /// </summary>
+    public enum Crc16Type
+    {
+        /// <summary>
+        /// Ansi CRC16
+        /// </summary>
+        Ansi = 1,
+        /// <summary>
+        /// (inversion ansi)反转Ansi CRC16，CRC16/ARC
+        /// </summary>
+        Arc = 2,
+        /// <summary>
+        /// Maxim CRC16
+        /// </summary>
+        Maxim = 3,
+        /// <summary>
+        /// Usb CRC16
+        /// </summary>
+        Usb = 4,
+        /// <summary>
+        /// Modbus CRC16
+        /// </summary>
+        Modbus = 5,
+        /// <summary>
+        /// XModem CRC16
+        /// </summary>
+        XModem = 6,
+        /// <summary>
+        /// CCITT-FALSE
+        /// </summary>
+        CCITT_FALSE = 7,
+        /// <summary>
+        /// CCITT 初始值0x1D0F
+        /// </summary>
+        CCITT_0x1D0F = 8,
+        /// <summary>
+        /// Kermit CRC16
+        /// </summary>
+        Kermit = 9
     }
 }

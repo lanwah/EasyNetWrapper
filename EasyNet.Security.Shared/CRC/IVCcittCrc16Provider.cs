@@ -1,53 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace EasyNet.Core.Security.CRC
+namespace EasyNet.Security
 {
     /// <summary>
     /// 反转CCITT CRC16 算法实现
     /// </summary>
-    public partial class IVCcittCrc16Provider : Crc16Provider
+    public partial class IVCcittCrc16Provider : CcittCrc16Provider
     {
         /// <summary>
-        /// 计算指定字节的反转CCITT CRC16校验码
-        /// </summary>
-        /// <param name="sourceCRCCode">源CCITT CRC16校验码</param>
-        /// <param name="number">字节数据</param>
-        /// <returns>反转CCITT CRC16校验码</returns>
-        /// <exception cref="NotImplementedException"></exception>
-        internal override ushort ComputeCore(ushort sourceCRCCode, byte number)
-        {
-            var crcCode = (UInt16)(sourceCRCCode & 0xff);
-            sourceCRCCode >>= 8;
-            sourceCRCCode ^= this.CrcTable[number ^ crcCode];
-            return sourceCRCCode;
-        }
-    }
-    /// <summary>
-    /// 反转CCITT CRC16 算法实现
-    /// </summary>
-    public partial class IVCcittCrc16Provider
-    {
-        /// <summary>
-        /// 生成多项式
-        /// </summary>
-        public override string Polynomial => POLYNOMIAL;
-        /// <summary>
-        /// CCITT CRC 16 位校验表 
+        /// 反转CCITT CRC 16 位校验表 
         /// </summary>
         public override UInt16[] CrcTable => CRC_TABLE;
-
-
-        /// <summary>
-        /// 生成多项式
-        /// </summary>
-        public new static readonly string POLYNOMIAL = "x^16 + x^12 + x^5 + 1";
         /// <summary> 
         /// 反转 CCITT CRC 16 位校验表 
         /// </summary> 
-        public new static readonly UInt16[] CRC_TABLE = new UInt16[]
+#if NET8_0_OR_GREATER
+#pragma warning disable IDE0300 // 简化集合初始化
+#endif
+        private static readonly UInt16[] CRC_TABLE = new UInt16[]
+#if NET8_0_OR_GREATER
+#pragma warning restore IDE0300 // 简化集合初始化
+#endif
         {
             0x0000, 0x1189, 0x2312, 0x329B, 0x4624, 0x57AD, 0x6536, 0x74BF,
             0x8C48, 0x9DC1, 0xAF5A, 0xBED3, 0xCA6C, 0xDBE5, 0xE97E, 0xF8F7,
@@ -82,5 +57,34 @@ namespace EasyNet.Core.Security.CRC
             0xF78F, 0xE606, 0xD49D, 0xC514, 0xB1AB, 0xA022, 0x92B9, 0x8330,
             0x7BC7, 0x6A4E, 0x58D5, 0x495C, 0x3DE3, 0x2C6A, 0x1EF1, 0x0F78,
         };
+
+
+
+        /// <summary>
+        /// 计算指定字节的反转CCITT CRC16校验码
+        /// </summary>
+        /// <param name="sourceCrc">源CCITT CRC16校验码</param>
+        /// <param name="number">字节数据</param>
+        /// <returns>反转CCITT CRC16校验码</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected override ushort ComputeCore(ushort sourceCrc, byte number)
+        {
+            var crcCode = (UInt16)(sourceCrc & 0xff);
+            sourceCrc >>= 8;
+            sourceCrc ^= this.CrcTable[number ^ crcCode];
+            return sourceCrc;
+        }
+
+
+        //// Kermit
+        //IVCcittCrc16Provider.ComputeCore(buffer);
+    }
+
+    /// <summary>
+    /// CRC16/Kermit 算法实现
+    /// </summary>
+    public class KermitCrc16 : IVCcittCrc16Provider
+    {
+
     }
 }

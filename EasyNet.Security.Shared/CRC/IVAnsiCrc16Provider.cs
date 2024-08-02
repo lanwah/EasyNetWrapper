@@ -17,7 +17,13 @@ namespace EasyNet.Security
         /// <summary> 
         /// 反转Ansi CRC 16 位校验表 
         /// </summary> 
+#if NET8_0_OR_GREATER
+#pragma warning disable IDE0300 // 简化集合初始化
+#endif
         private static readonly UInt16[] CRC_TABLE = new UInt16[]
+#if NET8_0_OR_GREATER
+#pragma warning restore IDE0300 // 简化集合初始化
+#endif
         {
             0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241,
             0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1, 0xC481, 0x0440,
