@@ -1,6 +1,8 @@
-﻿using System;
+﻿using EasyNet.Extensions.Shared.Const;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -286,7 +288,7 @@ namespace EasyNet.Extensions
                 return val;
             }
             return defaultValue;
-        }        
+        }
         /// <summary>
         /// 将字符串转换为char类型
         /// </summary>
@@ -440,7 +442,7 @@ namespace EasyNet.Extensions
                 return val;
             }
             return defaultValue;
-        }        
+        }
         /// <summary>
         /// 将字符串转换为DateTime类型
         /// </summary>
@@ -488,5 +490,21 @@ namespace EasyNet.Extensions
             return defaultValue;
         }
 #endif
+
+        /// <summary>
+        /// 去除字符串末尾的换行符
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static string TrimEndNewLine(this string @this)
+        {
+            var trimChars = ConstVar.CRLF;
+            if (@this.IsNullOrEmpty())
+            {
+                return @this;
+            }
+
+            return @this.TrimEnd(trimChars);
+        }
     }
 }
