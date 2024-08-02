@@ -80,7 +80,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EasyNet.Runner\EasyNet.Runner.csproj">
+    <ProjectReference Include="..\..\EasyNet.Runner\EasyNet.Runner.csproj">
       <Project>{aec32e53-c272-42aa-ace1-97e3de387c7d}</Project>
       <Name>EasyNet.Runner</Name>
     </ProjectReference>
