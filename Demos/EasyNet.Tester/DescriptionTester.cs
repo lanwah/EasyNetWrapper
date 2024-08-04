@@ -17,7 +17,8 @@ namespace EasyNet.Tester
         {
             var type = typeof(Product);
             _ = type.Description();
-            _ = type.GetMember("Category").FirstOrDefault()?.Description();
+            var categoryDesc = type.GetMember("Category").FirstOrDefault()?.Description();
+            Console.WriteLine(categoryDesc);
             _ = type.GetMember("Category").FirstOrDefault()?.GetMemberType();
         }
     }
