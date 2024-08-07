@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EasyNet.Log;
 
 namespace EasyNet.Tester
 {
@@ -10,7 +11,15 @@ namespace EasyNet.Tester
     {
         static void Main()
         {
-            DescriptionTester.Run();
+            var loggerProvider =new ConsoleLoggerProvider();
+            var log = loggerProvider.CreateLogger("Test");
+            log.LogInformation("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "B");
+
+            //var loggerProvider = new ConsoleLoggerProvider();
+            //var log = loggerProvider.CreateLogger("Test");
+            //log.LogInformation("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "B");
+
+            //DescriptionTester.Run();
 
             Console.ReadKey();
         }

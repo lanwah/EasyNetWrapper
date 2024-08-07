@@ -15,14 +15,14 @@
   <Import Project="..\EasyNet.Security.Shared\EasyNet.Security.Shared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <Compile Remove="Log\**" />
-    <EmbeddedResource Remove="Log\**" />
-    <None Remove="Log\**" />
+    <Compile Remove="FileUpdater.cs" />
+    <Compile Remove="FunStatus.cs" />
+    <Compile Remove="Log\FileLog.cs" />
+    <Compile Remove="Log\ILogService.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="FileUpdater.cs" />
-    <Compile Remove="FunStatus.cs" />
+    <None Remove="Log\NLog.config" />
   </ItemGroup>
 
 </Project>
