@@ -30,70 +30,30 @@ namespace EasyNet.Log
     /// </summary>
 
 #if NET8_0_OR_GREATER
-    internal sealed partial class DebugLogger(string name) : ILogger
+    internal sealed partial class DebugLogger(string name) : LoggerBase(name)
     {
-        private string Name => name;
 #else
-    internal sealed partial class DebugLogger : ILogger
+    internal sealed partial class DebugLogger : LoggerBase
     {
-        private readonly string Name;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DebugLogger"/> class.
         /// </summary>
         /// <param name="name">The name of the logger.</param>
-        public DebugLogger(string name)
+        public DebugLogger(string name) : base(name)
         {
-            Name = name;
         }
 #endif
 
-
         /// <inheritdoc />
-        public IDisposable BeginScope<TState>(TState state)
-#if NETCOREAPP3_1_OR_GREATER
-            where TState : notnull
-#endif
-        {
-            return NullScope.Instance;
-        }
-
-        /// <inheritdoc />
-        public bool IsEnabled(LogLevel logLevel)
+        public override bool IsEnabled(LogLevel logLevel)
         {
             // Everything is enabled unless the debugger is not attached
             return Debugger.IsAttached && logLevel != LogLevel.None;
         }
 
-        /// <inheritdoc />
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        protected override void WriteLine(LogLevel logLevel, string message)
         {
-            if (!IsEnabled(logLevel))
-            {
-                return;
-            }
-
-            formatter.ThrowIfNull(nameof(formatter));
-
-            string message = formatter(state, exception);
-
-            if (string.IsNullOrEmpty(message))
-            {
-                return;
-            }
-
-            message = $"{logLevel}: {message}";
-
-            if (exception != null)
-            {
-                message += Environment.NewLine + Environment.NewLine + exception;
-            }
-
-            DebugWriteLine(message, Name);
-        }
-        private static void DebugWriteLine(string message, string name)
-        {
-            Debug.WriteLine(message, name);
+            Debug.WriteLine(message);
         }
     }
 

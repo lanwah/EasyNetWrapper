@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EasyNet.Extensions;
 
 namespace EasyNet.Log
 {
@@ -202,5 +203,157 @@ namespace EasyNet.Log
         public void Dispose()
         {
         }
+    }
+
+    /// <summary>
+    /// 日志配置选项
+    /// </summary>
+    public class LoggerOptions
+    {
+        /// <summary>
+        /// 消息前带日志级别
+        /// </summary>
+        public bool WithLevel { get; set; } = true;
+        /// <summary>
+        /// 消息前带时间
+        /// </summary>
+        public bool UseTime { get; set; } = true;
+        /// <summary>
+        /// 时间格式
+        /// </summary>
+        public string TimeFormat { get; set; } = "HH:mm:ss.fff";
+        /// <summary>
+        /// 日志输出最小级别
+        /// </summary>
+        public LogLevel MinimumLevel { get; set; } = LogLevel.Information;
+        /// <summary>
+        /// 是否对日志级别进行填充，使日志级别长度都一致
+        /// </summary>
+        public bool IsPaddingLevel { get; set; } = true;
+        /// <summary>
+        /// 日志级别是否填充左边，还是右边
+        /// </summary>
+        public bool PadLeft { get; set; } = true;
+
+        /// <summary>
+        /// 日志配置选项默认值
+        /// </summary>
+        public static LoggerOptions Default { get; } = new LoggerOptions();
+    }
+
+    /// <summary>
+    /// logger base.
+    /// </summary>
+
+#if NET8_0_OR_GREATER
+    public abstract partial class LoggerBase(string name) : ILogger
+    {
+        /// <summary>
+        /// The name of the logger.
+        /// </summary>
+        protected string Name => name;
+#else
+    public abstract partial class LoggerBase : ILogger
+    {
+        /// <summary>
+        /// The name of the logger.
+        /// </summary>
+        protected readonly string Name;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoggerBase"/> class.
+        /// </summary>
+        /// <param name="name">The name of the logger.</param>
+        public LoggerBase(string name)
+        {
+            Name = name;
+        }
+#endif
+
+
+        /// <inheritdoc />
+        public virtual IDisposable BeginScope<TState>(TState state)
+#if NETCOREAPP3_1_OR_GREATER
+            where TState : notnull
+#endif
+        {
+            return NullScope.Instance;
+        }
+
+        /// <inheritdoc />
+        public virtual bool IsEnabled(LogLevel logLevel)
+        {
+            // Everything is enabled 
+            return logLevel != LogLevel.None;
+        }
+
+        /// <inheritdoc />
+        public virtual void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {
+            if (!IsEnabled(logLevel))
+            {
+                return;
+            }
+
+            formatter.ThrowIfNull(nameof(formatter));
+
+            string message = formatter(state, exception);
+
+            if (string.IsNullOrEmpty(message))
+            {
+                return;
+            }
+
+            // 拼接日志级别和消息
+            var logBuilder = new StringBuilder();
+            if (LoggerOptions.Default.UseTime)
+            {
+                logBuilder.Append($"{DateTime.Now.ToString(LoggerOptions.Default.TimeFormat)} ");
+            }
+            if (LoggerOptions.Default.WithLevel)
+            {
+                logBuilder.Append($"{this.GetLevelString(logLevel)}: ");
+            }
+
+            logBuilder.Append(message);
+            message = logBuilder.ToString();
+
+            if (exception != null)
+            {
+                message += Environment.NewLine + Environment.NewLine + exception;
+            }
+
+            this.WriteLine(logLevel, message);
+        }
+
+        private readonly int MaxLevelLength = LogLevel.Information.ToString().Length;
+        /// <summary>
+        /// 处理日志级别的格式化
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <returns></returns>
+        private string GetLevelString(LogLevel logLevel)
+        {
+            var levelString = logLevel.ToString();
+            if (LoggerOptions.Default.IsPaddingLevel)
+            {
+                if (LoggerOptions.Default.PadLeft)
+                {
+                    levelString = levelString.PadLeft(MaxLevelLength);
+                }
+                else
+                {
+                    levelString = levelString.PadRight(MaxLevelLength);
+                }
+            }
+            return levelString;
+        }
+
+        /// <summary>
+        /// 写入日志
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="message"></param>
+        protected abstract void WriteLine(LogLevel logLevel, string message);
     }
 }

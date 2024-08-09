@@ -28,68 +28,22 @@ namespace EasyNet.Log
     /// A logger that writes messages in the console output window.
     /// </summary>
 #if NET8_0_OR_GREATER
-    internal sealed partial class ConsoleLogger(string name) : ILogger
-#else
-    internal sealed partial class ConsoleLogger : ILogger
-#endif
+    internal sealed partial class ConsoleLogger(string name) : LoggerBase(name)
     {
-
-#if !NET8_0_OR_GREATER
-        private readonly string name;
+#else
+    internal sealed partial class ConsoleLogger : LoggerBase
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
         /// </summary>
         /// <param name="name">The name of the logger.</param>
-        public ConsoleLogger(string name)
+        public ConsoleLogger(string name) : base(name)
         {
-            this.name = name;
         }
 #endif
-
-        /// <inheritdoc />
-        public IDisposable BeginScope<TState>(TState state)
-#if NETCOREAPP3_1_OR_GREATER
-            where TState : notnull
-#endif
+        protected override void WriteLine(LogLevel logLevel, string message)
         {
-            return NullScope.Instance;
-        }
-
-        /// <inheritdoc />
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return logLevel != LogLevel.None;
-        }
-
-        /// <inheritdoc />
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-        {
-            if (!IsEnabled(logLevel))
-            {
-                return;
-            }
-
-            formatter.ThrowIfNull(nameof(formatter));
-
-            string message = formatter(state, exception);
-
-            if (string.IsNullOrEmpty(message))
-            {
-                return;
-            }
-
-            message = $"{logLevel}: {message}";
-
-            if (exception != null)
-            {
-                message += Environment.NewLine + Environment.NewLine + exception;
-            }
-
-            DebugWriteLine(message, name);
-        }
-        private static void DebugWriteLine(string message, string name)
-        {
-            Console.WriteLine(message, name);
+            Console.WriteLine(message);
         }
     }
 }
