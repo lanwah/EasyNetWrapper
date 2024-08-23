@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>dafcf1db-b1d6-4b25-92e1-52f1320d3920</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>EasyNet.WinForm.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\AutoCompleteView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\AutoCompleteView.designer.cs">
+      <DependentUpon>AutoCompleteView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\HistoryTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\HistoryTextBox.designer.cs">
+      <DependentUpon>HistoryTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\IAutoCompleteConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\CloseLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnvironmentExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gdi+\AntiAliasGraphics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Image\ImageFormatter.Base.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Image\ImageFormatter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\HistoryTextBox.txt" />
+  </ItemGroup>
+</Project>

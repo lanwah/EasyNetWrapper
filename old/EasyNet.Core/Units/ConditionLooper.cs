@@ -346,7 +346,7 @@ namespace EasyNet.Core
             // 信号放行
             if (!this.IsAsyncCall)
             {
-                this.WaitSignal.Set();
+                this.WaitSignal.Set(); 
             }
         }
         /// <summary>
@@ -363,6 +363,7 @@ namespace EasyNet.Core
 
             // 重置运行状态
             this.Reset();
+            // System.Threading.Timer轻量，精度相对较高，与Windows操作系统时钟精度一致，大约15毫秒
             this.JobTimer = new System.Threading.Timer(callback, null, (this.IsFirstDelay ? this.Interval : 0), this.Interval);
         }
         /// <summary>

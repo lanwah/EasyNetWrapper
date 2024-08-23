@@ -84,9 +84,9 @@ namespace EasyNet.Log
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
-        public static ILoggingBuilder AddSimpleFile(this ILoggingBuilder builder)
+        public static ILoggingBuilder AddFile(this ILoggingBuilder builder)
         {
-            builder.LoggerProviders.Add(new SimpleFileLoggerProvider());
+            builder.LoggerProviders.Add(new FileLoggerProvider());
             return builder;
         }
         /// <summary>

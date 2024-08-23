@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
 using static System.Console;
 
 namespace EasyNet.Core.ConsoleTest
@@ -11,11 +11,12 @@ namespace EasyNet.Core.ConsoleTest
     {
         private static void Main(string[] args)
         {
-            LogProvider.Log.Debug($"{string.Format("{0,-4}", System.Threading.Thread.CurrentThread.ManagedThreadId)} -> 启动控制台");
-            
+            //LogProvider.Log.Debug($"{string.Format("{0,-4}", System.Threading.Thread.CurrentThread.ManagedThreadId)} -> 启动控制台");
 
+            //AutoResetEventDemo.Run();
+            ManualResetEventDemo.Run();
+            WriteLine("End of program, press any key to exit.");
             ReadKey();
         }
-
     }
 }

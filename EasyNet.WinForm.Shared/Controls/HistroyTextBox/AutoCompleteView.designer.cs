@@ -1,5 +1,5 @@
-﻿
-namespace EasyNet.Controls
+﻿#if NETFRAMEWORK
+namespace EasyNet.WinForm.Controls
 {
     partial class AutoCompleteView
     {
@@ -31,11 +31,11 @@ namespace EasyNet.Controls
         {
             this.pnlTop = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.tbxInput = new EasyNet.Controls.AutoCompleteTextBox();
+            this.tbxInput = new AutoCompleteTextBox();
             this.pnlCenter = new System.Windows.Forms.Panel();
             this.lblSplitor = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.autoCompleteList = new EasyNet.Controls.AutoCompleteList();
+            this.autoCompleteList = new AutoCompleteList();
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.pnlTop.SuspendLayout();
             this.pnlCenter.SuspendLayout();
@@ -73,8 +73,8 @@ namespace EasyNet.Controls
             this.tbxInput.Name = "tbxInput";
             this.tbxInput.Size = new System.Drawing.Size(218, 22);
             this.tbxInput.TabIndex = 0;
-            this.tbxInput.DoProcessDialogKey += new EasyNet.Controls.DialogKeyProcessor(this.tbxInput_DoProcessDialogKey);
-            this.tbxInput.TextChanged += new System.EventHandler(this.tbxInput_TextChanged);
+            this.tbxInput.DoProcessDialogKey += new DialogKeyProcessor(this.TbxInput_DoProcessDialogKey);
+            this.tbxInput.TextChanged += new System.EventHandler(this.TbxInput_TextChanged);
             // 
             // pnlCenter
             // 
@@ -115,7 +115,6 @@ namespace EasyNet.Controls
             this.autoCompleteList.BackColor = System.Drawing.Color.White;
             this.autoCompleteList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.autoCompleteList.ImageList = null;
-            this.autoCompleteList.ItemHeight = 16;
             this.autoCompleteList.Location = new System.Drawing.Point(1, 2);
             this.autoCompleteList.Margin = new System.Windows.Forms.Padding(0);
             this.autoCompleteList.MaximumSize = new System.Drawing.Size(220, 180);
@@ -163,3 +162,4 @@ namespace EasyNet.Controls
         private System.Windows.Forms.Label lblSplitor;
     }
 }
+#endif

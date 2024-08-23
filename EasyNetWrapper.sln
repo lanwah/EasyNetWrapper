@@ -47,7 +47,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyNet.Security.Shared", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineDemo", "Samples\CommandLineDemo\CommandLineDemo.csproj", "{B6933684-D4D2-4CE3-AD83-458E99D73A6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreConsole", "Samples\DotNetCoreConsole\DotNetCoreConsole.csproj", "{5828D371-5722-409A-B7F3-41938B25F4E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreConsole", "Samples\DotNetCoreConsole\DotNetCoreConsole.csproj", "{5828D371-5722-409A-B7F3-41938B25F4E6}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyNet.WinForm.Shared", "EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.shproj", "{DAFCF1DB-B1D6-4B25-92E1-52F1320D3920}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNet.WinForm", "EasyNet.WinForm\EasyNet.WinForm.csproj", "{0B904FE1-8420-4014-95E8-D60267604E18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Models", "EasyNet.Models\EasyNet.Models.csproj", "{EB0DD976-624F-454F-BD9F-99E850A54F1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +113,14 @@ Global
 		{5828D371-5722-409A-B7F3-41938B25F4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5828D371-5722-409A-B7F3-41938B25F4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5828D371-5722-409A-B7F3-41938B25F4E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B904FE1-8420-4014-95E8-D60267604E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B904FE1-8420-4014-95E8-D60267604E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B904FE1-8420-4014-95E8-D60267604E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B904FE1-8420-4014-95E8-D60267604E18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0DD976-624F-454F-BD9F-99E850A54F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0DD976-624F-454F-BD9F-99E850A54F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0DD976-624F-454F-BD9F-99E850A54F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0DD976-624F-454F-BD9F-99E850A54F1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,18 +142,25 @@ Global
 		{12285F0C-A5EF-4B66-99B5-17E9CF7CAF74} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 		{B6933684-D4D2-4CE3-AD83-458E99D73A6B} = {34DAFB30-5B69-4343-843F-59DC7B2E97B4}
 		{5828D371-5722-409A-B7F3-41938B25F4E6} = {34DAFB30-5B69-4343-843F-59DC7B2E97B4}
+		{DAFCF1DB-B1D6-4B25-92E1-52F1320D3920} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
+		{0B904FE1-8420-4014-95E8-D60267604E18} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
+		{EB0DD976-624F-454F-BD9F-99E850A54F1A} = {09A00B3B-8F77-4679-9F08-3D088246539A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7281B48E-9A2B-4BBD-AE50-AE5B580D5115}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{0657e164-aaec-4710-ac9c-ac75d39587e2}*SharedItemsImports = 13
+		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{0b904fe1-8420-4014-95e8-d60267604e18}*SharedItemsImports = 5
+		EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.projitems*{0b904fe1-8420-4014-95e8-d60267604e18}*SharedItemsImports = 5
 		EasyNet.Security.Shared\EasyNet.Security.Shared.projitems*{12285f0c-a5ef-4b66-99b5-17e9cf7caf74}*SharedItemsImports = 13
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.Security.Shared\EasyNet.Security.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
+		EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{8146f733-4ba7-417b-8b22-5d155a439380}*SharedItemsImports = 13
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{9cd3700a-0dfb-4103-9166-d3eb8f22100d}*SharedItemsImports = 5
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{d5bea36f-a8c2-4247-ba72-56c917e2b9c4}*SharedItemsImports = 5
+		EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.projitems*{dafcf1db-b1d6-4b25-92e1-52f1320d3920}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

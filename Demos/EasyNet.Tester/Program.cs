@@ -12,35 +12,9 @@ namespace EasyNet.Tester
     {
         static void Main()
         {
-            //var loggerProvider = new ConsoleLoggerProvider();
-            //var log = loggerProvider.CreateLogger("Test");
-            //log.LogInformation("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "B");
-
-            //var loggerProvider = new DebugLoggerProvider();
-            //var log = loggerProvider.CreateLogger("Test");
-            //log.LogInformation("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "B");
-
-            //var loggerProvider = new SimpleFileLoggerProvider();
-            //var log = loggerProvider.CreateLogger("Test");
-            //log.LogInformation("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "B");
-
             //DescriptionTester.Run();
 
-            var logger = LoggerFactory.Create(builder =>
-            {
-                //builder.AddConsole();
-                //builder.AddDebug();
-                //builder.AddSimpleFile();
-                builder.AddColorConsole();
-                builder.SetMinimumLevel(LogLevel.Trace);
-            }).CreateLogger("Test");
-            logger.LogDebug("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "D");
-            logger.LogInformation("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "I");
-            logger.LogError("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "E");
-
-
-            //Console.WriteLine("Hello, world!","Title");
-            //Debug.WriteLine("Hello, world!", "Title");
+            LogTester.Run();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

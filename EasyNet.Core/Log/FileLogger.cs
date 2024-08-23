@@ -10,15 +10,15 @@ using EasyNet.Extensions;
 namespace EasyNet.Log
 {
     /// <summary>
-    /// The provider for the <see cref="SimpleFileLogger"/>.
+    /// The provider for the <see cref="FileLogger"/>.
     /// </summary>
-    [ProviderAlias("SimpleFile")]
-    public class SimpleFileLoggerProvider : ILoggerProvider
+    [ProviderAlias("File")]
+    public class FileLoggerProvider : ILoggerProvider
     {
         /// <inheritdoc />
         public ILogger CreateLogger(string name)
         {
-            return new SimpleFileLogger(name);
+            return new FileLogger(name);
         }
 
         /// <inheritdoc />
@@ -31,7 +31,7 @@ namespace EasyNet.Log
     /// <summary>
     /// 日志操作类
     /// </summary>
-    internal class SimpleFileLogger : LoggerBase
+    internal class FileLogger : LoggerBase
     {
         // 日志等级：Trace < Debug < Information < Warn < Error < Critical < None
 
@@ -85,7 +85,7 @@ namespace EasyNet.Log
         /// </summary>
         /// <param name="appDir">设置日志文件根目录</param>
         /// <param name="name">日志文件名称</param>
-        public SimpleFileLogger(string appDir, string name) : base(name)
+        public FileLogger(string appDir, string name) : base(name)
         {
             this.SetAppDir(appDir);
             this.Initial();
@@ -94,14 +94,14 @@ namespace EasyNet.Log
         /// 构造函数
         /// </summary>
         /// <param name="name"></param>
-        public SimpleFileLogger(string name) : this(null, name)
+        public FileLogger(string name) : this(null, name)
         {
 
         }
         /// <summary>
         /// 构造函数
         /// </summary>
-        public SimpleFileLogger() : this(DEFAULT_NAME)
+        public FileLogger() : this(DEFAULT_NAME)
         {
 
         }

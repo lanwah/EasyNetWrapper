@@ -52,10 +52,19 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEasyNetWinForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEasyNetWinForm.Designer.cs">
+      <DependentUpon>FormEasyNetWinForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEasyNetWinForm.resx">
+      <DependentUpon>FormEasyNetWinForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -80,9 +89,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\EasyNet.Models\EasyNet.Models.csproj">
+      <Project>{eb0dd976-624f-454f-bd9f-99e850a54f1a}</Project>
+      <Name>EasyNet.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\EasyNet.Runner\EasyNet.Runner.csproj">
       <Project>{aec32e53-c272-42aa-ace1-97e3de387c7d}</Project>
       <Name>EasyNet.Runner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EasyNet.WinForm\EasyNet.WinForm.csproj">
+      <Project>{0b904fe1-8420-4014-95e8-d60267604e18}</Project>
+      <Name>EasyNet.WinForm</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

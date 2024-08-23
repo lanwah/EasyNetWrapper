@@ -1,34 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
+﻿#if NETFRAMEWORK
+using System;
 using System.Windows.Forms;
+using System.Drawing;
+using System.ComponentModel;
+using EasyNet.Core;
+using System.Drawing.Drawing2D;
+using EasyNet.Extensions;
 
-// ------------------------------------------------------------- //
-// 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Core.Controls
-// 文件名称：CloseLabel
-// 创 建 者：lanwah
-// 创建日期：2021/02/25 14:48:55
-// 功能描述：
-// 调用依赖：
-// -------------------------------------------------------------
-// 修 改 者：
-// 修改时间：
-// 修改原因：
-// 修改描述：
-// ------------------------------------------------------------- //
-
-namespace EasyNet.Controls
+namespace EasyNet.WinForm.Controls
 {
     /// <summary>
     /// 可关闭标签
     /// </summary>
-    public class CloseLabel : Panel
+    public class CloseLabel : Control
     {
+        /// <summary>
+        /// 边框颜色
+        /// </summary>
+        public Color? BorderColor
+        {
+            get; set;
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -36,7 +29,7 @@ namespace EasyNet.Controls
         {
             this.Size = new Size(100, 25);
             this.BackColor = System.Drawing.Color.LightGray;
-            this.BorderStyle = BorderStyle.FixedSingle;
+            this.BorderColor = Color.DarkGray;
             this.AutoSize = true;
         }
 
@@ -101,16 +94,38 @@ namespace EasyNet.Controls
             }
         }
 
+        /// <summary>
+        /// 绘制事件
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            Graphics g = e.Graphics;
-            Rectangle rect = e.ClipRectangle;
+            var g = e.Graphics;
+            var rect = e.ClipRectangle;
 
             this.PaintBackColor(g, rect);
+            // 绘制边框
+            this.PaintBorder(g, rect);
             this.PaintText(g, rect);
             this.PaintCloseButton(g);
+        }
+
+        /// <summary>
+        /// 绘制边框
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="rect"></param>
+        protected virtual void PaintBorder(Graphics g, Rectangle rect)
+        {
+            if (this.BorderColor.HasValue)
+            {
+                using (Pen pen = new Pen(this.BorderColor.Value))
+                {
+                    g.DrawRectangle(pen, new Rectangle(rect.X, rect.Y, rect.Width - 1, rect.Height - 1));
+                }
+            }
         }
 
         /// <summary>
@@ -167,7 +182,7 @@ namespace EasyNet.Controls
                 penColor = Color.FromArgb(49, 156, 212);
                 backColor = Color.FromArgb(49, 156, 212);
             }
-            using (AntiAliasGraphics antiG = new AntiAliasGraphics(g, SmoothingMode.HighQuality))
+            using (var antiG = new AntiAliasGraphics(g, SmoothingMode.HighQuality))
             using (Pen pen = new Pen(penColor))
             using (Pen linePen = new Pen(lineColor, 2.0f))
             using (Brush backBrush = new SolidBrush(backColor))
@@ -214,6 +229,10 @@ namespace EasyNet.Controls
             }
         }
 
+        /// <summary>
+        /// 鼠标移动事件
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -227,27 +246,38 @@ namespace EasyNet.Controls
                 this.IsInBtnArea = false;
             }
         }
-
+        /// <summary>
+        /// 鼠标离开事件
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
 
             this.IsInBtnArea = false;
         }
-
+        /// <summary>
+        /// 鼠标点击事件
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
 
+            if (this.IsDesignMode())
+            {
+                return;
+            }
+
             if (this.IsInBtnArea)
             {
                 // 移除控件
-                if (null != this.Parent)
+                if (this.Parent.IsNotNull())
                 {
                     this.Parent.Controls.Remove(this);
                 }
-
             }
         }
     }
 }
+#endif

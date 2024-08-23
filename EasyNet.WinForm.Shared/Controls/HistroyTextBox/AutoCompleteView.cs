@@ -1,6 +1,8 @@
-﻿using System;
+﻿#if NETFRAMEWORK
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -9,29 +11,290 @@ using System.Windows.Forms;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
-// 项目名称：EasyNet.Core.Controls.AutoCompleteTextBox
-// 文件名称：AutoCompleteList
-// 创 建 者：lanwah
-// 创建日期：2021/02/23 15:27:08
+// 项目名称：EasyNet.WinForm.Shared
+// CLR版本：4.0.30319.42000
+// 运行要求：$targetframeworkversion$
+// 文件名称：AutoCompleteView.cs
+// 创建用户：lanwah
+// 创建日期：2024/8/23 10:39:16
 // 功能描述：
 // 调用依赖：
 // -------------------------------------------------------------
-// 修 改 者：
+// 修改用户：
 // 修改时间：
 // 修改原因：
 // 修改描述：
 // ------------------------------------------------------------- //
 
-namespace EasyNet.Controls
+namespace EasyNet.WinForm.Controls
 {
     [ToolboxItem(false)]
-    public class AutoCompleteList : ScrollableControl
+    internal partial class AutoCompleteView : UserControl
+    {
+        internal AutocompleteHost Host { get; set; }
+        /// <summary>
+        /// 是否支持自定义输入
+        /// </summary>
+        public bool IsCustomInput { get; set; } = false;
+
+        private IEnumerable<AutocompleteItem> SourceItems
+        {
+            get
+            {
+                if (Host == null)
+                {
+                    return new List<AutocompleteItem>();
+                }
+                else
+                {
+                    return Host.SourceItems;
+                }
+            }
+        }
+
+
+        public AutoCompleteView()
+        {
+            InitializeComponent();
+
+            this.tbxInput.MouseWheel += new MouseEventHandler(TbxInput_MouseWheel);
+            this.Height = pnlTop.Height;
+
+            autoCompleteList.ItemSelected += new EventHandler(AutoCompleteList_ItemSelected);
+        }
+
+        private void AutoCompleteList_ItemSelected(object sender, EventArgs e)
+        {
+            OnSelecting();
+        }
+
+        private void TbxInput_TextChanged(object sender, EventArgs e)
+        {
+            bool foundSelected = false;
+            int selectedIndex = -1;
+
+            string text = tbxInput.Text;
+            var visibleItems = new List<AutocompleteItem>();
+
+            if (Host.SearchCallback != null)
+            {
+                autoCompleteList.VisibleItems = Host.SearchCallback(text).ToList();
+            }
+            else if (SourceItems != null)
+            {
+                foreach (AutocompleteItem item in SourceItems)
+                {
+                    if (item == null)
+                    {
+                        continue;
+                    }
+
+                    if (item.Key == null)
+                    {
+                        continue;
+                    }
+
+                    CompareResult res = item.Compare(text);
+                    if (res != CompareResult.Hidden)
+                    {
+                        visibleItems.Add(item);
+                    }
+
+                    if (res == CompareResult.VisibleAndSelected && !foundSelected)
+                    {
+                        foundSelected = true;
+                        selectedIndex = visibleItems.Count - 1;
+                    }
+                }
+
+                autoCompleteList.VisibleItems = visibleItems;
+            }
+
+            if ((null != autoCompleteList.VisibleItems) && (autoCompleteList.VisibleItems.Count > 0))
+            {
+                if (foundSelected)
+                {
+                    SelectedItemIndex = selectedIndex;
+                }
+                else
+                {
+                    SelectedItemIndex = 0;
+                }
+            }
+
+            CalcSize();
+        }
+
+        public int SelectedItemIndex
+        {
+            get { return autoCompleteList.SelectedItemIndex; }
+            internal set { autoCompleteList.SelectedItemIndex = value; }
+        }
+
+        public IList<AutocompleteItem> VisibleItems
+        {
+            get { return autoCompleteList.VisibleItems; }
+            private set { autoCompleteList.VisibleItems = value; }
+        }
+
+        public void SelectNext(int shift)
+        {
+            SelectedItemIndex = Math.Max(0, Math.Min(SelectedItemIndex + shift, VisibleItems.Count - 1));
+            //
+            autoCompleteList.Invalidate();
+        }
+
+        public bool ProcessKey(Keys c, Keys keyModifiers)
+        {
+            var page = autoCompleteList.Height / (Font.Height + 4);
+            if (keyModifiers == Keys.None)
+            {
+                switch (c)
+                {
+                    case Keys.Down:
+                        SelectNext(+1);
+                        return true;
+                    case Keys.PageDown:
+                        SelectNext(+page);
+                        return true;
+                    case Keys.Up:
+                        SelectNext(-1);
+                        return true;
+                    case Keys.PageUp:
+                        SelectNext(-page);
+                        return true;
+                    case Keys.Enter:
+                    case Keys.Tab:
+                    case Keys.Space:
+                        OnSelecting();
+                        return true;
+                    case Keys.Escape:
+                        Close();
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void Close()
+        {
+            Host.Close();
+        }
+
+        internal virtual void OnSelecting()
+        {
+            if (SelectedItemIndex < 0 || SelectedItemIndex >= VisibleItems.Count)
+            {
+                Close();
+                if (this.IsCustomInput)
+                {
+                    Host.OnSelecting(new SelectingEventArgs()
+                    {
+                        SelectedIndex = -1,
+                        Item = new AutocompleteItem()
+                        {
+                            DisplayText = this.tbxInput.Text,
+                        }
+                    });
+                }
+                return;
+            }
+
+            AutocompleteItem item = VisibleItems[SelectedItemIndex];
+            var args = new SelectingEventArgs
+            {
+                Item = item,
+                SelectedIndex = SelectedItemIndex
+            };
+
+            Host.OnSelecting(args);
+            autoCompleteList.CloseToolTip();
+            if (args.Cancel)
+            {
+                SelectedItemIndex = args.SelectedIndex;
+                (Host.ListView as Control).Invalidate(true);
+                return;
+            }
+
+            Close();
+            //
+            var args2 = new SelectedEventArgs
+            {
+                Item = item,
+            };
+            //item.OnSelected(args2);
+            Host.OnSelected(args2);
+        }
+
+        internal void CalcSize()
+        {
+            var viewHeight = ((autoCompleteList.Height >= autoCompleteList.ItemHeight) ? autoCompleteList.Height : 0);
+            this.Height = (pnlTop.Height + viewHeight + (pnlBottom.Visible ? pnlBottom.Height : 0));
+            autoCompleteList.MaximumSize = new Size(pnlTop.Width - 0, autoCompleteList.MaximumSize.Height);
+            autoCompleteList.Width = pnlTop.Width - 0;
+            Host.CalcSize();
+
+            //System.Diagnostics.Trace.WriteLine($"Height = {this.Height}");
+            //System.Diagnostics.Trace.WriteLine($"pnlTop.Height = {pnlTop.Height}");
+            //System.Diagnostics.Trace.WriteLine($"autoCompleteList.Height = {autoCompleteList.Height}{Environment.NewLine}");
+            //System.Diagnostics.Trace.WriteLine($"autoCompleteList.MaximumSize = {autoCompleteList.MaximumSize.ToString()}");
+            //System.Diagnostics.Trace.WriteLine($"{Environment.NewLine}");
+        }
+
+        private bool TbxInput_DoProcessDialogKey(Keys keyData)
+        {
+            return ProcessKey(keyData, Keys.None);
+        }
+
+        private void TbxInput_MouseWheel(object sender, MouseEventArgs e)
+        {
+            autoCompleteList.SetMouseWheel(e);
+        }
+
+        public void Init()
+        {
+            tbxInput.TextChanged -= new EventHandler(TbxInput_TextChanged);
+            tbxInput.Text = string.Empty;
+            autoCompleteList.Clear();
+            CalcSize();
+            tbxInput.TextChanged += new EventHandler(TbxInput_TextChanged);
+        }
+    }
+
+    [ToolboxItem(false)]
+    internal class AutoCompleteTextBox : TextBox
+    {
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            return ExecuteDialogKey(keyData) || base.ProcessDialogKey(keyData);
+        }
+
+        public bool ExecuteDialogKey(Keys keyData)
+        {
+            if (DoProcessDialogKey != null && DoProcessDialogKey(keyData))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public event DialogKeyProcessor DoProcessDialogKey;
+    }
+
+    [ToolboxItem(false)]
+    internal class AutoCompleteList : ScrollableControl
     {
         private readonly ToolTip toolTip = new ToolTip();
-        private int hoveredItemIndex = -1;
+        private int HoveredItemIndex { get; set; } = -1;
         private int oldItemCount;
         private int selectedItemIndex = -1;
         private IList<AutocompleteItem> visibleItems;
+        /// <summary>
+        /// 项目间距
+        /// </summary>
+        private Padding ItemPadding { get; set; } = new Padding(0, 5, 0, 5);
 
         public event EventHandler ItemSelected;
 
@@ -46,23 +309,31 @@ namespace EasyNet.Controls
                 | ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.Selectable, false);
             base.Font = new Font(FontFamily.GenericSansSerif, 9);
-            ItemHeight = Font.Height + 2;
+            this.SetItemHeight(Font.Height);
             VerticalScroll.SmallChange = ItemHeight;
             BackColor = Color.White;
         }
 
-        private int itemHeight;
+        private int itemHeight = 25;
 
         public int ItemHeight
         {
             get { return itemHeight; }
-            set
+            private set
             {
                 itemHeight = value;
                 VerticalScroll.SmallChange = value;
                 oldItemCount = -1;
                 AdjustScroll();
             }
+        }
+        /// <summary>
+        /// 设置项目条目高度
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetItemHeight(int value)
+        {
+            this.ItemHeight = value + this.ItemPadding.Vertical;
         }
 
         public override Font Font
@@ -71,7 +342,7 @@ namespace EasyNet.Controls
             set
             {
                 base.Font = value;
-                ItemHeight = Font.Height + 2;
+                this.SetItemHeight(Font.Height);
             }
         }
         /// <summary>
@@ -156,7 +427,7 @@ namespace EasyNet.Controls
             int finishI = (VerticalScroll.Value + ClientSize.Height) / ItemHeight + 1;
             startI = Math.Max(startI, 0);
             finishI = Math.Min(finishI, VisibleItems.Count);
-            int y = 0;
+            int y;
             int leftPadding = 1;
             for (int i = startI; i < finishI; i++)
             {
@@ -187,12 +458,16 @@ namespace EasyNet.Controls
                     e.Graphics.FillRectangle(selectedBrush, textRect);
                     e.Graphics.DrawRectangle(Pens.Orange, textRect);
                 }
-                if (i == hoveredItemIndex)
+                if (i == HoveredItemIndex)
                 {
                     e.Graphics.DrawRectangle(Pens.Red, textRect);
                 }
 
-                var sf = new StringFormat();
+                var sf = new StringFormat()
+                {
+                    LineAlignment = StringAlignment.Center,
+                    //Alignment = StringAlignment.Near
+                };
                 if (rtl)
                 {
                     sf.FormatFlags = StringFormatFlags.DirectionRightToLeft;
@@ -204,7 +479,7 @@ namespace EasyNet.Controls
                     TextRect = new RectangleF(textRect.Location, textRect.Size),
                     StringFormat = sf,
                     IsSelected = i == SelectedItemIndex,
-                    IsHovered = i == hoveredItemIndex
+                    IsHovered = i == HoveredItemIndex
                 };
                 //call drawing
                 VisibleItems[i].OnPaint(args);
@@ -237,30 +512,22 @@ namespace EasyNet.Controls
             SelectedItemIndex = PointToItemIndex(e.Location);
             Invalidate();
             OnItemSelected();
+            this.OnViewDoubleClick();
         }
 
         private void OnItemSelected()
         {
-            if (ItemSelected != null)
-            {
-                ItemSelected(this, EventArgs.Empty);
-            }
+            ItemSelected?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnViewClick()
         {
-            if (ViewClick != null)
-            {
-                ViewClick(this, EventArgs.Empty);
-            }
+            ViewClick?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnViewDoubleClick()
         {
-            if (ViewDoubleClick != null)
-            {
-                ViewDoubleClick(this, EventArgs.Empty);
-            }
+            ViewDoubleClick?.Invoke(this, EventArgs.Empty);
         }
 
         private const int WM_MOUSEACTIVATE = 0x21;
@@ -353,3 +620,4 @@ namespace EasyNet.Controls
         }
     }
 }
+#endif

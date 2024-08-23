@@ -14,6 +14,8 @@
 
   <Import Project="..\EasyNet.Security.Shared\EasyNet.Security.Shared.projitems" Label="Shared" />
 
+  <Import Project="..\EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.projitems" Label="Shared" />
+
   <ItemGroup>
     <Compile Remove="FileUpdater.cs" />
     <Compile Remove="FunStatus.cs" />
@@ -22,6 +24,10 @@
 
   <ItemGroup>
     <None Remove="Log\NLog.config" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net3.5' or '$(TargetFramework)' == 'net4.0' or '$(TargetFramework)' == 'net4.5'">
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
 </Project>

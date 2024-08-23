@@ -1,6 +1,7 @@
-﻿namespace EasyNet.Controls
+﻿#if NETFRAMEWORK
+namespace EasyNet.WinForm.Controls
 {
-    partial class AutoCompleteIMEControl
+    partial class HistoryTextBox
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.autoCompleteDataItem = new EasyNet.Controls.AutoCompleteDataItem();
+            this.autoCompleteDataItem = new AutoCompleteDataItem();
             this.SuspendLayout();
             // 
             // autoCompleteDataItem
@@ -38,6 +39,7 @@
             this.autoCompleteDataItem.Name = "autoCompleteDataItem";
             this.autoCompleteDataItem.Size = new System.Drawing.Size(277, 30);
             this.autoCompleteDataItem.TabIndex = 2;
+            this.autoCompleteDataItem.Font = new System.Drawing.Font("微软雅黑", 10);
             // 
             // AutoCompleteIMEControl
             // 
@@ -55,3 +57,4 @@
         private AutoCompleteDataItem autoCompleteDataItem;
     }
 }
+#endif
