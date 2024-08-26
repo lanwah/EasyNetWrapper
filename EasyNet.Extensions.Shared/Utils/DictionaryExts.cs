@@ -38,7 +38,7 @@ namespace EasyNet.Extensions
 #if NET45_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> @this, TKey key, TValue defaultValue = default(TValue))
+        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> @this, TKey key, TValue defaultValue = default)
         {
             var value = @this.TryGetValue(key, out var result) ? result : defaultValue;
             return value;
@@ -56,29 +56,28 @@ namespace EasyNet.Extensions
 #endif
         public static TValue? GetValue<TKey, TValue>(this Dictionary<TKey, TValue> @this, TKey key) where TValue : struct
         {
-            TValue? val = null;
-            if ((null != @this) && (@this.ContainsKey(key)))
-            {
-                var value = @this[key];
-                val = value;
-            }
+            //TValue? val = null;
+            //if ((null != @this) && (@this.ContainsKey(key)))
+            //{
+            //    var value = @this[key];
+            //    val = value;
+            //}
 
+            var val = @this.TryGetValue(key, out var value) ? value : (TValue?)null;
             return val;
         }
-        /// <summary>
-        /// 获取引用类型字典值，<see cref="GetValue{TKey, TValue}(Dictionary{TKey, TValue}, TKey, TValue)"/>中已经实现了此函数的功能，因此不开放此函数。
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="this"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-#if NET45_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static TValue GetRTValue<TKey, TValue>(this Dictionary<TKey, TValue> @this, TKey key) where TValue : class
-        {
-            return (null == @this) ? null : (@this.ContainsKey(key) ? @this[key] : null);
-        }
+        ///// <summary>
+        ///// 获取引用类型字典值，<see cref="GetValue{TKey, TValue}(Dictionary{TKey, TValue}, TKey, TValue)"/>中已经实现了此函数的功能，因此不开放此函数。
+        ///// </summary>
+        ///// <typeparam name="TKey"></typeparam>
+        ///// <typeparam name="TValue"></typeparam>
+        ///// <param name="this"></param>
+        ///// <param name="key"></param>
+        ///// <returns></returns>
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //private static TValue GetRTValue<TKey, TValue>(this Dictionary<TKey, TValue> @this, TKey key) where TValue : class
+        //{
+        //    return (null == @this) ? null : (@this.ContainsKey(key) ? @this[key] : null);
+        //}
     }
 }

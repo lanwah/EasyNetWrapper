@@ -21,16 +21,34 @@ namespace EasyNet.WinForm.Controls
         {
             get; set;
         }
+        /// <summary>
+        /// 清除按钮绘制器
+        /// </summary>
+        protected ClearPainter ClearButtonPainter
+        {
+            get; set;
+        }
+        /// <summary>
+        /// 清除按钮宽度
+        /// </summary>
+        private int ClearButtonWidth => this.ClearButtonPainter.Width;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         public CloseLabel() : base()
         {
+            this.ClearButtonPainter = new ClearPainter(this);
             this.Size = new Size(100, 25);
             this.BackColor = System.Drawing.Color.LightGray;
             this.BorderColor = Color.DarkGray;
             this.AutoSize = true;
+
+            // 双缓冲
+            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            //this.SetStyle(ControlStyles.ResizeRedraw, true);
+            //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            this.DoubleBuffered = true;
         }
 
         /// <summary>
@@ -58,41 +76,6 @@ namespace EasyNet.WinForm.Controls
                 this.AdjustSize();
             }
         }
-        private bool _isInBtnArea = false;
-        /// <summary>
-        /// 是否在按钮区域
-        /// </summary>
-        private bool IsInBtnArea
-        {
-            get => this._isInBtnArea;
-            set
-            {
-                if (this._isInBtnArea != value)
-                {
-                    this._isInBtnArea = value;
-                    this.Invalidate();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 关闭按钮正方形边框
-        /// </summary>
-        public int CloseWidth
-        {
-            get; set;
-        } = 22;
-        /// <summary>
-        /// 关闭按钮区域
-        /// </summary>
-        public Rectangle CloseRect
-        {
-            get
-            {
-                Rectangle rect = new Rectangle(this.Width - CloseWidth - 4, (this.Height - CloseWidth) / 2 - 1, CloseWidth, CloseWidth);
-                return rect;
-            }
-        }
 
         /// <summary>
         /// 绘制事件
@@ -109,7 +92,18 @@ namespace EasyNet.WinForm.Controls
             // 绘制边框
             this.PaintBorder(g, rect);
             this.PaintText(g, rect);
-            this.PaintCloseButton(g);
+            this.PaintClearButton(g);
+        }
+
+        private void PaintClearButton(Graphics g)
+        {
+            // 绘制清除按钮
+            var clearWidth = this.ClearButtonWidth;
+            var painter = this.ClearButtonPainter;
+            // 更新坐标
+            painter.Location = new Point(this.Width - clearWidth - 4, (this.Height - clearWidth) / 2 - 1);
+            // 绘制
+            painter.Paint(g);
         }
 
         /// <summary>
@@ -164,47 +158,6 @@ namespace EasyNet.WinForm.Controls
             }
         }
         /// <summary>
-        /// 绘制关闭图标
-        /// </summary>
-        /// <param name="g"></param>
-        private void PaintCloseButton(Graphics g)
-        {
-            Color penColor = Color.FromArgb(109, 175, 206);
-            Color backColor = Color.FromArgb(109, 175, 206);
-            Color lineColor = Color.White;
-            //if (this.IsInBtnArea)
-            //{
-            //    penColor = Color.FromArgb(145, 205, 230);
-            //    backColor = Color.FromArgb(145, 205, 230);
-            //}
-            if (this.IsInBtnArea)
-            {
-                penColor = Color.FromArgb(49, 156, 212);
-                backColor = Color.FromArgb(49, 156, 212);
-            }
-            using (var antiG = new AntiAliasGraphics(g, SmoothingMode.HighQuality))
-            using (Pen pen = new Pen(penColor))
-            using (Pen linePen = new Pen(lineColor, 2.0f))
-            using (Brush backBrush = new SolidBrush(backColor))
-            {
-                Rectangle closeRect = CloseRect;
-                closeRect.Inflate(-2, -2);
-                g.DrawEllipse(pen, closeRect);
-                g.FillEllipse(backBrush, closeRect);
-
-                Point pt1 = new Point(closeRect.X + closeRect.Width / 4, closeRect.Y + closeRect.Height / 4);
-                Point pt2 = new Point(closeRect.X + closeRect.Width / 4 * 3, closeRect.Y + closeRect.Height / 4);
-                Point pt3 = new Point(closeRect.X + closeRect.Width / 4, closeRect.Y + closeRect.Height / 4 * 3);
-                Point pt4 = new Point(closeRect.X + closeRect.Width / 4 * 3, closeRect.Y + closeRect.Height / 4 * 3);
-                pt1.Offset(1, 1);
-                pt2.Offset(1, 1);
-                pt3.Offset(1, 1);
-                pt4.Offset(1, 1);
-                g.DrawLine(linePen, pt1, pt4);
-                g.DrawLine(linePen, pt2, pt3);
-            }
-        }
-        /// <summary>
         /// 调整大小
         /// </summary>
         private void AdjustSize()
@@ -216,10 +169,11 @@ namespace EasyNet.WinForm.Controls
 
             var g = this.CreateGraphics();
             var size = g.MeasureString(this.Text, this.Font);
+            var clearWidth = this.ClearButtonWidth;
             // 宽度
-            var width = (int)Math.Ceiling(size.Width) + 10 + this.CloseWidth;
+            var width = (int)Math.Ceiling(size.Width) + 10 + clearWidth;
             // 高度
-            var height = Math.Max((int)Math.Ceiling(size.Height) + 10, this.CloseWidth + 2);
+            var height = Math.Max((int)Math.Ceiling(size.Height) + 10, clearWidth + 2);
             if ((this.Width != width) || (this.Height != height))
             {
                 this.Width = width;
@@ -237,14 +191,7 @@ namespace EasyNet.WinForm.Controls
         {
             base.OnMouseMove(e);
 
-            if (CloseRect.Contains(e.Location))
-            {
-                this.IsInBtnArea = true;
-            }
-            else
-            {
-                this.IsInBtnArea = false;
-            }
+            this.ClearButtonPainter.UpdateHoverStaus(e.Location);
         }
         /// <summary>
         /// 鼠标离开事件
@@ -254,7 +201,7 @@ namespace EasyNet.WinForm.Controls
         {
             base.OnMouseLeave(e);
 
-            this.IsInBtnArea = false;
+            this.ClearButtonPainter.IsHover = false;
         }
         /// <summary>
         /// 鼠标点击事件
@@ -269,7 +216,7 @@ namespace EasyNet.WinForm.Controls
                 return;
             }
 
-            if (this.IsInBtnArea)
+            if (this.ClearButtonPainter.IsHover)
             {
                 // 移除控件
                 if (this.Parent.IsNotNull())

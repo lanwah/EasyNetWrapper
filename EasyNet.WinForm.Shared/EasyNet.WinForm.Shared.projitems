@@ -9,6 +9,7 @@
     <Import_RootNamespace>EasyNet.WinForm.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ClearPainter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\AutoCompleteView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\AutoCompleteView.designer.cs">
       <DependentUpon>AutoCompleteView.cs</DependentUpon>
@@ -19,7 +20,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\IAutoCompleteConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\CloseLabel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EnvironmentExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gdi+\AntiAliasGraphics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Image\ImageFormatter.Base.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Image\ImageFormatter.cs" />

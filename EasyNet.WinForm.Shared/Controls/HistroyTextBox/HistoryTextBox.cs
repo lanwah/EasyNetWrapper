@@ -59,7 +59,8 @@ namespace EasyNet.WinForm.Controls
 
             autoCompleteDataItem.Click += new EventHandler(AutoCompleteDataItem_Click);
             autoCompleteDataItem.DataDeleted += new EventHandler(AutoCompleteDataItem_DataDeleted);
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
+            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            this.DoubleBuffered = true;
         }
 
 
@@ -320,49 +321,30 @@ namespace EasyNet.WinForm.Controls
         /// </summary>
         public event EventHandler DataDeleted;
 
-        public enum MouseState
-        {
-            Normal = 0,
-            Hover,
-            Pressed,
-        }
-
-        protected MouseState closeMouseState;
-        protected MouseState CloseState
-        {
-            get { return closeMouseState; }
-            set
-            {
-                if (value != closeMouseState)
-                {
-                    closeMouseState = value;
-                    Invalidate(CloseRect);
-                }
-            }
-        }
-        /// <summary>
-        /// 关闭按钮正方形边框
-        /// </summary>
-        private readonly int CloseWidth = 22;
-
         private AutoCompleteDataLabel DataLabel { get; set; }
-
-        public Rectangle CloseRect
-        {
-            get
-            {
-                Rectangle rect = new Rectangle(this.Bounds.Right - CloseWidth - 4, (this.Height - CloseWidth) / 2, CloseWidth, CloseWidth);
-                return rect;
-            }
-        }
-
         public Rectangle DataRect
         {
             get
             {
-                var rect = new Rectangle(this.Bounds.Left, this.Bounds.Top, this.Width - CloseWidth - 2, this.Height);
+                var rect = new Rectangle(this.Bounds.Left, this.Bounds.Top, this.Width - this.ClearButtonWidth - 2, this.Height);
                 return rect;
             }
+        }
+        /// <summary>
+        /// 清除按钮绘制器
+        /// </summary>
+        protected ClearPainter ClearButtonPainter
+        {
+            get; set;
+        }
+        /// <summary>
+        /// 清除按钮宽度
+        /// </summary>
+        private int ClearButtonWidth => this.ClearButtonPainter.Width;
+
+        public AutoCompleteDataItem()
+        {
+            this.ClearButtonPainter = new ClearPainter(this);
         }
 
         public void SetDataItem(AutocompleteItem item)
@@ -405,49 +387,22 @@ namespace EasyNet.WinForm.Controls
                 // 绘制显示的文本
                 //this.DataLabel.OnPaint(g, e.ClipRectangle); 
                 this.DataLabel.OnPaint(g);
-                this.PaintCloseButton(g);
+                this.PaintClearButton(g);
             }
         }
         /// <summary>
         /// 绘制关闭图标
         /// </summary>
         /// <param name="g"></param>
-        private void PaintCloseButton(Graphics g)
+        private void PaintClearButton(Graphics g)
         {
-            Color penColor = Color.FromArgb(109, 175, 206);
-            Color backColor = Color.FromArgb(109, 175, 206);
-            Color lineColor = Color.White;
-            if (CloseState == MouseState.Hover)
-            {
-                penColor = Color.FromArgb(145, 205, 230);
-                backColor = Color.FromArgb(145, 205, 230);
-            }
-            else if (CloseState == MouseState.Pressed)
-            {
-                penColor = Color.FromArgb(49, 156, 212);
-                backColor = Color.FromArgb(49, 156, 212);
-            }
-            using (var antiG = new AntiAliasGraphics(g, SmoothingMode.HighQuality))
-            using (Pen pen = new Pen(penColor))
-            using (Pen linePen = new Pen(lineColor, 2.0f))
-            using (Brush backBrush = new SolidBrush(backColor))
-            {
-                Rectangle closeRect = CloseRect;
-                closeRect.Inflate(-2, -2);
-                g.DrawEllipse(pen, closeRect);
-                g.FillEllipse(backBrush, closeRect);
-
-                Point pt1 = new Point(closeRect.X + closeRect.Width / 4, closeRect.Y + closeRect.Height / 4);
-                Point pt2 = new Point(closeRect.X + closeRect.Width / 4 * 3, closeRect.Y + closeRect.Height / 4);
-                Point pt3 = new Point(closeRect.X + closeRect.Width / 4, closeRect.Y + closeRect.Height / 4 * 3);
-                Point pt4 = new Point(closeRect.X + closeRect.Width / 4 * 3, closeRect.Y + closeRect.Height / 4 * 3);
-                pt1.Offset(1, 1);
-                pt2.Offset(1, 1);
-                pt3.Offset(1, 1);
-                pt4.Offset(1, 1);
-                g.DrawLine(linePen, pt1, pt4);
-                g.DrawLine(linePen, pt2, pt3);
-            }
+            // 绘制清除按钮
+            var clearWidth = this.ClearButtonWidth;
+            var painter = this.ClearButtonPainter;
+            // 更新坐标
+            painter.Location = new Point(this.Width - clearWidth - 4, (this.Height - clearWidth) / 2 - 1);
+            // 绘制
+            painter.Paint(g);
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -460,19 +415,11 @@ namespace EasyNet.WinForm.Controls
             base.OnMouseMove(e);
             if (DataLabel != null)
             {
-                if (CloseRect.Contains(e.Location))
-                {
-                    // 进入关闭按钮区域
-                    if (CloseState != MouseState.Pressed)
-                    {
-                        CloseState = MouseState.Hover;
-                    }
+                this.ClearButtonPainter.UpdateHoverStaus(e.Location);
 
-                    toolTip.Hide(this);
-                }
-                else
+                if (this.ClearButtonPainter.IsHover)
                 {
-                    CloseState = MouseState.Normal;
+                    toolTip.Hide(this);
                 }
             }
         }
@@ -482,35 +429,7 @@ namespace EasyNet.WinForm.Controls
             base.OnMouseLeave(e);
             if (DataLabel != null)
             {
-                CloseState = MouseState.Normal;
-            }
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            if (CloseRect.Contains(e.Location))
-            {
-                if (DataLabel != null)
-                {
-                    CloseState = MouseState.Pressed;
-                }
-            }
-        }
-
-        protected override void OnMouseUp(MouseEventArgs e)
-        {
-            base.OnMouseUp(e);
-            if (DataLabel != null)
-            {
-                if (CloseRect.Contains(e.Location))
-                {
-                    CloseState = MouseState.Hover;
-                }
-                else
-                {
-                    CloseState = MouseState.Normal;
-                }
+                this.ClearButtonPainter.IsHover = false;
             }
         }
 
@@ -519,7 +438,7 @@ namespace EasyNet.WinForm.Controls
             base.OnMouseClick(e);
             if (DataLabel != null)
             {
-                if (CloseRect.Contains(e.Location))
+                if (this.ClearButtonPainter.IsHover)
                 {
                     DataLabel = null;
                     Invalidate();

@@ -41,7 +41,6 @@
             // 
             this.closeLabel1.BackColor = System.Drawing.Color.LightGray;
             this.closeLabel1.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeLabel1.CloseWidth = 22;
             this.closeLabel1.Location = new System.Drawing.Point(33, 37);
             this.closeLabel1.Name = "closeLabel1";
             this.closeLabel1.Size = new System.Drawing.Size(105, 24);
@@ -52,7 +51,6 @@
             // 
             this.closeLabel2.BackColor = System.Drawing.Color.LightGray;
             this.closeLabel2.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeLabel2.CloseWidth = 22;
             this.closeLabel2.Location = new System.Drawing.Point(33, 77);
             this.closeLabel2.Name = "closeLabel2";
             this.closeLabel2.Size = new System.Drawing.Size(105, 24);
@@ -63,7 +61,6 @@
             // 
             this.closeLabel3.BackColor = System.Drawing.Color.LightGray;
             this.closeLabel3.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeLabel3.CloseWidth = 22;
             this.closeLabel3.Location = new System.Drawing.Point(33, 120);
             this.closeLabel3.Name = "closeLabel3";
             this.closeLabel3.Size = new System.Drawing.Size(105, 24);
@@ -74,7 +71,6 @@
             // 
             this.closeLabel4.BackColor = System.Drawing.Color.LightGray;
             this.closeLabel4.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeLabel4.CloseWidth = 22;
             this.closeLabel4.Location = new System.Drawing.Point(161, 37);
             this.closeLabel4.Name = "closeLabel4";
             this.closeLabel4.Size = new System.Drawing.Size(105, 24);
@@ -85,7 +81,6 @@
             // 
             this.closeLabel5.BackColor = System.Drawing.Color.LightGray;
             this.closeLabel5.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeLabel5.CloseWidth = 22;
             this.closeLabel5.Location = new System.Drawing.Point(161, 77);
             this.closeLabel5.Name = "closeLabel5";
             this.closeLabel5.Size = new System.Drawing.Size(105, 24);
@@ -96,7 +91,6 @@
             // 
             this.closeLabel6.BackColor = System.Drawing.Color.LightGray;
             this.closeLabel6.BorderColor = System.Drawing.Color.DarkGray;
-            this.closeLabel6.CloseWidth = 22;
             this.closeLabel6.Location = new System.Drawing.Point(161, 120);
             this.closeLabel6.Name = "closeLabel6";
             this.closeLabel6.Size = new System.Drawing.Size(105, 24);
@@ -105,8 +99,8 @@
             // 
             // historyTextBox1
             // 
-            this.historyTextBox1.IsCustomInput = true;
-            this.historyTextBox1.Location = new System.Drawing.Point(33, 168);
+            this.historyTextBox1.IsCustomInput = false;
+            this.historyTextBox1.Location = new System.Drawing.Point(33, 179);
             this.historyTextBox1.Name = "historyTextBox1";
             this.historyTextBox1.SearchCallback = null;
             this.historyTextBox1.SelectedItem = null;

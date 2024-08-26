@@ -39,7 +39,7 @@ namespace EasyNet.WinForm.Controls
             this.autoCompleteDataItem.Name = "autoCompleteDataItem";
             this.autoCompleteDataItem.Size = new System.Drawing.Size(277, 30);
             this.autoCompleteDataItem.TabIndex = 2;
-            this.autoCompleteDataItem.Font = new System.Drawing.Font("微软雅黑", 10);
+            this.autoCompleteDataItem.Font = new System.Drawing.Font("宋体", 10);
             // 
             // AutoCompleteIMEControl
             // 
