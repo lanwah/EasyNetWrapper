@@ -333,7 +333,7 @@ namespace EasyNet.WinForm.Controls
         /// <summary>
         /// 清除按钮绘制器
         /// </summary>
-        protected ClearPainter ClearButtonPainter
+        protected ClearPaintItem ClearButtonPainter
         {
             get; set;
         }
@@ -341,10 +341,21 @@ namespace EasyNet.WinForm.Controls
         /// 清除按钮宽度
         /// </summary>
         private int ClearButtonWidth => this.ClearButtonPainter.Width;
+        /// <summary>
+        /// 清除按钮坐标
+        /// </summary>
+        private Point ClearButtonLocation
+        {
+            get
+            {
+                var clearWidth = this.ClearButtonWidth;
+                return new Point(this.Width - clearWidth - 4, (this.Height - clearWidth) / 2 - 1);
+            }
+        }
 
         public AutoCompleteDataItem()
         {
-            this.ClearButtonPainter = new ClearPainter(this);
+            this.ClearButtonPainter = new ClearPaintItem(this);
         }
 
         public void SetDataItem(AutocompleteItem item)
@@ -397,12 +408,15 @@ namespace EasyNet.WinForm.Controls
         private void PaintClearButton(Graphics g)
         {
             // 绘制清除按钮
-            var clearWidth = this.ClearButtonWidth;
             var painter = this.ClearButtonPainter;
-            // 更新坐标
-            painter.Location = new Point(this.Width - clearWidth - 4, (this.Height - clearWidth) / 2 - 1);
             // 绘制
-            painter.Paint(g);
+            using (new SaveStateGraphics(g))
+            {
+                // 更改坐标原点
+                var location = this.ClearButtonLocation;
+                g.TranslateTransform(location.X, location.Y);
+                painter.Paint(new PaintEventArgs(g, Rectangle.Empty));
+            }
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -415,7 +429,7 @@ namespace EasyNet.WinForm.Controls
             base.OnMouseMove(e);
             if (DataLabel != null)
             {
-                this.ClearButtonPainter.UpdateHoverStaus(e.Location);
+                this.ClearButtonPainter.UpdateHoverStatus(e.Location, this.ClearButtonLocation);
 
                 if (this.ClearButtonPainter.IsHover)
                 {

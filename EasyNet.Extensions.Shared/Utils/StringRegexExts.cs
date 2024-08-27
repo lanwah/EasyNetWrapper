@@ -107,7 +107,13 @@ namespace EasyNet.Extensions
             // 执行分割
             if (@this.IsNullOrEmpty())
             {
+#if NET8_0_OR_GREATER
+                return [];
+#elif NET5_0_OR_GREATER
+                return Array.Empty<string>();
+#else
                 return new string[0];
+#endif
             }
 
             return Regex.Split(@this, pattern);
@@ -193,8 +199,9 @@ namespace EasyNet.Extensions
                 return 0;
             }
 
-            // 计算字符串长度
-            return Regex.Replace(@this, @"[\u4e00-\u9fa5/g]", "aa").Length;
+            //// 计算字符串长度
+            //return Regex.Replace(@this, @"[\u4e00-\u9fa5/g]", "aa").Length;
+            return Encoding.UTF8.GetByteCount(@this);
         }
         /// <summary>
         /// 判断输入的字符串是否为一个有效的IP地址

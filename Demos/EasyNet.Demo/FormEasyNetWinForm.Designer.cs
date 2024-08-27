@@ -35,6 +35,7 @@
             this.closeLabel5 = new EasyNet.WinForm.Controls.CloseLabel();
             this.closeLabel6 = new EasyNet.WinForm.Controls.CloseLabel();
             this.historyTextBox1 = new EasyNet.WinForm.Controls.HistoryTextBox();
+            this.historyTextBox2 = new EasyNet.WinForm.Controls.HistoryTextBox();
             this.SuspendLayout();
             // 
             // closeLabel1
@@ -99,7 +100,7 @@
             // 
             // historyTextBox1
             // 
-            this.historyTextBox1.IsCustomInput = false;
+            this.historyTextBox1.IsCustomInput = true;
             this.historyTextBox1.Location = new System.Drawing.Point(33, 179);
             this.historyTextBox1.Name = "historyTextBox1";
             this.historyTextBox1.SearchCallback = null;
@@ -107,12 +108,26 @@
             this.historyTextBox1.Size = new System.Drawing.Size(233, 30);
             this.historyTextBox1.SourceItems = null;
             this.historyTextBox1.TabIndex = 6;
+            this.historyTextBox1.DataChanged += new System.EventHandler(this.HistoryTextBox1_DataChanged);
+            // 
+            // historyTextBox2
+            // 
+            this.historyTextBox2.IsCustomInput = true;
+            this.historyTextBox2.Location = new System.Drawing.Point(33, 226);
+            this.historyTextBox2.Name = "historyTextBox2";
+            this.historyTextBox2.SearchCallback = null;
+            this.historyTextBox2.SelectedItem = null;
+            this.historyTextBox2.Size = new System.Drawing.Size(233, 30);
+            this.historyTextBox2.SourceItems = null;
+            this.historyTextBox2.TabIndex = 7;
+            this.historyTextBox2.DataChanged += new System.EventHandler(this.HistoryTextBox2_DataChanged);
             // 
             // FormEasyNetWinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(860, 486);
+            this.Controls.Add(this.historyTextBox2);
             this.Controls.Add(this.historyTextBox1);
             this.Controls.Add(this.closeLabel6);
             this.Controls.Add(this.closeLabel5);
@@ -138,5 +153,6 @@
         private WinForm.Controls.CloseLabel closeLabel5;
         private WinForm.Controls.CloseLabel closeLabel6;
         private WinForm.Controls.HistoryTextBox historyTextBox1;
+        private WinForm.Controls.HistoryTextBox historyTextBox2;
     }
 }

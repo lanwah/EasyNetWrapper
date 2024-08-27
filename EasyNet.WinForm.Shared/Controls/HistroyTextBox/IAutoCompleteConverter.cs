@@ -135,6 +135,7 @@ namespace EasyNet.WinForm.Controls
         /// 关联的图标索引
         /// </summary>
         public virtual int ImageIndex { get; set; }
+
         /// <summary>
         /// 绘制项
         /// </summary>
@@ -162,6 +163,30 @@ namespace EasyNet.WinForm.Controls
             }
 
             return CompareResult.Hidden;
+        }
+    }
+
+    /// <summary>
+    /// 检索项扩展方法
+    /// </summary>
+    public static class AutocompleteItemExts
+    {
+        /// <summary>
+        /// 字符串转换成AutocompleteItem
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static AutocompleteItem ToAutocompleteItem(this string text)
+        {
+            return new AutocompleteItem()
+            {
+                Key = text,
+                ItemText = text,
+                DisplayText = text,
+                ToolTipTitle = null,
+                ToolTipText = null,
+                Tag = text
+            };
         }
     }
 

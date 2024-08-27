@@ -11,27 +11,47 @@ namespace EasyNet.Core
     /// <summary>
     /// 抗锯齿画刷
     /// </summary>
-    public class AntiAliasGraphics : IDisposable
+    public class AntiAliasGraphics : SaveStateGraphics
     {
-        private GraphicsState State
+        /// <summary>
+        /// 构造函数，保存状态并设置抗锯齿模式
+        /// </summary>
+        /// <param name="graphics"></param>
+        /// <param name="mode"></param>
+        public AntiAliasGraphics(Graphics graphics, SmoothingMode mode): base(graphics)
         {
-            get;set;
+            this.Graphics.SmoothingMode = mode;
         }
-        private Graphics Graphics
+    }
+
+    /// <summary>
+    /// 保存状态的画刷
+    /// </summary>
+    public class SaveStateGraphics : IDisposable
+    {
+        /// <summary>
+        /// 保存的状态，用于恢复
+        /// </summary>
+        protected GraphicsState State
         {
-            get;set;
+            get; set;
+        }
+        /// <summary>
+        /// 画刷
+        /// </summary>
+        protected Graphics Graphics
+        {
+            get; set;
         }
 
         /// <summary>
         /// 构造函数，保存状态并设置抗锯齿模式
         /// </summary>
         /// <param name="graphics"></param>
-        /// <param name="mode"></param>
-        public AntiAliasGraphics(Graphics graphics, SmoothingMode mode)
+        public SaveStateGraphics(Graphics graphics)
         {
             this.State = graphics.Save();
             this.Graphics = graphics;
-            this.Graphics.SmoothingMode = mode;
         }
 
         #region IDisposable 成员

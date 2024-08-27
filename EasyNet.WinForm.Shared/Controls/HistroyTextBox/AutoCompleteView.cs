@@ -1,4 +1,5 @@
 ﻿#if NETFRAMEWORK
+using EasyNet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -187,14 +188,18 @@ namespace EasyNet.WinForm.Controls
             if (SelectedItemIndex < 0 || SelectedItemIndex >= VisibleItems.Count)
             {
                 Close();
-                if (this.IsCustomInput)
+                var text = this.tbxInput.Text;
+                if (this.IsCustomInput && !text.IsNullOrEmptyEx())
                 {
                     Host.OnSelecting(new SelectingEventArgs()
                     {
                         SelectedIndex = -1,
                         Item = new AutocompleteItem()
                         {
-                            DisplayText = this.tbxInput.Text,
+                            DisplayText = text,
+                            Key = text,
+                            ItemText = text,
+                            Tag = text,
                         }
                     });
                 }

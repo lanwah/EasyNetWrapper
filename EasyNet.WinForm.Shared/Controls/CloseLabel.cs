@@ -24,7 +24,7 @@ namespace EasyNet.WinForm.Controls
         /// <summary>
         /// 清除按钮绘制器
         /// </summary>
-        protected ClearPainter ClearButtonPainter
+        protected ClearPaintItem ClearButtonPainter
         {
             get; set;
         }
@@ -32,13 +32,24 @@ namespace EasyNet.WinForm.Controls
         /// 清除按钮宽度
         /// </summary>
         private int ClearButtonWidth => this.ClearButtonPainter.Width;
+        /// <summary>
+        /// 清除按钮坐标
+        /// </summary>
+        private Point ClearButtonLocation
+        {
+            get
+            {
+                var clearWidth = this.ClearButtonWidth;
+                return new Point(this.Width - clearWidth - 4, (this.Height - clearWidth) / 2 - 1);
+            }
+        }
 
         /// <summary>
         /// 构造函数
         /// </summary>
         public CloseLabel() : base()
         {
-            this.ClearButtonPainter = new ClearPainter(this);
+            this.ClearButtonPainter = new ClearPaintItem(this);
             this.Size = new Size(100, 25);
             this.BackColor = System.Drawing.Color.LightGray;
             this.BorderColor = Color.DarkGray;
@@ -60,8 +71,11 @@ namespace EasyNet.WinForm.Controls
             get => base.Text;
             set
             {
-                base.Text = value;
-                this.AdjustSize();
+                if (this.Text != value)
+                {
+                    base.Text = value;
+                    this.AdjustSize();
+                }
             }
         }
         /// <summary>
@@ -72,8 +86,11 @@ namespace EasyNet.WinForm.Controls
             get => base.AutoSize;
             set
             {
-                base.AutoSize = value;
-                this.AdjustSize();
+                if (this.AutoSize != value)
+                {
+                    base.AutoSize = value;
+                    this.AdjustSize();
+                }
             }
         }
 
@@ -98,12 +115,15 @@ namespace EasyNet.WinForm.Controls
         private void PaintClearButton(Graphics g)
         {
             // 绘制清除按钮
-            var clearWidth = this.ClearButtonWidth;
             var painter = this.ClearButtonPainter;
-            // 更新坐标
-            painter.Location = new Point(this.Width - clearWidth - 4, (this.Height - clearWidth) / 2 - 1);
             // 绘制
-            painter.Paint(g);
+            using (new SaveStateGraphics(g))
+            {
+                // 更改坐标原点
+                var location = this.ClearButtonLocation;
+                g.TranslateTransform(location.X, location.Y);
+                painter.Paint(new PaintEventArgs(g, Rectangle.Empty));
+            }
         }
 
         /// <summary>
@@ -191,7 +211,7 @@ namespace EasyNet.WinForm.Controls
         {
             base.OnMouseMove(e);
 
-            this.ClearButtonPainter.UpdateHoverStaus(e.Location);
+            this.ClearButtonPainter.UpdateHoverStatus(e.Location, this.ClearButtonLocation);
         }
         /// <summary>
         /// 鼠标离开事件
