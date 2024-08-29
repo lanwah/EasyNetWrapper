@@ -53,7 +53,9 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyNet.WinForm.Shared", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNet.WinForm", "EasyNet.WinForm\EasyNet.WinForm.csproj", "{0B904FE1-8420-4014-95E8-D60267604E18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNet.Models", "EasyNet.Models\EasyNet.Models.csproj", "{EB0DD976-624F-454F-BD9F-99E850A54F1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNet.Models", "EasyNet.Models\EasyNet.Models.csproj", "{EB0DD976-624F-454F-BD9F-99E850A54F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventWaitHandleDemo", "Samples\EventWaitHandleDemo\EventWaitHandleDemo.csproj", "{2C27F855-8026-481F-8FAE-8B5B54242DA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,10 @@ Global
 		{EB0DD976-624F-454F-BD9F-99E850A54F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB0DD976-624F-454F-BD9F-99E850A54F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB0DD976-624F-454F-BD9F-99E850A54F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C27F855-8026-481F-8FAE-8B5B54242DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C27F855-8026-481F-8FAE-8B5B54242DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C27F855-8026-481F-8FAE-8B5B54242DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C27F855-8026-481F-8FAE-8B5B54242DA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +151,7 @@ Global
 		{DAFCF1DB-B1D6-4B25-92E1-52F1320D3920} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 		{0B904FE1-8420-4014-95E8-D60267604E18} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 		{EB0DD976-624F-454F-BD9F-99E850A54F1A} = {09A00B3B-8F77-4679-9F08-3D088246539A}
+		{2C27F855-8026-481F-8FAE-8B5B54242DA1} = {34DAFB30-5B69-4343-843F-59DC7B2E97B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7281B48E-9A2B-4BBD-AE50-AE5B580D5115}

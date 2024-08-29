@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using static System.Net.WebRequestMethods;
+using EasyNet.Core;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
@@ -24,14 +27,23 @@ using static System.Net.WebRequestMethods;
 namespace EasyNet.Extensions
 {
     /// <summary>
+    /// 默认无参构造函数委托
+    /// </summary>
+    /// <returns></returns>
+    public delegate object DefaultConstructorHandler();
+
+    /// <summary>
     /// Type/MethodBase/ParameterInfo/MemberInfo类型 扩展方法
     /// </summary>
     public static class ReflectionExts
     {
         internal const string MemberInfoNullMsg = "MemberInfo类型参数值为空，请检查！";
         internal const string MethodBaseNullMsg = "MethodBase类型参数值为空，请检查！";
+        internal const string MethodInfoNullMsg = "MethodInfo类型参数值为空，请检查！";
         internal const string ParameterInfosNullMsg = "ParameterInfo[]类型参数值为空，请检查！";
         internal const string ICustomAttributeProviderNullMsg = "ICustomAttributeProvider类型参数值为空，请检查！";
+        internal const string ConstructorInfoNullMsg = "ConstructorInfo类型参数值为空，请检查！";
+        internal const string TypeNullMsg = "Type类型参数值为空，请检查！";
 
 
         /// <summary>
@@ -134,6 +146,61 @@ namespace EasyNet.Extensions
             }
 
             return null;
+        }
+        /// <summary>
+        /// 得到默认无参构造函数委托
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static DefaultConstructorHandler GetDefaultConstructorHandler(this Type @this)
+        {
+            @this.ThrowIfNull(string.Empty, TypeNullMsg);
+            var ctor = @this.CreateDefaultConstructorDelegate();
+
+            object handler()
+            {
+                try
+                {
+                    return ctor();
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
+                catch (Exception ex)
+                {
+                    throw ex.InnerException;
+                }
+            };
+
+            return handler;
+        }
+        /// <summary>
+        /// 创建默认无参构造函数委托
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        internal static DefaultConstructorHandler CreateDefaultConstructorDelegate(this Type type)
+        {
+            if (type == Types.String)
+            {
+#if NET5_0_OR_GREATER
+                static object s()
+                {
+                    return null;
+                }
+#else
+                object s()
+                {
+                    return null;
+                }
+#endif
+
+                return s;
+            }
+
+            var ctorExpression = Expression.Lambda<DefaultConstructorHandler>(Expression.Convert(Expression.New(type), typeof(object)));
+            return ctorExpression.Compile();
         }
 
         /// <summary>
@@ -290,5 +357,7 @@ namespace EasyNet.Extensions
 
             return @this.GetCustomAttributes(typeof(T), inherit) as T[];
         }
+
+
     }
 }

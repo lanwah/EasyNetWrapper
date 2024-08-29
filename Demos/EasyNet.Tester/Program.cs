@@ -12,9 +12,17 @@ namespace EasyNet.Tester
     {
         static void Main()
         {
-            //DescriptionTester.Run();
+            // Description扩展方法测试
+            ////DescriptionTester.Run();
 
-            LogTester.Run();
+            // 日志测试
+            ////LogTester.Run();
+
+            //// CRC 算法测试
+            //CRCTester.Run();
+
+            // Emit 测试
+            EmitTester.Run();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

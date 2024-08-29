@@ -11,17 +11,22 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Const\Const.Char.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Const\Const.String.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Handler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\MethodMetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ByteExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\CharExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ConstructorInfoExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\DictionaryExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnvironmentExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IEnumerableExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ILGeneratorExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IntPtrExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ObjectExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ReflectionExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StreamExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringRegexExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Types.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\扩展方法类模板Exts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WinForms\ControlExts.cs" />
   </ItemGroup>

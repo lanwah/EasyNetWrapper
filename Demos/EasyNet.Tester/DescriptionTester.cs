@@ -5,9 +5,9 @@ using System.Drawing;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using EasyNet.Tester.Models;
 using EasyNet.Extensions;
 using System.Linq;
+using EasyNet.Models.Models;
 
 namespace EasyNet.Tester
 {

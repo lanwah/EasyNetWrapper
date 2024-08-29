@@ -46,5 +46,35 @@ namespace EasyNet.Models.Models
         /// </summary>
         /// <returns></returns>
         public override string ToString() => Name;
+
+
+        /// <summary>
+        /// 人员列表
+        /// </summary>
+        public static List<Person> PersonList { get; set; } = new List<Person>
+        {
+            new Person
+            {
+                Name = "P1", Age = 18, Gender = "Male"
+
+            },
+            new Person
+            {
+                Name = "P2", Age = 19, Gender = "Mele",
+            },
+            new Person
+            {
+                Name = "P3", Age = 18, Gender = "Mafe"
+
+            },
+            new Person
+            {
+                Name = "P4", Age = 19, Gender = "Mald",
+            },
+            new Person
+            {
+                Name = "P5", Age = 17,Gender = "Female",
+            }
+        };
     }
 }

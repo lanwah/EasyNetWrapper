@@ -1,21 +1,23 @@
-﻿using EasyNet.Core.Extension;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using EasyNet.Extensions;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
 // 项目名称：EasyNet.Core.Reflection
-// 文件名称：ObjectProperties
-// 创 建 者：lanwah
-// 创建日期：2021/08/09 16:13:46
+// CLR版本：4.0.30319.42000
+// 运行要求：3.5
+// 文件名称：ObjectProperties.cs
+// 创建用户：lanwah
+// 创建日期：2024/8/28 15:08:16
 // 功能描述：
 // 调用依赖：
 // -------------------------------------------------------------
-// 修 改 者：
+// 修改用户：
 // 修改时间：
 // 修改原因：
 // 修改描述：
@@ -26,7 +28,7 @@ namespace EasyNet.Core.Reflection
     /// <summary>
     /// 对象属性
     /// </summary>
-    public class ObjectProperties
+    public partial class ObjectProperties
     {
         /// <summary>
         /// 属性类型
@@ -38,7 +40,7 @@ namespace EasyNet.Core.Reflection
         /// <summary>
         /// 固定前缀
         /// </summary>        
-        public string FixPrefix
+        public string Prefix
         {
             get; set;
         }
@@ -66,18 +68,18 @@ namespace EasyNet.Core.Reflection
         /// <summary>
         /// 描述
         /// </summary>
-        public string Desc
+        public string Description
         {
             get; set;
         }
         /// <summary>
-        /// FixPrefix + Field
+        /// Prefix + Field
         /// </summary>
         public string FullField
         {
             get
             {
-                return $"{FixPrefix}.{Field}";
+                return $"{Prefix}.{Field}";
             }
         }
         /// <summary>
@@ -87,30 +89,38 @@ namespace EasyNet.Core.Reflection
         {
             get; set;
         }
+    }
 
-
+    public partial class ObjectProperties
+    {
         /// <summary>
-        /// 获取对象属性信息，支持对属性中 ReflectionIngore<see cref="ReflectionIngoreAttribute"/>，Description<see cref="DescriptionAttribute"/>
+        /// 获取对象属性信息，支持对属性中 ReflectionIngore<see cref="ReflectionIgnoreAttribute"/>，Description<see cref="DescriptionAttribute"/>
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="prefix">前缀</param>
+        /// <param name="displayName">显示名</param>
         /// <param name="desc">描述</param>
         /// <returns></returns>
-        public static ObjectProperties GetProperties(Type type, string prefix, string desc = "")
+        public static ObjectProperties GetProperties(Type type, string prefix = "", string displayName = "", string desc = "")
         {
             var root = new ObjectProperties()
             {
-                FixPrefix = prefix,
-                DisplayName = prefix,
+                Prefix = prefix,
+                DisplayName = displayName,
                 Field = "",
-                Desc = desc,
+                Description = desc,
                 DataType = type.Name,
                 PropertyType = null,
-                Children = new List<ObjectProperties>(),
+#if NET8_0_OR_GREATER
+                Children = [],
+#else
+                    Children = new List<ObjectProperties>(),
+#endif
             };
             ObjectPropertyInformation(type, root);
             return root;
         }
+
         /// <summary>
         /// 获取属性信息
         /// </summary>
@@ -122,13 +132,13 @@ namespace EasyNet.Core.Reflection
             foreach (var property in propertyInfos)
             {
                 // 忽略取值
-                if (property.IsDefined(typeof(ReflectionIngoreAttribute), false))
+                if (property.IsDefined(typeof(ReflectionIgnoreAttribute), false))
                 {
                     continue;
                 }
                 // 完整字段
                 var fullField = propertyInfo.Field;
-                if (!fullField.IsNullOrEmptyEx())
+                if (!fullField.IsNullOrEmpty())
                 {
                     fullField += ".";
                 }
@@ -139,12 +149,17 @@ namespace EasyNet.Core.Reflection
                 var child = new ObjectProperties()
                 {
                     PropertyType = property,
-                    FixPrefix = propertyInfo.FixPrefix,
+                    Prefix = propertyInfo.Prefix,
                     DisplayName = property.Name,
                     Field = fullField,
                     DataType = property.PropertyType.Name,
-                    Desc = desc,
-                    Children = new List<ObjectProperties>()
+                    Description = desc,
+#if NET8_0_OR_GREATER
+                    Children = [],
+#else
+                    Children = new List<ObjectProperties>(),
+#endif
+
                 };
                 propertyInfo.Children.Add(child);
 
@@ -177,17 +192,45 @@ namespace EasyNet.Core.Reflection
     /// 忽略反射解析特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public class ReflectionIngoreAttribute : Attribute
+    public class ReflectionIgnoreAttribute : Attribute
     {
-        private bool _isIngore = true;
-        private ReflectionIngoreAttribute(bool ingore)
+        /// <summary>
+        /// 是否忽略反射解析
+        /// </summary>
+        public bool IsIgnore
         {
-            this._isIngore = ingore;
+            get; set;
+        } = false;
+        private ReflectionIgnoreAttribute(bool ingore)
+        {
+            this.IsIgnore = ingore;
         }
 
-        public ReflectionIngoreAttribute() : this(true)
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public ReflectionIgnoreAttribute() : this(true)
         {
 
+        }
+    }
+
+    /// <summary>
+    /// ObjectProperties 扩展方法
+    /// </summary>
+    public static class ObjectPropertiesExts
+    {
+        /// <summary>
+        /// 获取对象属性信息，支持对属性中 ReflectionIngore<see cref="ReflectionIgnoreAttribute"/>，Description<see cref="DescriptionAttribute"/>
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="prefix">前缀</param>
+        /// <param name="displayName">显示名</param>
+        /// <param name="desc">描述</param>
+        /// <returns></returns>
+        public static ObjectProperties GetProperties(this Type @this, string prefix = "", string displayName = "", string desc = "")
+        {
+            return ObjectProperties.GetProperties(@this, prefix, displayName, desc);
         }
     }
 }

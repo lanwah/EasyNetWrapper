@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyNet.Tester.Models
+namespace EasyNet.Models.Models
 {
     /// <summary>
     /// 产品信息类

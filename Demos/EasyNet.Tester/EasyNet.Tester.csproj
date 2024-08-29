@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CRCTester.cs" />
     <Compile Include="DescriptionTester.cs" />
+    <Compile Include="EmitTester.cs" />
     <Compile Include="LogTester.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,6 +58,11 @@
       <Project>{3a940d11-a8da-4fb4-9998-4a218891d1c1}</Project>
       <Name>EasyNet.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\EasyNet.Models\EasyNet.Models.csproj">
+      <Project>{eb0dd976-624f-454f-bd9f-99e850a54f1a}</Project>
+      <Name>EasyNet.Models</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

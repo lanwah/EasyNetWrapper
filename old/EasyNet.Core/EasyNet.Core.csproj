@@ -49,15 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Reflection\DefaultDynamicMethodFactory.cs" />
-    <Compile Include="Reflection\DynamicAssemblyManager.cs" />
-    <Compile Include="Reflection\DynamicDelegate.cs" />
-    <Compile Include="Reflection\DynamicMethodFactory.cs" />
-    <Compile Include="Reflection\EmitHelper.cs" />
-    <Compile Include="Reflection\MemberFlags.cs" />
-    <Compile Include="Reflection\MethodMetaData.cs" />
-    <Compile Include="Reflection\ObjectProperties.cs" />
-    <Compile Include="Reflection\Types.cs" />
     <Compile Include="Units\ConditionLooper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceSingleton.cs" />

@@ -159,7 +159,7 @@ namespace EasyNet.Security
             _crc16Providers.Add(Crc16Type.Arc, new ArcCrc16());
             _crc16Providers.Add(Crc16Type.Maxim, new MaximCrc16());
             _crc16Providers.Add(Crc16Type.Usb, new UsbCrc16());
-            _crc16Providers.Add(Crc16Type.Modbus, new ModbusCrc16());
+            _crc16Providers.Add(Crc16Type.ModBus, new ModbusCrc16());
             _crc16Providers.Add(Crc16Type.XModem, new XModemCrc16());
             _crc16Providers.Add(Crc16Type.CCITT_FALSE, new CcittFalseCrc16());
             _crc16Providers.Add(Crc16Type.CCITT_0x1D0F, new Ccitt1D0FCrc16());
@@ -230,7 +230,7 @@ namespace EasyNet.Security
         /// <summary>
         /// Modbus CRC16
         /// </summary>
-        Modbus = 5,
+        ModBus = 5,
         /// <summary>
         /// XModem CRC16
         /// </summary>
