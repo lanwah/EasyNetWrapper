@@ -28,7 +28,7 @@ namespace EasyNet.Core
     /// <summary>
     /// 系统Environment类扩展
     /// </summary>
-    public static class Env
+    public static partial class Environment
     {
         /// <summary>
         /// 判断是否处于设计模式

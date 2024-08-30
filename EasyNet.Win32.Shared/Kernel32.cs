@@ -19,6 +19,7 @@ namespace EasyNet.Win32
 
 
         #region G
+
         [DllImport(KERNEL32, CharSet = CharSet.Auto, SetLastError = true)]
         [ResourceExposure(ResourceScope.Process)]
         internal static extern IntPtr GetCurrentProcess();

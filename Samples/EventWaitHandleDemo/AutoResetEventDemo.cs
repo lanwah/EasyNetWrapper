@@ -29,8 +29,8 @@ namespace EventWaitHandleDemo
     /// </summary>
     public class AutoResetEventDemo
     {
-        private static AutoResetEvent event_1 = new AutoResetEvent(true);
-        private static AutoResetEvent event_2 = new AutoResetEvent(false);
+        private static readonly AutoResetEvent event_1 = new AutoResetEvent(true);
+        private static readonly AutoResetEvent event_2 = new AutoResetEvent(false);
 
         public static void Run()
         {
@@ -87,8 +87,10 @@ namespace EventWaitHandleDemo
             // 开启3个线程
             for (int i = 1; i < 4; i++)
             {
-                Thread t = new Thread(ThreadProc);
-                t.Name = "Thread_" + i;
+                var t = new Thread(ThreadProc)
+                {
+                    Name = "Thread_" + i
+                };
                 t.Start();
             }
             Thread.Sleep(250);
@@ -134,8 +136,10 @@ namespace EventWaitHandleDemo
             }
             for (int i = 1; i < 4; i++)
             {
-                Thread t = new Thread(ThreadProc);
-                t.Name = "Thread_" + i;
+                var t = new Thread(ThreadProc)
+                {
+                    Name = "Thread_" + i
+                };
                 t.Start();
             }
             Thread.Sleep(250);

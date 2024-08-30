@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConditionMonitorTest.cs" />
     <Compile Include="CRCTester.cs" />
     <Compile Include="DescriptionTester.cs" />
     <Compile Include="EmitTester.cs" />
