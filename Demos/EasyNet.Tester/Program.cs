@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using EasyNet.Log;
+using EasyNet.Core.Service ;
 
 namespace EasyNet.Tester
 {
@@ -21,8 +24,11 @@ namespace EasyNet.Tester
             //// CRC 算法测试
             //CRCTester.Run();
 
-            // Emit 测试
-            EmitTester.Run();
+            //// Emit 测试
+            //EmitTester.Run();
+
+            // 条件监视器测试
+            ConditionMonitorTest.Run();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

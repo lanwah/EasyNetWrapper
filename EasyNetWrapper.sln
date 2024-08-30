@@ -16,6 +16,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncBreakfast", "Samples\AsyncBreakfast\AsyncBreakfast.csproj", "{4CB124EC-7055-4CAB-9395-680B92113445}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{525DB172-BF9A-45C3-8A33-87C3A495581F}"
+	ProjectSection(SolutionItems) = preProject
+		代办列表.md = 代办列表.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNet.Win32", "EasyNet.Win32\EasyNet.Win32.csproj", "{9CD3700A-0DFB-4103-9166-D3EB8F22100D}"
 EndProject

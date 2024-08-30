@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace EasyNet.Log
@@ -11,7 +12,7 @@ namespace EasyNet.Log
     /// </summary>
     public class LoggerFactory
     {
-        private readonly ILoggingBuilder _loggingBuilder = new DefaultLoggingBuilder();
+        private readonly ILoggingBuilder LoggingBuilder = new DefaultLoggingBuilder();
 
         /// <summary>
         /// 创建日志记录器工厂
@@ -20,7 +21,7 @@ namespace EasyNet.Log
         public static LoggerFactory Create(Action<ILoggingBuilder> builder)
         {
             var instance = new LoggerFactory();
-            builder.Invoke(instance._loggingBuilder);
+            builder.Invoke(instance.LoggingBuilder);
             return instance;
         }
 
@@ -32,8 +33,30 @@ namespace EasyNet.Log
         /// <returns></returns>
         public ILogger CreateLogger(string categoryName)
         {
-            var loggers = this._loggingBuilder.LoggerProviders.Select(p => p.CreateLogger(categoryName)).ToList();
+            var loggers = this.LoggingBuilder.LoggerProviders.Select(p => p.CreateLogger(categoryName)).ToList();
             return new Logger(categoryName, loggers);
+        }
+
+        private static readonly ILogger _default = GetDefault();
+        /// <summary>
+        /// 默认的日志记录器
+        /// </summary>
+        public static ILogger Default => _default;
+        private static ILogger GetDefault()
+        {
+#if DEBUG
+            return LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+                builder.AddDebug();
+                //builder.AddFile();
+                //builder.AddColorConsole();
+                builder.SetMinimumLevel(LogLevel.Trace);
+            }).CreateLogger("Debug");
+#else
+            return null;
+#endif 
+
         }
     }
 
