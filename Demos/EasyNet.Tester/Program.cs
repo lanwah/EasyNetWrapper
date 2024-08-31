@@ -18,8 +18,8 @@ namespace EasyNet.Tester
             // Description扩展方法测试
             ////DescriptionTester.Run();
 
-            // 日志测试
-            ////LogTester.Run();
+            //// 日志测试
+            //LogTester.Run();
 
             //// CRC 算法测试
             //CRCTester.Run();

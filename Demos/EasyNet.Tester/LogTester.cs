@@ -14,10 +14,10 @@ namespace EasyNet.Tester
             var logger = LoggerFactory.Create(builder =>
             {
                 //builder.AddConsole();
-                //builder.AddDebug();
+                builder.AddDebug();
                 //builder.AddFile();
                 builder.AddColorConsole();
-                builder.SetMinimumLevel(LogLevel.Trace);
+                builder.SetMinimumLevel(LogLevel.Information);
             }).CreateLogger("Test");
             logger.LogDebug("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "D");
             logger.LogInformation("Hello, world, Thread Id = {ManagedThreadId}，A = {}", System.Threading.Thread.CurrentThread.ManagedThreadId, "I");

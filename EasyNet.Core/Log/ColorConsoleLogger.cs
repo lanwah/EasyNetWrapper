@@ -55,7 +55,15 @@ namespace EasyNet.Log
         {
         }
 #endif
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="option">日志配置项</param>
+        /// <param name="name"></param>
+        public ColorConsoleLogger(LoggerOptions option, string name) : this(name)
+        {
+            this.Options = option;
+        }
 #if NETCOREAPP3_1_OR_GREATER
         private readonly Dictionary<LogLevel, ConsoleColor> LogLevelColor = new() {
             {LogLevel.Critical,ConsoleColor.DarkRed },

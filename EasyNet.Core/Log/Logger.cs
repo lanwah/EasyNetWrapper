@@ -34,7 +34,18 @@ namespace EasyNet.Log
         public ILogger CreateLogger(string categoryName)
         {
             var loggers = this.LoggingBuilder.LoggerProviders.Select(p => p.CreateLogger(categoryName)).ToList();
-            return new Logger(categoryName, loggers);
+            return new Logger(categoryName, loggers, this.LoggingBuilder.Options);
+        }
+        /// <summary>
+        /// 创建日志记录器
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public ILogger CreateLogger(string categoryName, LoggerOptions option)
+        {
+            var loggers = this.LoggingBuilder.LoggerProviders.Select(p => p.CreateLogger(categoryName)).ToList();
+            return new Logger(categoryName, loggers, option);
         }
 
         private static readonly ILogger _default = GetDefault();
@@ -72,6 +83,13 @@ namespace EasyNet.Log
         {
             get;
         }
+        /// <summary>
+        /// 日志记录器选项
+        /// </summary>
+        LoggerOptions Options
+        {
+            get;
+        }
     }
 
     /// <summary>
@@ -85,6 +103,11 @@ namespace EasyNet.Log
 #else
         public List<ILoggerProvider> LoggerProviders { get; } = new List<ILoggerProvider>();
 #endif
+
+        /// <summary>
+        /// 日志记录器选项
+        /// </summary>
+        public LoggerOptions Options { get; } = new LoggerOptions();
     }
 
     /// <summary>
@@ -130,7 +153,7 @@ namespace EasyNet.Log
         /// <returns></returns>
         public static ILoggingBuilder SetMinimumLevel(this ILoggingBuilder builder, LogLevel level)
         {
-            LoggerOptions.Default.MinimumLevel = level;
+            builder.Options.MinimumLevel = level;
             return builder;
         }
     }
@@ -172,11 +195,20 @@ namespace EasyNet.Log
             this.Loggers = loggers;
         }
 #endif
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="categoryName">The category name for messages produced by the logger.</param>
+        /// <param name="loggers">日志记录器</param>
+        /// <param name="options">日志记录器选项</param>
+        public Logger(string categoryName, List<ILogger> loggers, LoggerOptions options) : this(categoryName, loggers)
+        {
+            this.Options = options;
+        }
         /// <inheritdoc />
         public override bool IsEnabled(LogLevel logLevel)
         {
-            if (logLevel >= LoggerOptions.Default.MinimumLevel)
+            if (logLevel >= this.Options.MinimumLevel)
             {
                 return true;
             }
@@ -193,6 +225,10 @@ namespace EasyNet.Log
         /// <inheritdoc />
         public override void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
+            if (!IsEnabled(logLevel))
+            {
+                return;
+            }
             if (this.Loggers.HasNoData())
             {
                 return;

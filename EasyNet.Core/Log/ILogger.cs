@@ -269,6 +269,24 @@ namespace EasyNet.Log
             Name = name;
         }
 #endif
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="option">日志配置项</param>
+        /// <param name="name"></param>
+        public LoggerBase(LoggerOptions option, string name) : this(name)
+        {
+            this.Options = option;
+        }
+        private LoggerOptions _options;
+        /// <summary>
+        /// 日志配置选项
+        /// </summary>
+        protected LoggerOptions Options
+        {
+            get => this._options ?? LoggerOptions.Default;
+            set => this._options = value;
+        }
 
 
         /// <inheritdoc />
@@ -306,14 +324,7 @@ namespace EasyNet.Log
 
             // 拼接日志级别和消息
             var logBuilder = new StringBuilder();
-            if (LoggerOptions.Default.UseTime)
-            {
-                logBuilder.Append($"{DateTime.Now.ToString(LoggerOptions.Default.TimeFormat)} ");
-            }
-            if (LoggerOptions.Default.WithLevel)
-            {
-                logBuilder.Append($"{this.GetLevelString(logLevel)}: ");
-            }
+            this.AppendOptionMessage(this.Options, logLevel, logBuilder);
 
             logBuilder.Append(message);
             message = logBuilder.ToString();
@@ -325,6 +336,23 @@ namespace EasyNet.Log
 
             this.WriteLine(logLevel, message);
         }
+        /// <summary>
+        /// 获取日志配置项信息
+        /// </summary>
+        /// <param name="option"></param>
+        /// <param name="logLevel"></param>
+        /// <param name="logBuilder"></param>
+        protected virtual void AppendOptionMessage(LoggerOptions option, LogLevel logLevel, StringBuilder logBuilder)
+        {
+            if (option.UseTime)
+            {
+                logBuilder.Append($"{DateTime.Now.ToString(option.TimeFormat)} ");
+            }
+            if (option.WithLevel)
+            {
+                logBuilder.Append($"{this.GetLevelString(logLevel)}: ");
+            }
+        }
 
         private readonly int MaxLevelLength = LogLevel.Information.ToString().Length;
         /// <summary>
@@ -335,9 +363,10 @@ namespace EasyNet.Log
         private string GetLevelString(LogLevel logLevel)
         {
             var levelString = logLevel.ToString();
-            if (LoggerOptions.Default.IsPaddingLevel)
+            var option = this.Options;
+            if (option.IsPaddingLevel)
             {
-                if (LoggerOptions.Default.PadLeft)
+                if (option.PadLeft)
                 {
                     levelString = levelString.PadLeft(MaxLevelLength);
                 }

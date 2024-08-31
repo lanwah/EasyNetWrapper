@@ -43,6 +43,15 @@ namespace EasyNet.Log
         {
         }
 #endif
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="option">日志配置项</param>
+        /// <param name="name"></param>
+        public DebugLogger(LoggerOptions option, string name) : this(name)
+        {
+            this.Options = option;
+        }
 
         /// <inheritdoc />
         public override bool IsEnabled(LogLevel logLevel)

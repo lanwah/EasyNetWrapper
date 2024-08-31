@@ -83,6 +83,15 @@ namespace EasyNet.Log
         /// <summary>
         /// 构造函数
         /// </summary>
+        /// <param name="option">日志配置项</param>
+        /// <param name="name"></param>
+        public FileLogger(LoggerOptions option, string name) : this(name)
+        {
+            this.Options = option;
+        }
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         /// <param name="appDir">设置日志文件根目录</param>
         /// <param name="name">日志文件名称</param>
         public FileLogger(string appDir, string name) : base(name)
@@ -94,7 +103,7 @@ namespace EasyNet.Log
         /// 构造函数
         /// </summary>
         /// <param name="name"></param>
-        public FileLogger(string name) : this(null, name)
+        public FileLogger(string name) : this(string.Empty, name)
         {
 
         }
