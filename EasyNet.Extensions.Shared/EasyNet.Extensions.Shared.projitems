@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringRegexExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Types.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StringXmlExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\扩展方法类模板Exts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WinForms\ControlExts.cs" />
   </ItemGroup>

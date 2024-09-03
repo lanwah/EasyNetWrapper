@@ -23,7 +23,7 @@ namespace Comparer
             //// 图片类型识别
             //BenchmarkRunner.Run<ImageType>();
 
-            ImageType.Run();
+            //ImageType.Run();
 
             Console.ReadKey();
         }
