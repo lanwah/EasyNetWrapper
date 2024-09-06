@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ConditionMonitorTest.cs" />
     <Compile Include="CRCTester.cs" />
+    <Compile Include="DateTimeTester.cs" />
     <Compile Include="DescriptionTester.cs" />
     <Compile Include="EmitTester.cs" />
     <Compile Include="LogTester.cs" />

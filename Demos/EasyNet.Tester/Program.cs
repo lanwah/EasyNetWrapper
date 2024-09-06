@@ -7,7 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using EasyNet.Log;
-using EasyNet.Core.Service ;
+using EasyNet.Core.Service;
+using EasyNet.Extensions;
 
 namespace EasyNet.Tester
 {
@@ -27,11 +28,17 @@ namespace EasyNet.Tester
             //// Emit 测试
             //EmitTester.Run();
 
-            // 条件监视器测试
-            ConditionMonitorTest.Run();
+            //// 条件监视器测试
+            //ConditionMonitorTest.Run();
+
+            Validation();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
+        }
+
+        public static void Validation()
+        {  
         }
     }
 }
