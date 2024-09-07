@@ -16,6 +16,8 @@
 
   <Import Project="..\EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.projitems" Label="Shared" />
 
+  <Import Project="..\EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems" Label="Shared" />
+
   <ItemGroup>
     <Compile Remove="FileUpdater.cs" />
     <Compile Remove="FunStatus.cs" />

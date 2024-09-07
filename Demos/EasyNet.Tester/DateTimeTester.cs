@@ -26,16 +26,23 @@ namespace EasyNet.Tester
 {
     internal class DateTimeTester
     {
+        /// <summary>
+        /// https://tool.lu/timestamp/
+        /// https://www.cnblogs.com/fengjq/p/17583940.html
+        /// https://www.cnblogs.com/ouyangkai/p/17412008.html
+        /// </summary>
         public static void Run()
         {
             // 把本地时间转换为UTC时间
-            DateTime sourceTime = Convert.ToDateTime("2024-09-05 17:26:49");//Convert.ToDateTime("2024-09-05 17:26:49+08:00");
+            DateTime sourceTime = Convert.ToDateTime("2024-09-05 17:26:49.123+08:00");//Convert.ToDateTime("2024-09-05 17:26:49.123");
+            //DateTime sourceTime = Convert.ToDateTime("2024-09-05 17:26:49.123");
             var localTime = sourceTime.ToLocalTime();
             DateTime utcTime = sourceTime.ToUniversalTime();
             var len = 30;
-            Console.WriteLine($"{"SourceTime:".PadLeft(len)} {sourceTime:yyyy-MM-dd HH:mm:ss}, kind: {sourceTime.Kind}");
-            Console.WriteLine($"{"Local Time:".PadLeft(len)} {localTime:yyyy-MM-dd HH:mm:ss}, kind: {localTime.Kind}");
-            Console.WriteLine($"{"UTC Time:".PadLeft(len)} {utcTime:yyyy-MM-dd HH:mm:ss}, kind: {utcTime.Kind}");
+            var format = "yyyy-MM-dd HH:mm:ss.fff";
+            Console.WriteLine($"{"SourceTime:".PadLeft(len)} {sourceTime.ToString(format)}, kind: {sourceTime.Kind}");
+            Console.WriteLine($"{"Local Time:".PadLeft(len)} {localTime.ToString(format)}, kind: {localTime.Kind}");
+            Console.WriteLine($"{"UTC Time:".PadLeft(len)} {utcTime.ToString(format)}, kind: {utcTime.Kind}");
 
             //DateTimeOffset localOffsetTime = DateTimeOffset.Now;
             DateTimeOffset localOffsetTime = new DateTimeOffset(localTime);
@@ -53,21 +60,23 @@ namespace EasyNet.Tester
             unixTime = localOffsetTime.ToUnixTimeSeconds();
             Console.WriteLine($"{"Unix TimeStamp:".PadLeft(len)} {unixTime}");
             Console.WriteLine($"{"10 Bits Unix TimeStamp:".PadLeft(len)} {localTime.To10BitsUnixTimeStamp()}");
+            Console.WriteLine($"{"10 Bits Unix TimeStamp:".PadLeft(len)} {utcTime.To10BitsUnixTimeStamp()}");
 
-            utcTime = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(unixTime);
-            Console.WriteLine($"{"Unix TimeStamp From:".PadLeft(len)} {utcTime:yyyy-MM-dd HH:mm:ss}, kind: {utcTime.Kind}");
+            var utcTime2 = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(unixTime);
+            Console.WriteLine($"{"Unix TimeStamp From:".PadLeft(len)} {utcTime2.ToString(format)}, kind: {utcTime2.Kind}");
             var time = unixTime.From10BitsUnixTimeStamp();
-            Console.WriteLine($"{"10 Bits Unix TimeStamp From:".PadLeft(len)} {time:yyyy-MM-dd HH:mm:ss}, kind: {time.Kind}");
+            Console.WriteLine($"{"10 Bits Unix TimeStamp From:".PadLeft(len)} {time.ToString(format)}, kind: {time.Kind}");
 
             // 把10位Unix时间戳转换成DateTime
             DateTime unixDateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTime);
-            Console.WriteLine($"{"Unix TimeStamp From:".PadLeft(len)} {unixDateTime:yyyy-MM-dd HH:mm:ss}, kind: {unixDateTime.Kind}");
+            Console.WriteLine($"{"Unix TimeStamp From:".PadLeft(len)} {unixDateTime.ToString(format)}, kind: {unixDateTime.Kind}");
 
             unixTime = localOffsetTime.ToUnixTimeMilliseconds();
             Console.WriteLine($"{"Unix TimeStamp:".PadLeft(len)} {unixTime}");
             Console.WriteLine($"{"13 Bits Unix TimeStamp:".PadLeft(len)} {localTime.To13BitsUnixTimeStamp()}");
+            Console.WriteLine($"{"13 Bits Unix TimeStamp:".PadLeft(len)} {utcTime.To13BitsUnixTimeStamp()}");
             time = unixTime.From13BitsUnixTimeStamp();
-            Console.WriteLine($"{"13 Bits Unix TimeStamp From:".PadLeft(len)} {time:yyyy-MM-dd HH:mm:ss}, kind: {time.Kind}");
+            Console.WriteLine($"{"13 Bits Unix TimeStamp From:".PadLeft(len)} {time.ToString(format)}, kind: {time.Kind}");
         }
     }
 }

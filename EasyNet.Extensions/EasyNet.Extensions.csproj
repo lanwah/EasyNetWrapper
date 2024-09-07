@@ -10,6 +10,8 @@
 
   <Import Project="..\EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems" Label="Shared" />
 
+  <Import Project="..\EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems" Label="Shared" />
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net3.5' or '$(TargetFramework)' == 'net4.0' or '$(TargetFramework)' == 'net4.5'">
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

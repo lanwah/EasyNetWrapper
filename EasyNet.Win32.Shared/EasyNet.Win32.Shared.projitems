@@ -9,6 +9,7 @@
     <Import_RootNamespace>EasyNet.Win32.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Advapi32.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kernel32.Wrapper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Structs\Input.cs" />

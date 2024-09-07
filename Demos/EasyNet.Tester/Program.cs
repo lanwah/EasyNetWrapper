@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using EasyNet.Log;
 using EasyNet.Core.Service;
 using EasyNet.Extensions;
+using System.IO;
 
 namespace EasyNet.Tester
 {
@@ -31,6 +32,12 @@ namespace EasyNet.Tester
             //// 条件监视器测试
             //ConditionMonitorTest.Run();
 
+            //// 时间戳测试
+            //DateTimeTester.Run();
+
+            // 对称加密，DES,3DES
+            DESCryptoTester.Run3DES();
+
             Validation();
 
             Console.WriteLine("Press any key to exit...");
@@ -38,7 +45,7 @@ namespace EasyNet.Tester
         }
 
         public static void Validation()
-        {  
+        {
         }
     }
 }

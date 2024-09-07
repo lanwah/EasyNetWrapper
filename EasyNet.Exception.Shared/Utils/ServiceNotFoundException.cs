@@ -20,7 +20,7 @@ using System.Text;
 // 修改描述：
 // ------------------------------------------------------------- //
 
-namespace EasyNet.Core.Service
+namespace EasyNet.Core
 {
 #if NET8_0_OR_GREATER
     /// <summary>

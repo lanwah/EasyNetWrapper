@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ReflectionExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StreamExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StringIOExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringRegexExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Types.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringXmlExts.cs" />

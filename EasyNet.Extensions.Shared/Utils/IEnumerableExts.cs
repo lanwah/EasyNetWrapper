@@ -61,7 +61,11 @@ namespace EasyNet.Extensions
                 return false;
             }
 
+#if NET5_0_OR_GREATER
+            return source.Any();
+#else   
             return (source.Count() > 0);
+#endif
         }
         /// <summary>
         /// 判断集合是否无值

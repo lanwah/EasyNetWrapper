@@ -16,5 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CRC\ICrcProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CRC\IVAnsiCrc16Provider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CRC\IVCcittCrc16Provider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SymmetricAlgorithm\DESCryptoAltm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SymmetricAlgorithm\ISymmetricAlgorithm.cs" />
   </ItemGroup>
 </Project>

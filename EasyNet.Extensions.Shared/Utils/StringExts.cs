@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static EasyNet.Core.ExceptionFactory;
 
 // ------------------------------------------------------------- //
 // 版权所有：CopyRight (C) lanwah
@@ -120,11 +121,16 @@ namespace EasyNet.Extensions
         /// </summary>
         /// <param name="filePath">文件的完整路径</param>
         /// <returns>true - 是目录，否则为文件</returns>
+        /// <exception cref="DirectoryNotFoundException">目录不存在</exception>
         public static bool IsDirectory(this string filePath)
         {
             if (filePath.IsNullOrEmpty())
             {
                 return false;
+            }
+            if (!filePath.IsDirectoryExists())
+            {
+                throw NewDirectoryNotFoundException(filePath);
             }
 
             // get the file attributes for file or directory

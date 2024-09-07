@@ -77,7 +77,30 @@ namespace EasyNet.Extensions
             return dateTime.HasValue ? dateTime.Value.ToString(format) : string.Empty;
         }
 
+#if NETFRAMEWORK || NETSTANDARD
+
+        private static readonly DateTime _unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        /// <summary>
+        /// UNIX纪元
+        /// <see href="https://www.jianshu.com/p/0693480ee934"/>
+        /// </summary>
+        public static DateTime UnixEpoch
+        {
+            get { return _unixEpoch; }
+        }
+#else
+        /// <summary>
+        /// UNIX纪元
+        /// <see href="https://www.jianshu.com/p/0693480ee934"/>
+        /// </summary>
+        public static DateTime UnixEpoch
+        {
+            get { return DateTime.UnixEpoch; }
+        }
+#endif
+
 #if NETFRAMEWORK
+
         /// <summary>
         /// 把DateTimeOffset转换成10位Unix时间戳, 精确到秒
         /// </summary>
@@ -87,7 +110,7 @@ namespace EasyNet.Extensions
         {
             var utcDateTime = dateTime.UtcDateTime;
 
-            return (long)(utcDateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+            return (long)(utcDateTime - UnixEpoch).TotalSeconds;
         }
         /// <summary>
         /// 把DateTimeOffset转换成13位Unix时间戳, 精确到毫秒
@@ -98,7 +121,7 @@ namespace EasyNet.Extensions
         {
             var utcDateTime = dateTime.UtcDateTime;
 
-            return (long)(utcDateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+            return (long)(utcDateTime - UnixEpoch).TotalMilliseconds;
         }
         /// <summary>
         /// 把10位Unix时间戳转换成 DateTimeOffset, 精确到秒
@@ -107,7 +130,7 @@ namespace EasyNet.Extensions
         /// <returns></returns>
         public static DateTimeOffset FromUnixTimeSeconds(this long unixTime)
         {
-            var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTime);
+            var dateTime = UnixEpoch.AddSeconds(unixTime);
 
             return new DateTimeOffset(dateTime);
         }
@@ -118,7 +141,7 @@ namespace EasyNet.Extensions
         /// <returns></returns>
         public static DateTimeOffset FromUnixTimeMilliseconds(this long unixTime)
         {
-            var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(unixTime);
+            var dateTime = UnixEpoch.AddMilliseconds(unixTime);
 
             return new DateTimeOffset(dateTime);
         }

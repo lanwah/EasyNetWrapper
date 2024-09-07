@@ -47,6 +47,7 @@
     <Compile Include="CRCTester.cs" />
     <Compile Include="DateTimeTester.cs" />
     <Compile Include="DescriptionTester.cs" />
+    <Compile Include="DESCryptoTester.cs" />
     <Compile Include="EmitTester.cs" />
     <Compile Include="LogTester.cs" />
     <Compile Include="Program.cs" />
