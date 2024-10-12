@@ -41,10 +41,19 @@ namespace EasyNet.WinForm.Controls
         /// <summary>
         /// 是否支持自定义输入
         /// </summary>
+        [Description("是否支持自定义输入")]
         public bool IsCustomInput
         {
             get; set;
         } = false;
+        /// <summary>
+        /// 有匹配项是否自动选中
+        /// </summary>
+        [Description("有匹配项是否自动选中")]
+        public bool IsFoundSelected
+        {
+            get; set;
+        } = true;
         /// <summary>
         /// 选择项发生改变
         /// </summary>
@@ -74,7 +83,7 @@ namespace EasyNet.WinForm.Controls
                     SearchCallback = SearchCallback
                 };
                 Host.Selecting += new EventHandler<SelectingEventArgs>(Host_Selecting);
-                Host.SetCustomInput(this.IsCustomInput);
+                Host.SyncOwnerProperties();
             }
         }
 
@@ -297,17 +306,17 @@ namespace EasyNet.WinForm.Controls
             Owner.Focus();
         }
         /// <summary>
-        /// 是否支持自定义输入
+        /// 同步属性
         /// </summary>
-        /// <param name="customInput"></param>
-        public void SetCustomInput(bool customInput)
+        public void SyncOwnerProperties()
         {
             if (this.listView is null)
             {
                 return;
             }
 
-            this.listView.IsCustomInput = customInput;
+            this.listView.IsCustomInput = this.Owner.IsCustomInput;
+            this.listView.IsFoundSelected = this.Owner.IsFoundSelected;
         }
     }
 

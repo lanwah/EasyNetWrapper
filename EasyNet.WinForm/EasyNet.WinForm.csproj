@@ -12,6 +12,8 @@
 
   <Import Project="..\EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems" Label="Shared" />
 
+  <Import Project="..\EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems" Label="Shared" />
+
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

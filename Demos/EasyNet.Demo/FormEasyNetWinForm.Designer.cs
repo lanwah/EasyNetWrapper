@@ -101,6 +101,7 @@
             // historyTextBox1
             // 
             this.historyTextBox1.IsCustomInput = true;
+            this.historyTextBox1.IsFoundSelected = false;
             this.historyTextBox1.Location = new System.Drawing.Point(33, 179);
             this.historyTextBox1.Name = "historyTextBox1";
             this.historyTextBox1.SearchCallback = null;
@@ -113,6 +114,7 @@
             // historyTextBox2
             // 
             this.historyTextBox2.IsCustomInput = true;
+            this.historyTextBox2.IsFoundSelected = true;
             this.historyTextBox2.Location = new System.Drawing.Point(33, 226);
             this.historyTextBox2.Name = "historyTextBox2";
             this.historyTextBox2.SearchCallback = null;

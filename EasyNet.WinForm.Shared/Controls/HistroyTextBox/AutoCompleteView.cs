@@ -37,6 +37,13 @@ namespace EasyNet.WinForm.Controls
         /// 是否支持自定义输入
         /// </summary>
         public bool IsCustomInput { get; set; } = false;
+        /// <summary>
+        /// 有匹配项是否自动选中
+        /// </summary>
+        public bool IsFoundSelected
+        {
+            get; set;
+        }
 
         private IEnumerable<AutocompleteItem> SourceItems
         {
@@ -104,7 +111,11 @@ namespace EasyNet.WinForm.Controls
                     if (res == CompareResult.VisibleAndSelected && !foundSelected)
                     {
                         foundSelected = true;
-                        selectedIndex = visibleItems.Count - 1;
+                        if (this.IsFoundSelected)
+                        {
+                            // 找到了则设置选中的index为 0 
+                            selectedIndex = visibleItems.Count - 1;
+                        }
                     }
                 }
 
