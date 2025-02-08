@@ -211,6 +211,7 @@ namespace EasyNet.WinForm.Controls
                             Key = text,
                             ItemText = text,
                             Tag = text,
+                            IsCustomItem = true,
                         }
                     });
                 }

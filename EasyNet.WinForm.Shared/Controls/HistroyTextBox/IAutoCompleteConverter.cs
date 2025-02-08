@@ -135,6 +135,14 @@ namespace EasyNet.WinForm.Controls
         /// 关联的图标索引
         /// </summary>
         public virtual int ImageIndex { get; set; }
+        /// <summary>
+        /// 是否为自定义新增的项
+        /// </summary>
+        public bool IsCustomItem
+        {
+            get;
+            internal set;
+        }
 
         /// <summary>
         /// 绘制项

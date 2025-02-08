@@ -9,6 +9,13 @@
     <Import_RootNamespace>EasyNet.WinForm.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Drawing\DefaultPointChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Drawing\DistancePointChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Drawing\DistancePointCheckerV2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Drawing\IPointChecker.cs" />
+    <Compile Include="..\EasyNet.WinForm.Shared\Drawing\PointCheckerManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\PointExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Gdi+\SaveStateGraphics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Gdi+\PaintItem\ClearPaintItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\AutoCompleteView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HistroyTextBox\AutoCompleteView.designer.cs">

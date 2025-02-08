@@ -23,8 +23,8 @@ namespace EasyNet.Tester
             //// 日志测试
             //LogTester.Run();
 
-            //// CRC 算法测试
-            //CRCTester.Run();
+            // CRC 算法测试
+            CRCTester.Run();
 
             //// Emit 测试
             //EmitTester.Run();
@@ -35,8 +35,8 @@ namespace EasyNet.Tester
             //// 时间戳测试
             //DateTimeTester.Run();
 
-            // 对称加密，DES,3DES
-            DESCryptoTester.Run3DES();
+            //// 对称加密，DES,3DES
+            //DESCryptoTester.Run3DES();
 
             Validation();
 

@@ -14,6 +14,8 @@
 
   <Import Project="..\EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems" Label="Shared" />
 
+  <Import Project="..\EasyNet.InstallChecker\EasyNet.InstallChecker.projitems" Label="Shared" />
+
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>

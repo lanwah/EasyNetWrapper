@@ -78,6 +78,33 @@ namespace EasyNet.Extensions
         {
             return !@this.IsNullOrEmpty();
         }
+        /// <summary>
+        /// 判断字符串是相等或包含
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="other"></param>
+        /// <param name="contains"></param>
+        /// <returns></returns>
+        public static bool IsEqual(this string @this, string other, bool contains = false)
+        {
+            var comparator = new StringComparator(@this, other);
+            if (contains)
+            {
+                comparator = new StringContainsComparator(@this, other);
+            }
+
+            return comparator.IsMatch;
+        }
+        /// <summary>
+        /// 判断字符串是否相等
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public static bool Compare(this string @this, string other)
+        {
+            return string.Compare(@this, other) == 0;
+        }
 
 
         /// <summary>
@@ -114,6 +141,7 @@ namespace EasyNet.Extensions
 
             return bytes;
         }
+
 
 #if NET40_OR_GREATER
         /// <summary>

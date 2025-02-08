@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>94249c24-fba0-42ec-97a8-7a8a41b4bf11</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>EasyNet.InstallChecker</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FileInstallCheck.cs" />
+    <Compile Include="..\EasyNet.InstallChecker\InstallChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InstalledPrograms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProgramNameInstallCheck.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IInstallChecker.cs" />
+  </ItemGroup>
+</Project>

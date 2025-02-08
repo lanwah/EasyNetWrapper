@@ -13,6 +13,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Const\Const.String.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Handler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\MethodMetaData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IStringComparator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\StringComparator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\StringContainsComparator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\AssemblyExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ByteExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\CharExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ConstructorInfoExts.cs" />

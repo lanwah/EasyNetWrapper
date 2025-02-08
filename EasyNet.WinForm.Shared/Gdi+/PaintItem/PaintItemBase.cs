@@ -82,7 +82,7 @@ namespace EasyNet.WinForm.Controls
         /// 绘制项区域与位置无关，只与绘制项大小有关
         /// </summary>
         public Rectangle Bounds { get => this._bounds; set => this._bounds = value; }
-        private bool _isHover = false;
+        private bool _isHover;
         /// <summary>
         /// 鼠标是否在按钮区域
         /// </summary>

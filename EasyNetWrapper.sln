@@ -62,6 +62,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventWaitHandleDemo", "Samp
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyNet.Exception.Shared", "EasyNet.Exception.Shared\EasyNet.Exception.Shared.shproj", "{B3391387-771E-4438-A51F-9BDE2147B790}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EasyNet.InstallChecker", "EasyNet.InstallChecker\EasyNet.InstallChecker.shproj", "{94249C24-FBA0-42EC-97A8-7A8A41B4BF11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -158,6 +160,7 @@ Global
 		{EB0DD976-624F-454F-BD9F-99E850A54F1A} = {09A00B3B-8F77-4679-9F08-3D088246539A}
 		{2C27F855-8026-481F-8FAE-8B5B54242DA1} = {34DAFB30-5B69-4343-843F-59DC7B2E97B4}
 		{B3391387-771E-4438-A51F-9BDE2147B790} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
+		{94249C24-FBA0-42EC-97A8-7A8A41B4BF11} = {525DB172-BF9A-45C3-8A33-87C3A495581F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7281B48E-9A2B-4BBD-AE50-AE5B580D5115}
@@ -166,6 +169,7 @@ Global
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{0657e164-aaec-4710-ac9c-ac75d39587e2}*SharedItemsImports = 13
 		EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems*{0b904fe1-8420-4014-95e8-d60267604e18}*SharedItemsImports = 5
 		EasyNet.Extensions.Shared\EasyNet.Extensions.Shared.projitems*{0b904fe1-8420-4014-95e8-d60267604e18}*SharedItemsImports = 5
+		EasyNet.InstallChecker\EasyNet.InstallChecker.projitems*{0b904fe1-8420-4014-95e8-d60267604e18}*SharedItemsImports = 5
 		EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.projitems*{0b904fe1-8420-4014-95e8-d60267604e18}*SharedItemsImports = 5
 		EasyNet.Security.Shared\EasyNet.Security.Shared.projitems*{12285f0c-a5ef-4b66-99b5-17e9cf7caf74}*SharedItemsImports = 13
 		EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
@@ -174,6 +178,7 @@ Global
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.WinForm.Shared\EasyNet.WinForm.Shared.projitems*{3a940d11-a8da-4fb4-9998-4a218891d1c1}*SharedItemsImports = 5
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{8146f733-4ba7-417b-8b22-5d155a439380}*SharedItemsImports = 13
+		EasyNet.InstallChecker\EasyNet.InstallChecker.projitems*{94249c24-fba0-42ec-97a8-7a8a41b4bf11}*SharedItemsImports = 13
 		EasyNet.Win32.Shared\EasyNet.Win32.Shared.projitems*{9cd3700a-0dfb-4103-9166-d3eb8f22100d}*SharedItemsImports = 5
 		EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems*{b3391387-771e-4438-a51f-9bde2147b790}*SharedItemsImports = 13
 		EasyNet.Exception.Shared\EasyNet.Exception.Shared.projitems*{d5bea36f-a8c2-4247-ba72-56c917e2b9c4}*SharedItemsImports = 5
