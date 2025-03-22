@@ -1,4 +1,5 @@
 ﻿using EasyNet.Extensions.Shared.Const;
+using EasyNet.Extensions.Shared.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -523,6 +524,18 @@ namespace EasyNet.Extensions
             }
 
             return @this.TrimEnd(trimChars);
+        }
+
+        /// <summary>
+        /// 将字符串按照指定格式进行格式化
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="format"></param>
+        /// <param name="results"></param>
+        /// <returns></returns>
+        public static int Scan(this string @this, string format, out object[] results)
+        {
+            return Sscanf.Scan(@this, format, out results);
         }
     }
 }

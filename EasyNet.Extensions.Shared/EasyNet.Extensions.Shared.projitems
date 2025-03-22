@@ -11,9 +11,11 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Const\Const.Char.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Const\Const.String.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Endian\IEndian.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Handler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\MethodMetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IStringComparator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Sscanf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\StringComparator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\StringContainsComparator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\AssemblyExts.cs" />
@@ -25,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\EnvironmentExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IEnumerableExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ILGeneratorExts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\IntegerExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IntPtrExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ObjectExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ReflectionExts.cs" />

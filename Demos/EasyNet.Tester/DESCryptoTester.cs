@@ -81,8 +81,8 @@ namespace EasyNet.Tester
 
             random.NextBytes(drgbKey);
             random.NextBytes(EncryptData);
-            drgbKey = "52-AC-BA-E9-4A-63-2A-FC-1A-DB-EA-D2-85-68-ED-D9".FromHexString();
-            EncryptData = "E2-8E-22-89-39-01-86-8C".FromHexString(); ;
+            drgbKey = "52-AC-BA-E9-4A-63-2A-FC-1A-DB-EA-D2-85-68-ED-D9".ToBytes();
+            EncryptData = "E2-8E-22-89-39-01-86-8C".ToBytes(); ;
 
             // 加密
             Console.WriteLine($"drgbKey = {drgbKey.ToHexString()}");

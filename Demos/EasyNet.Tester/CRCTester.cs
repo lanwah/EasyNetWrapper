@@ -55,7 +55,7 @@ namespace EasyNet.Tester
 
             var hexString = "03 0F 00 04 00 00 00";
             hexString = hexString.Replace(" ", "");
-            var buffer = hexString.FromHexString("");
+            var buffer = hexString.ToBytes("");
             var crc16 = buffer.ComputeCrc16(Crc16Type.ModBus);
             // 4位的 CRC16 值
             var crc16Hex = crc16.ToString("X4");

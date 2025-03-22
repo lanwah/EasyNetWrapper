@@ -90,12 +90,24 @@ namespace EasyNet.Extensions
             return hexString.Replace("-", separator);
         }
         /// <summary>
+        /// 将指定的字节转换为它的等效十六进制字符串表示形式。
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static string ToHexString(this byte @this)
+        {
+            var chars = new char[2];
+            chars[0] = (@this / 16).GetHexValue();
+            chars[1] = (@this % 16).GetHexValue();
+            return new string(chars);
+        }
+        /// <summary>
         /// 将指定的十六进制字符串转换为等效的字节数组。
         /// </summary>
-        /// <param name="hexString"></param>
+        /// <param name="hexString">16进制字符串。（输入参数）</param>
         /// <param name="separator"></param>
         /// <returns></returns>
-        public static byte[] FromHexString(this string hexString, string separator = "-")
+        public static byte[] ToBytes(this string hexString, string separator = "-")
         {
 #if NET5_0_OR_GREATER
 
@@ -134,7 +146,15 @@ namespace EasyNet.Extensions
             }
 #endif
         }
-
+        /// <summary>
+        /// 将指定的十六进制字符串转换为等效的字节数组。
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static byte[] HexStringToByteArray(this string @this)
+        {
+            return @this.ToBytes(string.Empty);
+        }
         /// <summary>
         /// byte[] 转 字符串
         /// </summary>
@@ -216,5 +236,31 @@ namespace EasyNet.Extensions
 
             return Convert.FromBase64String(@this);
         }
+
+        /// <summary>
+        /// 从字节数组中的index开始读取1字节，转换成byte值
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static byte ToByte(this byte[] buffer, int index)
+        {
+            return buffer[index];
+        }
+        /// <summary>
+        /// 从字节中读取指定位置的bool值
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="index">从0开始的索引，最大值为7</param>
+        /// <returns></returns>
+        public static bool ToBool(this byte @this, int index)
+        {
+            if (index < 0 || index > 7)
+            {
+                throw new ArgumentOutOfRangeException("index", "索引超出范围(0~7)");
+            }
+
+            return (@this & (1 << index)) != 0;
+        }        
     }
 }

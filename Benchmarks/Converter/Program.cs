@@ -21,8 +21,11 @@ namespace Converter
             //// Object转字符串
             //BenchmarkRunner.Run<ObjectToString>();
 
-            // string转Int
-            BenchmarkRunner.Run<StringToInt>();
+            //// string转Int
+            //BenchmarkRunner.Run<StringToInt>();
+
+            // Byte 转 16进制字符串
+            BenchmarkRunner.Run<ByteToHex>();
 
             Console.ReadKey();
         }
