@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Net.WebRequestMethods;
 
-namespace EasyNet.Extensions.Shared.Core
+namespace EasyNet.Extensions
 {
-    /// <summary>
-    /// https://mp.weixin.qq.com/s?__biz=MzIxMTUzNzM5Ng==&mid=2247510505&idx=2&sn=cba9ba32d24070d1fc71028db1473b85&chksm=96214cf9b6fbca195ba0b031bc35df9cf25df8581fe25c17674505bd40557d70965d62b18774&scene=126&sessionid=1739753079#rd
-    /// </summary>
+    // https://mp.weixin.qq.com/s?__biz=MzIxMTUzNzM5Ng==&mid=2247510505&idx=2&sn=cba9ba32d24070d1fc71028db1473b85&chksm=96214cf9b6fbca195ba0b031bc35df9cf25df8581fe25c17674505bd40557d70965d62b18774&scene=126&sessionid=1739753079#rd
     internal class Sscanf
     {
         /// <summary>
@@ -179,6 +178,7 @@ namespace EasyNet.Extensions.Shared.Core
             return parsedResults.Count;
         }
 
+        /*
         /// <summary>
         /// 使用例子
         /// </summary>
@@ -198,5 +198,6 @@ namespace EasyNet.Extensions.Shared.Core
                 Console.WriteLine(result);
             }
         }
+        */
     }
 }

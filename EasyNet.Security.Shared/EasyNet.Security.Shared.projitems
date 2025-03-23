@@ -16,7 +16,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)CRC\ICrcProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CRC\IVAnsiCrc16Provider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CRC\IVCcittCrc16Provider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SymmetricAlgorithm\CryptoExts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SymmetricAlgorithm\DESCryptoAltm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SymmetricAlgorithm\ISymmetricAlgorithm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SymmetricAlgorithm\Sm4\Sm4CryptoAltm.cs" />
+    <Compile Include="..\EasyNet.Security.Shared\SymmetricAlgorithm\Sm4\Sm4Core.cs" />
+    <Compile Include="..\EasyNet.Security.Shared\SymmetricAlgorithm\Sm4\Sm4Context.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SymmetricAlgorithm\TripleDESCryptoAltm.cs" />
   </ItemGroup>
 </Project>
