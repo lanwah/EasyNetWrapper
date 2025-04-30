@@ -74,7 +74,16 @@ namespace EasyNet.Core
         /// <summary>
         /// 判断程序是否处于调试模式
         /// </summary>
-        public static bool IsDebugMode
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static bool IsDebugMode(this object @this)
+        {
+            return Environment.IsDebuggerAttached;
+        }
+        /// <summary>
+        /// 判断程序是否处于调试模式
+        /// </summary>
+        public static bool IsDebuggerAttached
         {
             get
             {

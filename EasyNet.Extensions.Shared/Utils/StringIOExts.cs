@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 // ------------------------------------------------------------- //
@@ -49,6 +50,47 @@ namespace EasyNet.Extensions
         public static bool HasExtension(this string @this)
         {
             return System.IO.Path.HasExtension(@this);
+        }
+        /// <summary>
+        /// 将相对路径转换为基于指定基路径的绝对路径
+        /// </summary>
+        /// <param name="basePath">基路径（必须为绝对路径）</param>
+        /// <param name="relativePath">相对路径</param>
+        /// <exception cref="ArgumentException">参数无效时抛出</exception>
+        public static string GetAbsolutePath(this string basePath, string relativePath)
+        {
+            //var currentPath = @"C:\Project\src";
+            //var relativePath1 = @"..\docs\readme.md";       // 上级目录
+            //var relativePath2 = @".\config\appsettings.json"; // 当前目录
+            //var relativePath3 = @"D:\other\file.txt";        // 绝对路径
+
+            //Console.WriteLine(currentPath.GetAbsolutePath(relativePath1));
+            //// 输出: C:\Project\docs\readme.md
+            //Console.WriteLine(currentPath.GetAbsolutePath(relativePath2));
+            //// 输出: C:\Project\src\config\appsettings.json
+            //Console.WriteLine(currentPath.GetAbsolutePath(relativePath3));
+            //// 输出: D:\other\file.txt
+
+            if (!Path.IsPathRooted(basePath))
+            {
+                throw new ArgumentException("Base path must be absolute.", nameof(basePath));
+            }
+
+            if (relativePath.IsNullOrEmpty())
+            {
+                // 返回规范化的基路径
+                return Path.GetFullPath(basePath);
+            }
+
+            if (Path.IsPathRooted(relativePath))
+            {
+                // 直接处理绝对路径输入
+                return Path.GetFullPath(relativePath);
+            }
+
+            // 合并路径并解析相对符号
+            var combinedPath = Path.Combine(basePath, relativePath);
+            return Path.GetFullPath(combinedPath);
         }
     }
 }
